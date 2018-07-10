@@ -1,0 +1,8 @@
+#%Modules
+#
+
+module-whatis "StatTransfer 14"
+
+conflict         stattransfer 
+conflict         StatTransfer
+prepend-path PATH /home/software/sloan/stattransfer/14

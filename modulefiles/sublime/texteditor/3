@@ -1,0 +1,7 @@
+#%Modules
+#
+
+module-whatis "adds Sublime Text 3"
+
+prepend-path PATH /home/software/sloan/sublime/sublime_text_3
+prepend-path PYTHONPATH /home/software/sloan/sublime/sublime_text_3

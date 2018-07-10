@@ -1,0 +1,9 @@
+#%Modules
+#
+
+module-whatis "Adds the R library path to the pre-built CRAN modules"
+
+prereq R
+
+setenv R_LIBS /home/software/sloan/local/lib/R/3.3
+

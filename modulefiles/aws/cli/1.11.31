@@ -1,0 +1,10 @@
+#%Modules
+#
+
+module-whatis "Adds the Amazon Web Service (AWS) Command Line Interface (CLI) to your environment"
+
+module load sloan/python/modules/2.7
+prereq sloan/python/modules/2.7
+
+prepend-path PATH /home/software/sloan/aws/bin
+

@@ -1,0 +1,13 @@
+#%Modules
+#
+
+module-whatis "Adds the freetds  MS SQL Server tools "
+
+#prereq engaging/unixODBC
+
+prepend-path PATH /home/software/sloan/freetds-1.00.27/bin
+prepend-path LD_LIBRARY_PATH /home/software/sloan/freetds-1.00.27/lib
+prepend-path LIBRARY_PATH /home/software/sloan/freetds-1.00.27/lib
+prepend-path C_INCLUDE_PATH /home/software/sloan/freetds-1.00.27/include
+prepend-path CPATH /home/software/sloan/freetds-1.00.27/include
+

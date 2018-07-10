@@ -1,0 +1,13 @@
+#%Module -*- tcl -*-
+##
+## modulefile
+##
+proc ModulesHelp { } {
+
+  puts stderr "\t http://www.stata.com"
+}
+
+module-whatis "Multi-Processor Stata, 12 CPU limit"
+
+set              root                 /home/software/sloan/stata/15/mp
+prepend-path     PATH                 $root

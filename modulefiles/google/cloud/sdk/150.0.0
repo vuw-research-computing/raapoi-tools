@@ -1,0 +1,10 @@
+#%Modules
+#
+
+module-whatis "Adds the Google Cloud SDK & Command Line Interface (CLI) to your environment"
+
+module load engaging/python/2.7.12
+prereq engaging/python/2.7.12
+
+prepend-path PATH /home/software/sloan/google-cloud/bin
+

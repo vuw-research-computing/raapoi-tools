@@ -1,0 +1,10 @@
+#%Modules
+#
+
+module-whatis "Adds tensorflow CPU build to your PYTHONPATH "
+
+module load cuda/8.0
+module load cudnn/6.0
+
+prepend-path PYTHONPATH /home/software/sloan/local/lib/tensorflow/gpu/py36/1.4.1
+

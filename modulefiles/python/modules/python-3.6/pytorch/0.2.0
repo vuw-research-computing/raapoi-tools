@@ -1,0 +1,11 @@
+#%Modules
+#
+
+module-whatis "Adds pytorch build to your PYTHONPATH "
+
+module load python/3.6.3
+module load cuda/8.0
+prereq cuda/8.0
+
+prepend-path PYTHONPATH /home/software/sloan/local/lib/pytorch/python-3.6/0.2.0
+
