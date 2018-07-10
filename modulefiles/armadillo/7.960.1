@@ -1,0 +1,11 @@
+#%Module -*- tcl -*-
+##
+## modulefile
+##
+
+module-whatis "adds Armadillo c++ libs and headers to your environment variables"
+
+prepend-path      LD_LIBRARY_PATH   /home/software/sloan/armadillo/7.960.1/lib64
+setenv            CXXFLAGS          -I/home/software/sloan/armadillo/7.960.1/include
+setenv            ARMADILLO_LIB      /home/software/sloan/armadillo/7.960.1/lib64
+setenv            ARMADILLO_INC      /home/software/sloan/armadillo/7.960.1/include

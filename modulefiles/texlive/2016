@@ -1,0 +1,9 @@
+#%Modules
+#
+
+module-whatis "Adds the TeX bins and libs from TeXLive"
+
+prepend-path PATH /home/software/sloan/texlive/2016/bin/x86_64-linux
+prepend-path INFOPATH /home/software/sloan/texlive/2016/texmf-dist/doc/info
+prepend-path MANPATH /home/software/sloan/texlive/2016/texmf-dist/doc/man
+

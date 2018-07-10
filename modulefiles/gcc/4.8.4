@@ -1,0 +1,14 @@
+#%Module -*- tcl -*-
+##
+## modulefile
+##
+proc ModulesHelp { } {
+
+  puts stderr "\tAdds GNU Cross Compilers to your environment variables,"
+}
+
+module-whatis "adds GNU Cross Compilers to your environment variables"
+
+set               root              /home/software/sloan/gcc/4.8.4
+prepend-path      PATH              $root/bin
+prepend-path      LD_LIBRARY_PATH   $root/lib:$root/lib64

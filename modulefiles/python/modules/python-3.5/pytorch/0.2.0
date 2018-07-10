@@ -1,0 +1,10 @@
+#%Modules
+#
+
+module-whatis "Adds pytorch build to your PYTHONPATH "
+
+module load engaging/python/3.5.1
+module load cuda/8.0
+
+prepend-path PYTHONPATH /home/software/sloan/local/lib/pytorch/python-3.5/0.2.0
+

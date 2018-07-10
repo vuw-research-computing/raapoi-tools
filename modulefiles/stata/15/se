@@ -1,0 +1,13 @@
+#%Module -*- tcl -*-
+##
+## modulefile
+##
+proc ModulesHelp { } {
+
+  puts stderr "\t http://www.stata.com"
+}
+
+module-whatis "Single Processor Stata"
+
+set              root                 /home/software/sloan/stata/15/se
+prepend-path     PATH                 $root
