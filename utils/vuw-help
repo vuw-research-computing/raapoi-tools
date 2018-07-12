@@ -1,0 +1,24 @@
+#!/bin/bash
+
+cat << EOF
+
+For information about research computing at VUW, including this system:
+ADD DOCS HERE
+
+For general questions or assistance send mail to ADD EMAIL HERE
+
+List of helpful commands for cluster users:
+
+vuw-job-report:      Provides some summary information about a job
+vuw-quota:           Prints current storage quota and usage
+vuw-partitions:      Prints a list of available partitions and the availability of compute nodes
+vuw-alljobs:         Prints a list of all Sloan user jobs
+vuw-myjobs:          Prints a list of your running or pending jobs as well as finished jobs from the last 48 hours
+vuw-job-history:     Show jobs finished in last 48 hours
+vuw-help:            Prints this help information
+
+You can use TAB completion to help you recall these commands, TAB completion uses the TAB key to help
+complete the command or path for example type eo-<TAB><TAB> and you will see the list of commands beginning 
+with eo-  You can also use this to complete path or file names.
+
+EOF

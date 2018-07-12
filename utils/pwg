@@ -1,0 +1,4 @@
+t=`LC_CTYPE=C tr -dc  "[:print:]" < /dev/urandom | head -c 8`
+n=`echo $t | tee shasum | tr -dc 0-9 | head -c 2`
+echo ${t}0${n}
+rm -f shasum
