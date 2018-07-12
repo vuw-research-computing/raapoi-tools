@@ -9,5 +9,5 @@ proc ModulesHelp { } {
 
 module-whatis "Multi-Processor Stata, 12 CPU limit"
 
-set              root                 /home/software/sloan/stata/15/mp
+set              root                 /home/software/apps/stata/15/mp
 prepend-path     PATH                 $root

@@ -5,5 +5,5 @@ module-whatis "Adds the RStudio IDE"
 
 prereq R
 
-prepend-path PATH /home/software/sloan/R/rstudio/1.1.383/bin
+prepend-path PATH /home/software/apps/R/rstudio/1.1.383/bin
 
