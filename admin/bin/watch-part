@@ -1,0 +1,2 @@
+#!/bin/bash
+watch -n 10 -d -c eo-show-partition
