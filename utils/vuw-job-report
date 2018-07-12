@@ -1,0 +1,23 @@
+#!/bin/bash
+##
+## List the queue in Sloan partitions
+##
+## Usage: sloanq -a|-p|-m
+
+#-a all
+#-p partition
+#-m my partitions (default) based on groups membership
+if [ $# -lt 1 ]; then
+  echo ""
+  echo "Usage: eo-job-report <JobID>"
+  echo "   Eg: eo-job-report 267895"
+  echo ""
+  exit 1
+fi
+RED='\033[0;31m'
+NC='\033[0m'
+printf "${RED}JOB REPORT FOR JOB $1${NC}\n"
+echo -e "\033[1m     JobName   Req_Mem   UsedMem(KB)  ReqCPUs CPUTime       State    Completed \033[0m"
+sacct -j $1 --format="JobName, ReqMem, MaxVMSize, ReqCPUS%9, TotalCPU, State, End" -n
+echo ""
+exit 0

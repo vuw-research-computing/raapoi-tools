@@ -1,0 +1,39 @@
+#!/bin/bash
+##
+## List the queue in Sloan partitions
+##
+## Usage: sloanq -a|-p|-m
+
+#-a all
+#-p partition
+#-m my partitions (default) based on groups membership
+#
+RED='\033[0;31m'
+NC='\033[0m'
+echo ""
+printf "${RED}DEDICATED SLOAN PARTITIONS${NC}\n"
+sinfo -p sched_mit_sloan_batch
+echo ""
+#printf "${RED}SLOAN INTERACTIVE PARTITION${NC}\n"
+sinfo -p sched_mit_sloan_interactive
+echo ""
+
+#printf "${RED}SLOAN GPU PARTITION${NC}\n"
+sinfo -p sched_mit_sloan_gpu
+echo ""
+
+if [[ `groups` =~ .*sched_mit_thesmar.* ]]; then
+  printf "${RED}DAVID THESMAR GPU PARTITION${NC}\n"
+  sinfo -p sched_mit_thesmar
+  echo ""
+fi
+
+printf "${RED}GENERAL EO PARTITIONS${NC}\n"
+sinfo -p sched_any_quicktest
+echo ""
+sinfo -p sched_any
+echo ""
+sinfo -p newnodes
+echo ""
+
+exit 0

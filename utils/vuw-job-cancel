@@ -1,0 +1,6 @@
+echo ""
+echo "Placeholder for future script, for now please use"
+echo 'the `scancel` command plus your job ID  to cancel' 
+echo "your job, eg:"
+echo "   scancel 124598"
+echo ""
