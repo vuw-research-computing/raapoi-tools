@@ -1,8 +1,0 @@
-#%Modules
-#
-
-module-whatis "Adds tensorflow CPU build to your PYTHONPATH "
-
-
-prepend-path PYTHONPATH /home/software/apps/local/lib/tensorflow/cpu/py36/1.3.1
-
