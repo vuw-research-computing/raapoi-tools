@@ -7,11 +7,11 @@ options(INSTALL_opts = "--no-test-load")
 options(download.file.method = "wget")
 
 args = commandArgs()
-base = "/nfs/sloanlab001/projects/sloanrc_proj/R-build/"
+base = "/home/software/apps/local/lib/R/"
 plib = paste(base, args[9], sep = "")
 
 ## CRAN repo options( repos = 'ftp://mirror.hmdc.harvard.edu/CRAN' )
-options(repos = "http://lib.stat.cmu.edu/R/CRAN/")
+options(repos = "http://cran.stat.auckland.ac.nz")
 # Get new modules
 plist <- new.packages(lib.loc = plib)
 sapply(plist, function(x) {
@@ -23,9 +23,9 @@ sapply(ulist, function(x) {
   try(install.packages(x, lib = plib))
 })
 # Add useful tools from non-CRAN repo
-library("devtools")
-devtools::install_github("hadley/multidplyr", lib = plib)
-devtools::install_github("IRkernel/IRkernel", lib = plib)
+#library("devtools")
+#devtools::install_github("hadley/multidplyr", lib = plib)
+#devtools::install_github("IRkernel/IRkernel", lib = plib)
 # IRkernel::installspec() # to register the kernel in the current R installation
 
 # Save any warnings
