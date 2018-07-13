@@ -11,29 +11,29 @@
 RED='\033[0;31m'
 NC='\033[0m'
 echo ""
-printf "${RED}DEDICATED SLOAN PARTITIONS${NC}\n"
-sinfo -p sched_mit_sloan_batch
+printf "${RED}VUW CLUSTER PARTITIONS${NC}\n"
+sinfo -p main
 echo ""
 #printf "${RED}SLOAN INTERACTIVE PARTITION${NC}\n"
-sinfo -p sched_mit_sloan_interactive
-echo ""
-
-#printf "${RED}SLOAN GPU PARTITION${NC}\n"
-sinfo -p sched_mit_sloan_gpu
-echo ""
-
-if [[ `groups` =~ .*sched_mit_thesmar.* ]]; then
-  printf "${RED}DAVID THESMAR GPU PARTITION${NC}\n"
-  sinfo -p sched_mit_thesmar
-  echo ""
-fi
-
-printf "${RED}GENERAL EO PARTITIONS${NC}\n"
-sinfo -p sched_any_quicktest
-echo ""
-sinfo -p sched_any
-echo ""
-sinfo -p newnodes
-echo ""
+#sinfo -p sched_mit_sloan_interactive
+#echo ""
+#
+##printf "${RED}SLOAN GPU PARTITION${NC}\n"
+#sinfo -p sched_mit_sloan_gpu
+#echo ""
+#
+#if [[ `groups` =~ .*sched_mit_thesmar.* ]]; then
+#  printf "${RED}DAVID THESMAR GPU PARTITION${NC}\n"
+#  sinfo -p sched_mit_thesmar
+#  echo ""
+#fi
+#
+#printf "${RED}GENERAL EO PARTITIONS${NC}\n"
+#sinfo -p sched_any_quicktest
+#echo ""
+#sinfo -p sched_any
+#echo ""
+#sinfo -p newnodes
+#echo ""
 
 exit 0

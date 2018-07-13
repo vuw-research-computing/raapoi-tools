@@ -9,22 +9,22 @@
 #-m my partitions (default) based on groups membership
 RED='\033[0;31m'
 NC='\033[0m'
-echo -e "\033[1m             JOBID PARTITION     NAME     USER ST       TIME NODES NODELIST(REASON) \033[0m"
-printf "${RED}MY JOBS ON SLOAN BATCH PARTITION${NC}\n"
-squeue -l -h -u $USER -p sched_mit_sloan_batch
-squeue -l -h -u $USER -p sched_sloan_batch
+echo -e "\033[1m              JOBID PARTITION     NAME     USER STATE            TIME          NODES  NODELIST(REASON) \033[0m"
+#printf "${RED}MY JOBS ON MAIN PARTITION${NC}\n"
+squeue -l -h -u $USER -p main
+#squeue -l -h -u $USER -p sched_sloan_batch
 echo ""
-printf "${RED}MY JOBS ON SLOAN INTERACTIVE PARTITION${NC}\n"
-squeue -l -h -u $USER -p sched_mit_sloan_interactive
-echo ""
-if [[ `groups` =~ .*sched_mit_thesmar* ]]; then
-  printf "${RED}MY JOBS ON DAVID THESMAR GPU PARTITION${NC}\n"
-  squeue -l -h -u $USER -p sched_mit_thesmar
-  echo ""
-fi
-printf "${RED}MY JOBS ON OTHER PARTITIONS${NC}\n"
-squeue -l -h -u $USER -p sched_any_quicktest
-squeue -l -h -u $USER -p sched_any
-squeue -l -h -u $USER -p newnodes
-echo ""
+#printf "${RED}MY JOBS ON SLOAN INTERACTIVE PARTITION${NC}\n"
+#squeue -l -h -u $USER -p sched_mit_sloan_interactive
+#echo ""
+#if [[ `groups` =~ .*sched_mit_thesmar* ]]; then
+#  printf "${RED}MY JOBS ON DAVID THESMAR GPU PARTITION${NC}\n"
+#  squeue -l -h -u $USER -p sched_mit_thesmar
+#  echo ""
+#fi
+#printf "${RED}MY JOBS ON OTHER PARTITIONS${NC}\n"
+#squeue -l -h -u $USER -p sched_any_quicktest
+#squeue -l -h -u $USER -p sched_any
+#squeue -l -h -u $USER -p newnodes
+#echo ""
 exit 0
