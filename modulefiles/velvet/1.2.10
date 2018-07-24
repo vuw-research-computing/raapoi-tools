@@ -1,0 +1,7 @@
+#%Modules
+#
+
+module-whatis "Adds The biostats program velvetg and velveth to your env"
+
+prepend-path PATH /home/software/apps/velvet/1.2.10/bin
+
