@@ -3,6 +3,7 @@
 
 module-whatis   "This module initiates bin PATH for cluster tools"
 
-prepend-path PATH /home/software/cad/local/bin
-prepend-path LD_LIBRARY_PATH /home/software/cad/local/lib
+prepend-path PATH /home/software/apps/local/bin
+prepend-path LD_LIBRARY_PATH /home/software/apps/local/lib
+prepend-path PATH /home/software/vuwrc/utils
 
