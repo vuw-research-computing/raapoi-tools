@@ -9,6 +9,8 @@ proc ModulesHelp { } {
 
 module-whatis "adds GNU Cross Compilers to your environment variables"
 
-set               root              /home/software/apps/gcc/4.8.4
-prepend-path      PATH              $root/bin
-prepend-path      LD_LIBRARY_PATH   $root/lib:$root/lib64
+#set               root              /home/software/apps/gcc/4.8.4
+#prepend-path      PATH              $root/bin
+#prepend-path      LD_LIBRARY_PATH   $root/lib:$root/lib64
+
+set_shell_function("gcc",'eval $(/usr/bin/gcc-4.8 "$@")')
