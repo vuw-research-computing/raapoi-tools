@@ -12,7 +12,7 @@ List of helpful commands for cluster users:
 vuw-job-report:      Provides some summary information about a job
 vuw-quota:           Prints current storage quota and usage
 vuw-partitions:      Prints a list of available partitions and the availability of compute nodes
-vuw-alljobs:         Prints a list of all Sloan user jobs
+vuw-alljobs:         Prints a list of all user jobs
 vuw-myjobs:          Prints a list of your running or pending jobs as well as finished jobs from the last 48 hours
 vuw-job-history:     Show jobs finished in last 48 hours
 vuw-help:            Prints this help information
