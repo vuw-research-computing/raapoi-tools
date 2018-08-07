@@ -1,2 +1,2 @@
 # vuwrc
-VUW Research Computing software and research config
+VUW Research Computing software and utilites
