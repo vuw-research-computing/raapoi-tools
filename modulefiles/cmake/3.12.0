@@ -1,0 +1,9 @@
+#%Modules
+#
+
+module-whatis "Adds the cmake build utilities"
+
+
+prepend-path PATH /home/software/apps/cmake/3.12.0/bin
+prepend-path MANPATH /home/software/apps/cmake/3.12.0/man
+

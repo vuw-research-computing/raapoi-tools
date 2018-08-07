@@ -1,0 +1,9 @@
+#%Modules
+#
+
+module-whatis "Adds the TASSEL software"
+
+prepend-path PATH /home/software/apps/tassel/3
+prepend-path CLASSPATH /home/software/apps/tassel/3
+prepend-path JAVA_HOME /home/software/apps/tassel/3
+
