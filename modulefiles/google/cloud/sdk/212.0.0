@@ -1,0 +1,10 @@
+#%Modules
+#
+
+module-whatis "Adds the Google Cloud SDK & Command Line Interface (CLI) to your environment"
+
+module load python/3.6.6
+prereq python/3.6.6
+
+prepend-path PATH /home/software/apps/google/cloud/sdk/212.0.0/bin
+
