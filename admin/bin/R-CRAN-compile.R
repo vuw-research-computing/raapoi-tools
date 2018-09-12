@@ -23,10 +23,14 @@ sapply(ulist, function(x) {
   try(install.packages(x, lib = plib))
 })
 # Add useful tools from non-CRAN repo
-#library("devtools")
-#devtools::install_github("hadley/multidplyr", lib = plib)
-#devtools::install_github("IRkernel/IRkernel", lib = plib)
+library("devtools")
+devtools::install_github("hadley/multidplyr", lib = plib)
+devtools::install_github("IRkernel/IRkernel", lib = plib)
 # IRkernel::installspec() # to register the kernel in the current R installation
+#Add HDF and other BIO tools
+source("http://www.bioconductor.org/biocLite.R")
+biocLite("rhdf5")
+install.packages("/home/software/src/poRe-0.24.tgz", lib=plib, repos=NULL, type="source")
 
 # Save any warnings
 cat(file = "warnings.rinstall")
