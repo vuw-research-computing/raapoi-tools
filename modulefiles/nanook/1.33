@@ -1,0 +1,12 @@
+#%Modules
+
+module load java
+module load R/3.5.1
+module load R/CRAN/3.5
+module load hdf5tools
+module load texlive
+module load last
+
+set               root              /home/software/apps/nanook/1.33
+setenv		NANOOK_DIR $root
+prepend-path	 PATH $root/bin 

@@ -1,0 +1,11 @@
+#%Modules
+#
+
+module-whatis "Adds FASTQC "
+
+module load java/1.8.0_121
+prereq java/1.8.0_121
+
+prepend-path CLASSPATH /home/software/apps/fastqc/0.11.7
+prepend-path PATH /home/software/apps/fastqc/0.11.7
+

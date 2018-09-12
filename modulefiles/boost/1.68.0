@@ -1,0 +1,13 @@
+#%Modules
+
+module load python/3.6.6
+prereq python/3.6.6
+
+setenv		 BOOST_HOME /home/software/apps/boost/1.68.0 
+setenv		 BOOST_ROOT /home/software/apps/boost/1.68.0 
+prepend-path	 LD_LIBRARY_PATH /home/software/apps/boost/1.68.0/lib
+prepend-path	 LIBRARY_PATH /home/software/apps/boost/1.68.0/lib
+prepend-path	 BOOST_LIBRARYDIR /home/software/apps/boost/1.68.0/lib
+prepend-path	 CPATH /home/software/apps/boost/1.68.0/include
+prepend-path	 C_INCLUDE_PATH /home/software/apps/boost/1.68.0/include
+prepend-path	 CPLUS_INCLUDE_PATH /home/software/apps/boost/1.68.0/include

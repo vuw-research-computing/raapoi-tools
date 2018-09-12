@@ -1,0 +1,6 @@
+#%Modules
+#
+
+module-whatis "Adds detonate"
+
+prepend-path PATH /home/software/apps/detonate/1.11/bin

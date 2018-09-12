@@ -1,0 +1,6 @@
+#%Modules
+
+
+module load java/1.8.0_121 
+prepend-path	 PICARD_TOOLS_JAR /home/software/apps/picard/2.18.11/picard.jar 
+prepend-path	 CLASSPATH /home/software/apps/picard/2.18.11

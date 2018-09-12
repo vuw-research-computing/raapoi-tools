@@ -1,0 +1,9 @@
+#%Modules
+
+set               root     /home/software/apps/java/jdk1.8.0_121 
+setenv           JAVA_HOME $root
+prepend-path     PATH $root/bin 
+prepend-path     MANPATH $root/man 
+prepend-path     LD_LIBRARY_PATH $root/lib 
+prepend-path     CPATH $root/include 
+prepend-path     LIBRARY_PATH $root/lib 

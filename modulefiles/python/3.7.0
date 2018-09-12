@@ -1,7 +1,0 @@
-#%Modules
-#
-
-module-whatis "Adds python-3.7.0 to your environment"
-
-prepend-path PATH /home/software/apps/python/3.7.0/bin
-

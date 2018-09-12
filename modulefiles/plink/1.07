@@ -1,0 +1,4 @@
+#%Modules
+
+conflict plink
+prepend-path	 PATH /home/software/apps/plink/1.07

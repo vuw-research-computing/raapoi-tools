@@ -1,0 +1,6 @@
+#%Modules
+
+set               root              /home/software/apps/texlive/2018
+prepend-path	 PATH $root/bin/x86_64-linux
+prepend-path	 MANPATH $root/texmf-dist/doc/man
+prepend-path	 INFOPATH  $root/texmf-dist/doc/info

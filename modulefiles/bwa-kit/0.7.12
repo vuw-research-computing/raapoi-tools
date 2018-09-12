@@ -1,0 +1,6 @@
+#%Modules
+
+conflict samtools
+set               root              /home/software/apps/bwakit/0.7.12
+prepend-path	 PATH $root/
+prepend-path	 MANPATH $root/doc

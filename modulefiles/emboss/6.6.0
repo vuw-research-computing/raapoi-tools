@@ -1,0 +1,6 @@
+#%Modules
+
+set               root              /home/software/apps/emboss/6.6.0
+prepend-path	 PATH $root/bin 
+prepend-path	 LD_LIBRARY_PATH $root/lib
+prepend-path	 LIBRARY_PATH $root/lib

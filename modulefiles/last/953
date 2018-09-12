@@ -1,0 +1,4 @@
+#%Modules
+
+set               root              /home/software/apps/last/953
+prepend-path	 PATH $root/bin

@@ -1,0 +1,6 @@
+#%Modules
+#
+
+module-whatis "Adds ea-utils"
+
+prepend-path PATH /home/software/apps/ea-utils/1.04.807/bin

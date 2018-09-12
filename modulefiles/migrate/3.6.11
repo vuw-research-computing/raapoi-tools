@@ -1,0 +1,6 @@
+#%Modules
+#
+
+
+prepend-path MANPATH /home/software/apps/migrate/3.6.11
+prepend-path PATH /home/software/apps/migrate/3.6.11/bin
