@@ -1,6 +1,6 @@
 # What is the VUW HPC Cluster
 
-The CAD Cluster (hereafter referred to as: the cluster) is a Uni-wide computing
+The CADGrid HPC Cluster (hereafter referred to as: the cluster) is a Uni-wide computing
 resource that uses the Slurm resource manager to schedule jobs and reserve
 resources.  Similar to most modern compute clusters, the cluster requires you to
 request CPU, Memory and Time for your job.  If you do not request these
