@@ -1,2 +1,3 @@
-theme: jekyll-theme-cayman
-title: VUW CAD Research Cluster Documentation
+theme: jekyll-theme-hacker
+title: CAD Research Cluster Documentation
+description: The CAD Cluster is a Slurm-based high-performance computing cluster at VUW
