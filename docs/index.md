@@ -1,4 +1,4 @@
-# What is the VUW HPC Cluster
+# Cluster Description
 
 The CADGrid HPC Cluster (hereafter referred to as: the cluster) is a Uni-wide computing
 resource that uses the Slurm resource manager to schedule jobs and reserve
@@ -28,46 +28,35 @@ languages.
 _Access is via SSH_
 
 *  Hostname: 10.60.49.210
-*  Port: 22 
+*  Port: 22
 *  Username: Your VUW username
 *  Password: Your cluster password
 
 Note: We recommend against saving your password within your SSH client, this is counter to security best-practice and will most likely cause issues in the future.
 
 #### SSH Clients
-##### Mac OSX SSH Clients
+_Mac OSX SSH Clients_
 You can use the built-in Terminal.app or you can download iTerm2 or XQuartz. XQuartz is required to be installed if you wish to forward GUI applications (matlab, rstudio, xstata, sas, etc), aka X forwarding.
 
-_Terminal.app_
+* Terminal.app is the default application for command-line interface
+  * To login using the built-in Terminal.app on Mac, go to
+    * Applications --> Utilities --> Terminal.app
+    * Or use Spotlight search (aka Command-Space)
+* [iTerm2](https://www.iterm2.com/) is a good replacement for the default Terminal app
+* [XQuartz](https://www.xquartz.org/) is a Xforwarding application with its own terminal
 
-To login using the built-in Terminal.app on Mac, go to 
-* Applications --> Utilities --> Terminal.app 
-* Or use Spotlight search (aka Command-Space)
+NOTE:  Once at the command prompt you can type the following to login (replace "username" with your VUW user):
 
-[iTerm2](https://www.iterm2.com/)
+`ssh username@10.60.49.210`
 
+_Windows SSH Clients_
 
-[XQuartz](https://www.xquartz.org/)
-
-Once the program is running you can type:
-
-  `ssh username@10.60.49.210`
-
-Replace "username" with your VUW username
-
-##### Windows SSH Clients
-
-Free Clients:
-
-[MobaXterm](https://mobaxterm.mobatek.net/) is a good option 
-
-[PuTTy](https://www.putty.org/).  
-
-There are also the XWin32 and SecureCRT clients, but these cost money to license.
-
-[X-Win32](https://www.starnet.com/xwin32/)
-
-[SecureCRT](https://www.vandyke.com/products/securecrt/)
+* Free Clients:
+  * [MobaXterm](https://mobaxterm.mobatek.net/) is a good option
+  * [PuTTy](https://www.putty.org/).  
+* There are also the XWin32 and SecureCRT clients, but these cost money to license.
+  * [X-Win32](https://www.starnet.com/xwin32/)
+  * [SecureCRT](https://www.vandyke.com/products/securecrt/)
 
 # Basic Commands
 #### The _vuw_ Commands
@@ -114,9 +103,9 @@ The _-r_ flag recursively removes files and directories
 
 Other Commands you may use: _alias, awk, cat, export, for, grep, gzip, if, less, sed, tar, while_
 
-##### Learning the Linux Shell
+#### Learning the Linux Shell
 
-A good tutorial for using linux can be found here: 
+A good tutorial for using linux can be found here:
 [Learning the linux shell](http://linuxcommand.org/lc3_learning_the_shell.php)
 
 
@@ -138,7 +127,7 @@ If you want to know more about a particular module you can use the whatis subcom
 ```
   module whatis R/CRAN/3.5
 
-  R/CRAN/3.5          : Adds the R library path to the pre-built CRAN modules 
+  R/CRAN/3.5          : Adds the R library path to the pre-built CRAN modules
 ```
 
 #### Adding or loading software
@@ -164,7 +153,7 @@ prepend_path("PATH","/home/software/apps/R/3.5.1/bin")
 
 #### Listing loaded modules
 
-To see what modules you have loaded into your environment you can run the command: 
+To see what modules you have loaded into your environment you can run the command:
 
 _module list_  
 
@@ -180,7 +169,7 @@ Currently Loaded Modules:
 
 # Running jobs
 
-## Batch jobs
+#### Batch jobs
 
 To run a batch job (aka a job that runs unattended) you use the _sbatch_ command.  A simple example would look something like this:
 
@@ -198,7 +187,7 @@ In this example the sbatch command runs the file myjob.sh, the contents of this 
  #SBATCH -e /home/username/project1.err
  #SBATCH --mail-type=BEGIN,END,FAIL
  #SBATCH --mail-user=me@email.com
- 
+
  module load python/3.6.3
  python3 project1.py
 
@@ -212,7 +201,7 @@ NOTE:  We have this example script available to copy on the cluster, you can typ
 
 The ~/ in front of the file is a short-cut to your home directory path.  You will want to edit this file accordingly.
 
-## Interactive jobs
+#### Interactive jobs
 
 One of the basic job submittal tools is the command srun
 
@@ -225,29 +214,29 @@ For example, say I want to start a job to run an interactive R session. Once log
 
 So what does this all mean?
 
-The _module load_ command will introduce the environment necessary to run a particular program, in this case R version 3.5.1 
+The _module load_ command will introduce the environment necessary to run a particular program, in this case R version 3.5.1
 The _srun_ command will submit the job to the cluster.  The _srun_ command has many parameter available, some of the most common are in this example and explained below
 
 * --pty - Required to run interactively
 * --cpus-per-task=2 - requests 2 CPUs, can also use the -c flag, eg. -c 2
-* --mem=2G - requests 2 GigaBytes (GB) of RAM. 
+* --mem=2G - requests 2 GigaBytes (GB) of RAM.
 * --time=2-00:00 - requests a runtime of up to 2 days (format is DAYS-HOURS:MINUTES), this is important in case the cluster or partition has a limited run-time, for example if an outage window is approaching.  Keep in mind time is a resource along with CPU and Memory.  
 * --partition=main - requests a certain partition, in this case it requests the main partition, see the section on using cluster partitions for more information.
 * R - the command you wish to run, this could also be matlab, mathematica, SAS, etc. (just remember to load the module first)# Parallel Jobs
 
-# Parallel processing, arrays, multi-threaded and MPI jobs
+# Parallel processing
 
 Running a job in parallel is a great way to utilize the power of the cluster.  So what is a parallel job/workflow?
 
 * Loosely-coupled jobs (sometimes referred to as embarrassingly or naively parallel jobs) are processes in which multiple instances of the same program execute on multiple data files simultaneously, with each instance running independently from others on its own allocated resources (i.e. CPUs and memory). Slurm job arrays offer a simple mechanism for achieving this.
-* Multithreaded programs that include explicit support for shared memory processing via multiple threads of execution (e.g. Posix Threads or OpenMP) running across multiple CPU cores.
+* Multi-threaded programs that include explicit support for shared memory processing via multiple threads of execution (e.g. Posix Threads or OpenMP) running across multiple CPU cores.
 * Distributed memory programs that include explicit support for message passing between processes (e.g. MPI). These processes execute across multiple CPU cores and/or nodes, these are often referred to as tightly-coupled jobs.
 * GPU (graphics processing unit) programs including explicit support for offloading to the device via languages like CUDA or OpenCL.
 
 It is important to understand the capabilities and limitations of an application in order to fully leverage the parallel processing options available on the cluster. For instance, many popular scientific computing languages like Python, R, and Matlab now offer packages that allow for GPU, multi-core or multithreaded processing, especially for matrix and vector operations
 
 #### Job Array Example
-Here is a (very silly) example of running a job array to run 50 simultaneous processes:
+Here is an example of running a job array to run 50 simultaneous processes:
 
   `sbatch array.sh`
 
@@ -262,6 +251,9 @@ The contents of the array.sh batch script looks like this:
   #SBATCH --partition=main
   #SBATCH --mail-type=BEGIN,END,FAIL
   #SBATCH --mail-user=me@email.com
+
+  bash addit.sh
+
 ```
 
 So what do these parameter mean?:
@@ -270,8 +262,8 @@ So what do these parameter mean?:
 * _--cpus-per-task_ requests the number of CPUs per array task, in this case I just want one CPU per task, we will use 50 in total
 * _--mem-per-cpu_ request 2GB of RAM per CPU, for this parallel job I will request a total of 100GB RAM (50 CPUs * 2GB RAM)
 * _--time_ is the max run time for this job, 10 minutes in this case
-* _--partition_ assigns this job to a partition 
-* run the script addit.sh  
+* _--partition_ assigns this job to a partition
+* _bash addit.sh_ run the shell script: addit.sh  
 
 You will notice that this batch script runs the program addit.sh and passes the argument $SLURM_ARRAY_TASK_ID, this variable contains the array number, 1-50 in this case,
 
@@ -284,22 +276,22 @@ This is what the addit.sh script contains, it is a simple example but should sho
   # using the $SLURM_ARRAY_TASK_ID variable in the array.sh submit script
   echo "Task ID is $1"
   # $RANDOM is a built-in pseudo random number generated number, we will add the Task ID to a random number
-  sum=`expr $1 + $RANDOM` 
+  sum=`expr $1 + $RANDOM`
   echo "Output is $sum"
 ```
 
 Running the array.sh script will cause the SLURM manager to spawn 50 parallel jobs.
 
- 
 
-i#### Multithreaded Job Example
 
-Multithreaded programs are applications that are able to execute in parallel across multiple CPU cores within a single node using a shared memory execution model. In general, a multithreaded application uses a single process (aka “task” in Slurm) which then spawns multiple threads of execution. By default, Slurm allocates 1 CPU core per task. In order to make use of multiple CPU cores in a multithreaded program, one must include the --cpus-per-task option.  Below is an example of a multithreaded program requesting 12 CPU cores per task and a total of 8GB of memory. The program itself is responsible for spawning the appropriate number of threads.
+#### Multi-threaded or Multi-processing Job Example
+
+Multi-threaded or multi-processing programs are applications that are able to execute in parallel across multiple CPU cores within a single node using a shared memory execution model. In general, a multi-threaded application uses a single process (aka “task” in Slurm) which then spawns multiple threads of execution. By default, Slurm allocates 1 CPU core per task. In order to make use of multiple CPU cores in a multi-threaded program, one must include the --cpus-per-task option.  Below is an example of a multi-threaded program requesting 12 CPU cores per task and a total of 8GB of memory. The program itself is responsible for spawning the appropriate number of threads.
 
 ```
   #!/bin/bash
   #SBATCH --nodes=1
-  #SBATCH --ntasks=1 
+  #SBATCH --ntasks=1
   #SBATCH --cpus-per-task=12 # 12 threads per task
   #SBATCH --time=02:00:00 # two hours
   #SBATCH --mem=8G
@@ -310,7 +302,7 @@ Multithreaded programs are applications that are able to execute in parallel acr
   # Run multi-threaded application
   module load java/1.8.0-91
   java -jar threaded-app.jar
-``` 
+```
 
 #### MPI Jobs
 
@@ -341,7 +333,7 @@ NOTE:  If using python or another language you will also need to add the --overs
 
   `mpirun --oversubscribe -np 24 mpiscript.py`
 
-More information about running MPI jobs within Slurm can be found here here: http://slurm.schedmd.com/mpi_guide.html. 
+More information about running MPI jobs within Slurm can be found here here: http://slurm.schedmd.com/mpi_guide.html.
 
 # Managing Jobs
 
@@ -362,16 +354,16 @@ If you want to get a quick view of all the jobs completed within the last 48 hou
 
 ```
   vuw-job-history
- 
+
   MY JOBS WITHIN LAST 48 HOURS
-   JobID State MaxVMSize JobName End 
-  ------------ ---------- ---------- ---------- ------------------- 
-  3054196 CANCELLED+ bash 2017-05-10T15:12:31 
-  3105606 CANCELLED+ bash 2017-05-11T14:21:43 
-  3105608 COMPLETED 268592K bash 2017-05-11T14:31:44 
-  3105622 COMPLETED 268592K bash 2017-05-11T14:34:17 
+   JobID State MaxVMSize JobName End
+  ------------ ---------- ---------- ---------- -------------------
+  3054196 CANCELLED+ bash 2017-05-10T15:12:31
+  3105606 CANCELLED+ bash 2017-05-11T14:21:43
+  3105608 COMPLETED 268592K bash 2017-05-11T14:31:44
+  3105622 COMPLETED 268592K bash 2017-05-11T14:34:17
   3105656 COMPLETED 268592K bash 2017-05-11T14:43:09
-``` 
+```
 
 You can also get a report of your completed jobs using the _sacct_ command.  For example if I wanted to get a report on how much memory my job used I could do the following:
 
@@ -380,19 +372,19 @@ You can also get a report of your completed jobs using the _sacct_ command.  For
 * MaxVMSize will report the maximum virtual memory (RAM plus swap space) used by my job in KiloBytes, divide that number by 1024 for MegaBytes, and then that number can be divided by 1024 to see it in GigaBytes..  
 * -j 2156 shows the information for job ID 2156
 * type _man sacct_ at a prompt in engaging to see the documentation on the _sacct_ command
- 
+
 
 #### Viewing jobs in the Queue
- 
+
 
 To view your running jobs you can type the vuw-myjobs  eg:
 
- 
+
 ```
            [harrelwe@node142 ~]$ vuw-myjobs
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
            7921967 main          bash harrelwe  R       0:12      1 node142
-``` 
+```
 
 As you can see I have a single job running on node142 on the main partition
 
@@ -430,7 +422,7 @@ Once you have typed the _singularity shell_ command you will be within the
 container and can type the commands available from within the container such as
 the BlockSci utility **blocksci_parser**
 
-#### Running a container in a batch job
+#### Using Containers
 
 Running a batch job with containers is similar to running a regular job, but will ultimately depend on how the container was created, so your mileage may vary.  Here is an example batch submit script that will run the BlockSci software that was created in an Ubuntu docker image, lets name the submit file runContainer.sh:
 
