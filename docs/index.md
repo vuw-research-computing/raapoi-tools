@@ -405,7 +405,9 @@ Time:   If you request more time than the max run-time of a partition, your job 
 * **ReqNodeNotAvail** - 99% of the time you will receive this code if you have asked for too much time. This frequently occurs when the cluster is about to go into maintenance and a reservation has been placed on the cluster, which reduces the maximum run-time of all jobs.  For example, if maintenance on the cluster is 1 week away, the maximum run-time on all jobs needs to be less than 1 week, regardless if the configured maximum run-time on a partition is greater than 1 week.  To request time you can use the --time parameter.  Another issue is if you request too much memory or a CPU configuration that does not exist on any node in a partition.  
 * **Required node not available (down, drained or reserved)** - This is related to ReqNodeNotAvail, see above.
 
-# Using Docker or Singularity Containers
+# Using Containers
+
+Researchers can use Docker or Singularity containers within the cluster.  This is a great way to run difficult-to-compile applications or to share workflows among colleagues.
 
 #### Running an interactive container
 
@@ -422,7 +424,7 @@ Once you have typed the _singularity shell_ command you will be within the
 container and can type the commands available from within the container such as
 the BlockSci utility **blocksci_parser**
 
-#### Using Containers
+#### Running a container in batch
 
 Running a batch job with containers is similar to running a regular job, but will ultimately depend on how the container was created, so your mileage may vary.  Here is an example batch submit script that will run the BlockSci software that was created in an Ubuntu docker image, lets name the submit file runContainer.sh:
 
