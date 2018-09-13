@@ -22,7 +22,10 @@ The documentation contained in this wiki cover most of what you will need to
 know to start running jobs, but if you need more help, we will be creating some
 tutorials with step-by-step instructions for our most popular apps and
 languages.
-# Access to the cluster is by SecureSHell (SSH)
+
+# Accessing the cluster
+
+_Access is via SSH_
 
 *  Hostname: 10.60.49.210
 *  Port: 22 
@@ -31,8 +34,8 @@ languages.
 
 Note: We recommend against saving your password within your SSH client, this is counter to security best-practice and will most likely cause issues in the future.
 
-## SSH Clients
-### Mac OSX SSH Clients
+#### SSH Clients
+##### Mac OSX SSH Clients
 You can use the built-in Terminal.app or you can download iTerm2 or XQuartz. XQuartz is required to be installed if you wish to forward GUI applications (matlab, rstudio, xstata, sas, etc), aka X forwarding.
 
 _Terminal.app_
@@ -52,7 +55,7 @@ Once the program is running you can type:
 
 Replace "username" with your VUW username
 
-### Windows SSH Clients 
+##### Windows SSH Clients
 
 Free Clients:
 
@@ -65,7 +68,10 @@ There are also the XWin32 and SecureCRT clients, but these cost money to license
 [X-Win32](https://www.starnet.com/xwin32/)
 
 [SecureCRT](https://www.vandyke.com/products/securecrt/)
-# The _vuw_ Commands
+
+# Basic Commands
+#### The _vuw_ Commands
+
 In an effort to make using the cluster just a bit easier, CAD staff have created commands to help you view useful information.  We call these the _vuw_ commands.  This is because all the commands begin with the string _vuw_.  This makes it easier to see the commands available to you.  If, at a command prompt you type _vuw_ followed immediately by two _TAB_ keys you will see a list of available commands beginning with _vuw_.  Go ahead and type vuw-TAB-TAB to see for yourself.
 
 The commands available as of this update are:
@@ -79,7 +85,8 @@ The commands available as of this update are:
 * _vuw-job-history_:     Show jobs finished in last 48 hours
 
 
-# Linux Commands
+#### Linux Commands
+
 The cluster is built using the Linux operating system. Access is primarily via command line interface (CLI) as opposed to the graphical user interfaces (GUI) that you are more familiar with (such as those on Windows or Mac) Below are a list of common commands for viewing and managing files and directories (replace the file and directory names with ones you own):
 
 **ls** - This command lists the contents of the current directory
@@ -107,8 +114,14 @@ The _-r_ flag recursively removes files and directories
 
 Other Commands you may use: _alias, awk, cat, export, for, grep, gzip, if, less, sed, tar, while_
 
-# Learning the Linux Shell
-A good tutorial for using linux can be found here: [Learning the linux shell](http://linuxcommand.org/lc3_learning_the_shell.php)# Finding software
+##### Learning the Linux Shell
+
+A good tutorial for using linux can be found here: 
+[Learning the linux shell](http://linuxcommand.org/lc3_learning_the_shell.php)
+
+
+# Preparing your environment
+
 The CAD Cluster has an extensive library of applications and software available. There are numerous programming languages and libraries (R, Julia, Python, lua, OpenMPI, blas, etc) as well as dozens of applications (Matlab, Stata, etc).  We also keep older versions of software to ensure compatibility.
 
 Because of this, the cluster developers use a tool called module to allow a user to load a specific version of an application, language or library and start using it for their work. The _module_ command will show you what software is available to load, and will add the software to your environment for immediate use. To show all software available to load type the following:
@@ -121,12 +134,15 @@ However, instead of searching through a long list, if you know you want to use l
   `module keyword lua`
 
 If you want to know more about a particular module you can use the whatis subcommand.  Some modules have this available, for instance:
+
 ```
   module whatis R/CRAN/3.5
 
   R/CRAN/3.5          : Adds the R library path to the pre-built CRAN modules 
 ```
-# Adding or loading software
+
+#### Adding or loading software
+
 Once you have found the module path you can load the software:
 
   `module load lua/5.3.5`
@@ -135,16 +151,18 @@ After the module loads you can type srun --pty lua at a prompt, or add it to the
 
 Showing/listing the module environment modifications
 You can discover what the module will load into your environment you can run module show, for example here is what gurobi adds:
+
 ```
 module show R/3.5.1
-----------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------
    /home/software/vuwrc/modulefiles/R/3.5.1:
-----------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------
+
 whatis("Adds the R language path to your environment ")
 prepend_path("PATH","/home/software/apps/R/3.5.1/bin")
 ```
 
-# Listing loaded modules
+#### Listing loaded modules
 
 To see what modules you have loaded into your environment you can run the command: 
 
@@ -158,11 +176,18 @@ module list
 Currently Loaded Modules:
   1) config   2) tassel/3   3) python/3.7.0   4) python/modules/3.7
 
-```To run a batch job (aka a job that runs unattended) you use the _sbatch_ command.  A simple example would look something like this:
+```
+
+# Running jobs
+
+## Batch jobs
+
+To run a batch job (aka a job that runs unattended) you use the _sbatch_ command.  A simple example would look something like this:
 
   `sbatch myjob.sh`
 
 In this example the sbatch command runs the file myjob.sh, the contents of this file, also known as a "batch submit script" could look something like this:
+
 ```
  #!/bin/bash
  #SBATCH --cpus-per-task=2
@@ -176,17 +201,23 @@ In this example the sbatch command runs the file myjob.sh, the contents of this 
  
  module load python/3.6.3
  python3 project1.py
+
 ```
+
 This will request 2 CPUs and 4GB of memory (2GB per CPU) and a runtime of 3 days 12 hours.  We are requesting that this job be run on the main partition, it will then load the environment module for python version 3.6.3 and run a python script called project1.py.  Any output from the script will be placed in your home directory in a file named project1.out and any error information in a file called project1.err.  If you do not specify an output or error file, the default files will have the form of Slurm-jobID.o and Slurm-jobID.e and will be located in the directory from which you ran _sbatch_.
 
 NOTE:  We have this example script available to copy on the cluster, you can type the following to copy it to your home directory:
 
   `cp /home/software/vuwrc/examples/batch/myjob.sh ~/myjob.sh`
 
-The ~/ in front of the file is a short-cut to your home directory path.  You will want to edit this file accordingly.**Simple Interactive example**
+The ~/ in front of the file is a short-cut to your home directory path.  You will want to edit this file accordingly.
+
+## Interactive jobs
+
 One of the basic job submittal tools is the command srun
 
 For example, say I want to start a job to run an interactive R session. Once logged into the cluster I can:
+
 ```
   module load R/3.5.1
   srun --pty --cpus-per-task=2 --mem=2G  --time=2-00:00 --partition=main R
@@ -194,8 +225,7 @@ For example, say I want to start a job to run an interactive R session. Once log
 
 So what does this all mean?
 
-The _module load_ command will introduce the environment necessary to run a particular program, in this case R version 3.5.1
-
+The _module load_ command will introduce the environment necessary to run a particular program, in this case R version 3.5.1 
 The _srun_ command will submit the job to the cluster.  The _srun_ command has many parameter available, some of the most common are in this example and explained below
 
 * --pty - Required to run interactively
@@ -204,6 +234,8 @@ The _srun_ command will submit the job to the cluster.  The _srun_ command has m
 * --time=2-00:00 - requests a runtime of up to 2 days (format is DAYS-HOURS:MINUTES), this is important in case the cluster or partition has a limited run-time, for example if an outage window is approaching.  Keep in mind time is a resource along with CPU and Memory.  
 * --partition=main - requests a certain partition, in this case it requests the main partition, see the section on using cluster partitions for more information.
 * R - the command you wish to run, this could also be matlab, mathematica, SAS, etc. (just remember to load the module first)# Parallel Jobs
+
+# Parallel processing, arrays, multi-threaded and MPI jobs
 
 Running a job in parallel is a great way to utilize the power of the cluster.  So what is a parallel job/workflow?
 
@@ -214,7 +246,7 @@ Running a job in parallel is a great way to utilize the power of the cluster.  S
 
 It is important to understand the capabilities and limitations of an application in order to fully leverage the parallel processing options available on the cluster. For instance, many popular scientific computing languages like Python, R, and Matlab now offer packages that allow for GPU, multi-core or multithreaded processing, especially for matrix and vector operations
 
-## Job Array Example
+#### Job Array Example
 Here is a (very silly) example of running a job array to run 50 simultaneous processes:
 
   `sbatch array.sh`
@@ -231,6 +263,7 @@ The contents of the array.sh batch script looks like this:
   #SBATCH --mail-type=BEGIN,END,FAIL
   #SBATCH --mail-user=me@email.com
 ```
+
 So what do these parameter mean?:
 
 * _-a_ sets this up as a parallel array job (this sets up the "loop" that will be run
@@ -243,6 +276,7 @@ So what do these parameter mean?:
 You will notice that this batch script runs the program addit.sh and passes the argument $SLURM_ARRAY_TASK_ID, this variable contains the array number, 1-50 in this case,
 
 This is what the addit.sh script contains, it is a simple example but should show you how to run and use the job array and variables:
+
 ```
   #!/bin/bash
   echo "The compute node this is running on is $HOSTNAME"
@@ -253,13 +287,15 @@ This is what the addit.sh script contains, it is a simple example but should sho
   sum=`expr $1 + $RANDOM` 
   echo "Output is $sum"
 ```
+
 Running the array.sh script will cause the SLURM manager to spawn 50 parallel jobs.
 
  
 
-## Multithreaded Job Example
+i#### Multithreaded Job Example
 
 Multithreaded programs are applications that are able to execute in parallel across multiple CPU cores within a single node using a shared memory execution model. In general, a multithreaded application uses a single process (aka “task” in Slurm) which then spawns multiple threads of execution. By default, Slurm allocates 1 CPU core per task. In order to make use of multiple CPU cores in a multithreaded program, one must include the --cpus-per-task option.  Below is an example of a multithreaded program requesting 12 CPU cores per task and a total of 8GB of memory. The program itself is responsible for spawning the appropriate number of threads.
+
 ```
   #!/bin/bash
   #SBATCH --nodes=1
@@ -276,7 +312,7 @@ Multithreaded programs are applications that are able to execute in parallel acr
   java -jar threaded-app.jar
 ``` 
 
-## MPI Jobs
+#### MPI Jobs
 
 Most users do not require MPI to run their jobs but many do.  Please read on if you want to learn more about using MPI for tightly-coupled jobs.
 
@@ -292,10 +328,13 @@ MPI (Message Passing Interface) code require special attention within Slurm. Slu
   #SBATCH -p main
   #SBATCH --mail-type=BEGIN,END,FAIL
   #SBATCH --mail-user=me@email.com
-  module load mpi/openmpi
+
+  module load openmpi
   echo $SLURM_JOB_NODELIST
   mpirun -np 24 mpiscript.o
+
 ```
+
 This example requests 3 nodes and 8 tasks (i.e. processes) per node, for a total of 24 tasks.  I use this number to tell mpirun how many processes to start, -np 24
 
 NOTE:  If using python or another language you will also need to add the --oversubscribe parameter to mpirun, eg.
@@ -304,7 +343,10 @@ NOTE:  If using python or another language you will also need to add the --overs
 
 More information about running MPI jobs within Slurm can be found here here: http://slurm.schedmd.com/mpi_guide.html. 
 
-## Cancelling a Job
+# Managing Jobs
+
+#### Cancelling a Job
+
 To cancel a job, first find the jobID, you can use the _vuw-myjobs_ (or _squeue_) command to see a list of your jobs, including jobIDs.  Once you have that you can use the _scancel_ command, eg
 
    `scancel 236789`
@@ -314,9 +356,10 @@ To cancel all of your jobs you can use the -u flag followed by your username:
    `scancel -u harrelwe`
 
 
-## Viewing Job statistics
+#### Viewing Job statistics
 
 If you want to get a quick view of all the jobs completed within the last 48 hours you can use the _vuw-history_ command, for example:
+
 ```
   vuw-job-history
  
@@ -339,7 +382,7 @@ You can also get a report of your completed jobs using the _sacct_ command.  For
 * type _man sacct_ at a prompt in engaging to see the documentation on the _sacct_ command
  
 
-## Viewing jobs in the Queue
+#### Viewing jobs in the Queue
  
 
 To view your running jobs you can type the vuw-myjobs  eg:
@@ -355,7 +398,8 @@ As you can see I have a single job running on node142 on the main partition
 
 You can see all the jobs in the queues by running the _vuw-alljobs_ command.  This will produce a very long list of jobs if the cluster is busy.
 
-## Job Queuing (aka Why isn't my job running?)
+#### Job Queuing (aka Why isn't my job running?)
+
 When a partition is busy, jobs will be placed in a queue.  You can observe this in the vuw-myjobs and vuw-alljobs commands.  The STATE of your job will be PENDING, this means it is waiting for resources or your job has been re-prioritized to allow other users access to run their jobs (this is called fair-share queueing).
 
 The resource manager will list a reason the job is pending, these reasons can include:
@@ -368,7 +412,10 @@ Time:   If you request more time than the max run-time of a partition, your job 
 * **PartitionTimeLimit** - This means you have requested more time than the maximum runtime of the partition.  This document contains information about the different partitions, including max run-time.  Typing _vuw-partition_ will also show the max run-time for the partitions available to you.
 * **ReqNodeNotAvail** - 99% of the time you will receive this code if you have asked for too much time. This frequently occurs when the cluster is about to go into maintenance and a reservation has been placed on the cluster, which reduces the maximum run-time of all jobs.  For example, if maintenance on the cluster is 1 week away, the maximum run-time on all jobs needs to be less than 1 week, regardless if the configured maximum run-time on a partition is greater than 1 week.  To request time you can use the --time parameter.  Another issue is if you request too much memory or a CPU configuration that does not exist on any node in a partition.  
 * **Required node not available (down, drained or reserved)** - This is related to ReqNodeNotAvail, see above.
-# Running an interactive container
+
+# Using Docker or Singularity Containers
+
+#### Running an interactive container
 
 User can run within a container interactively, this is great for testing code before running a job.  Here is an example of running within a docker container that has the blockchain software called BlockSci:
 
@@ -378,9 +425,12 @@ srun --pty -c 4 --mem=16G bash
 singularity pull docker://tislaamo/blocksci
 singularity shell blocksci.simg
 ```
-Once you have typed the _singularity shell_ command you will be within the container and can type the commands available from within the container such as the BlockSci utility _blocksci_parser_
 
-# Running a container in a batch job
+Once you have typed the _singularity shell_ command you will be within the
+container and can type the commands available from within the container such as
+the BlockSci utility **blocksci_parser**
+
+#### Running a container in a batch job
 
 Running a batch job with containers is similar to running a regular job, but will ultimately depend on how the container was created, so your mileage may vary.  Here is an example batch submit script that will run the BlockSci software that was created in an Ubuntu docker image, lets name the submit file runContainer.sh:
 
@@ -395,6 +445,7 @@ Running a batch job with containers is similar to running a regular job, but wil
 module load singularity
 singularity exec blocksci.simg blocksci_parser --output-directory bitcoin-data update disk --coin-directory bitcoin
 ```
+
 Now to run the file you can:
 
 ```
