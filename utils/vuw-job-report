@@ -20,4 +20,7 @@ printf "${RED}JOB REPORT FOR JOB $1${NC}\n"
 echo -e "\033[1m     JobName   Req_Mem   UsedMem(KB)  ReqCPUs CPUTime       State    Completed \033[0m"
 sacct -j $1 --format="JobName, ReqMem, MaxVMSize, ReqCPUS%9, TotalCPU, State, End" -n
 echo ""
+echo "NOTE: This utility is a wrapper for the Slurm command:"
+echo '      sacct -j $1 --format="JobName, ReqMem, MaxVMSize, ReqCPUS%9, TotalCPU, State, End" -n'
+echo ""
 exit 0

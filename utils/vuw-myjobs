@@ -14,17 +14,7 @@ echo -e "\033[1m              JOBID PARTITION     NAME     USER STATE           
 squeue -l -h -u $USER -p main
 #squeue -l -h -u $USER -p sched_sloan_batch
 echo ""
-#printf "${RED}MY JOBS ON SLOAN INTERACTIVE PARTITION${NC}\n"
-#squeue -l -h -u $USER -p sched_mit_sloan_interactive
-#echo ""
-#if [[ `groups` =~ .*sched_mit_thesmar* ]]; then
-#  printf "${RED}MY JOBS ON DAVID THESMAR GPU PARTITION${NC}\n"
-#  squeue -l -h -u $USER -p sched_mit_thesmar
-#  echo ""
-#fi
-#printf "${RED}MY JOBS ON OTHER PARTITIONS${NC}\n"
-#squeue -l -h -u $USER -p sched_any_quicktest
-#squeue -l -h -u $USER -p sched_any
-#squeue -l -h -u $USER -p newnodes
-#echo ""
+echo "NOTE: This utility is a wrapper for the Slurm command:"
+echo '      squeue -l -h -u $USER -p main'
+echo ""
 exit 0

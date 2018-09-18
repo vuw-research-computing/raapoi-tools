@@ -10,5 +10,7 @@ echo ""
 echo "This command shows jobs within last 48 hours, if you want to go further"
 echo "back you can use the command sacct with a date, eg sacct -S 2017-04-01"
 echo ""
+echo "NOTE: This utility is a wrapper for the Slurm commands:"
+echo '       sacct --format="JobID, State, JobName, MaxRSS, CPUTime" -s CD -s CA -s F'
+echo ""
 exit 0
-
