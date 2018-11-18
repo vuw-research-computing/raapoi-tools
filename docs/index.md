@@ -452,7 +452,7 @@ Note that _singularity shell_ is primarily for interactive use and _singularity 
 
 # Using Jupyter Notebooks
 
-## Starting and Working with a Jupyter Notebook
+#### Starting and Working with a Jupyter Notebook
 
 _Step 1:_ The best way to start jupyter is with a batch submit script.  We have created an example script.  
 You can copy this script from one available on the cluster, just type the following:
