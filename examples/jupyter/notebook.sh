@@ -2,7 +2,7 @@
 
 #SBATCH -c 2
 #SBATCH --mem=4G
-#SBATCH --time=2-00:00
+#SBATCH --time=08:00:00
 #SBATCH -o notebook-%A.out
 
 IP=`hostname -i`
