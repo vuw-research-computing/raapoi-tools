@@ -564,7 +564,7 @@ pip install webcolors
 ```
 
 Create the file test.py with the following contents using nano
-```python
+```
 import webcolors
 from random import randint
 from socket import gethostname
@@ -574,14 +574,15 @@ requested_colour = randint(0,len(colour_list))
 colour_name = colour_list[requested_colour][1]
 
 print("Random colour name:", colour_name, " on host: ", gethostname())
-```bash
-Alternatively download it with wget
-```bash
+```
+
+Alternatively download it with wget:
+```
 wget https://raw.githubusercontent.com/eResearchSandpit/vuwrc/master/examples/python_venv/test.py
 ```
 
 Using nano create the submissions script called python_submit.sh with the following content - change `me@email.com` to your email address.
-```bash
+```
 #!/bin/bash
 #
 #SBATCH --job-name=python_test
@@ -600,13 +601,14 @@ module load python/3.6.6
 source mytest/bin/activate 
 python test.py
 ```
+
 Alternatively download it with wget
-```bash
+```
 wget https://raw.githubusercontent.com/eResearchSandpit/vuwrc/master/examples/python_venv/python_submit.sh
 ```
 
 To submit your job to the Slurm scheduler
-```bash
+```
 sbatch python_submit.sh
 ```
 
