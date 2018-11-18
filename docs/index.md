@@ -541,7 +541,11 @@ One last thing you need to do is to replace the IP address with the word *localh
 
 Now you can hit return and you should see your notebook running on an Engaging compute node.
 
-If you want more information on working with Jupyter, there is good documentation, here:  http://jupyter-notebook.readthedocs.io/en/latest/
+__NOTE__: when you are done with your notebook, please remember to cancel your
+job to free up the resources for others, hint: *scancel*
+
+If you want more information on working with Jupyter, there is good
+documentation, here: [Jupyter Notebooks](http://jupyter-notebook.readthedocs.io/en/latest/)
 
 # Examples
 
