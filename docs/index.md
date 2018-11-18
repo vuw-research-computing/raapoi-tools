@@ -454,15 +454,15 @@ Note that _singularity shell_ is primarily for interactive use and _singularity 
 
 #### Starting and Working with a Jupyter Notebook
 
-_Step 1:_ The best way to start jupyter is with a batch submit script.  We have created an example script.  
+__Step 1:__ The best way to start jupyter is with a batch submit script.  We have created an example script.  
 You can copy this script from one available on the cluster, just type the following:
-
+```
   cp /home/software/vuwrc/examples/jupyter/notebook.sh notebook.sh
-
+```
 If you are using Anaconda and have installed it in the default location you need to use the following submit file instead: 
-
+```
   cp /home/software/vuwrc/examples/jupyter/notebook-anaconda.sh notebook-anaconda.sh
-
+```
 This script is ready to run as is, but we recommend editing it to satisfy your own CPU, memory and time requirements.  Once you have edited the file you can run it thusly:
 
 ```
@@ -477,13 +477,13 @@ sbatch notebook-anaconda.sh
 
 This will submit the file to run a job.  It may take some time for the job to run, depending on how busy the cluster is at the time.  Once the job begins to run you will see some information in the file called notebook-<JOBID>.out (JOBID will be the actual jobid of this job, eg notebook-478903.out.  If you view this file (users can `cat notebook-<JOBID>.out` to view the file onscreen).  You will see a line such as:
 
-  The Jupyter Notebook is running at: http://10.60.49.204:47033/?token=SOME-RANDOM-HASH
+ *The Jupyter Notebook is running at: http://10.60.49.204:47033/?token=SOME-RANDOM-HASH*
 
-The 2 important pieces of information here are the IP address, in this case 10.60.49.204 and the port number, 47033.   These numbers should be different for you since the port number is random, although the IP Address may be the same since we have a limited number of compute nodes. Also notice after the ?token= you will see a random hash.  This hash is a security feature and allows you to connect to the notebook.  You will need to use these to view the notebook from your local machine.  
+The 2 important pieces of information here are the IP address, in this case *10.60.49.204* and the port number, *47033*.   These numbers should be different for you since the port number is random, although the IP Address may be the same since we have a limited number of compute nodes. Also notice after the ?token= you will see a random hash.  This hash is a security feature and allows you to connect to the notebook.  You will need to use these to view the notebook from your local machine.  
 
-_Step 2:_ To start working with the notebook you will need to tunnel a ssh session.  In your SSH tunnel you will use the cluster login node (10.60.49.210) to connect to the compute node (in the example above the compute node is at address 10.60.49.204) and transfer all the traffic back and forth between your computer and the compute node).  
+__Step 2:__ To start working with the notebook you will need to tunnel a ssh session.  In your SSH tunnel you will use the cluster login node (10.60.49.210) to connect to the compute node (in the example above the compute node is at address 10.60.49.204) and transfer all the traffic back and forth between your computer and the compute node).  
 
-_Step 2a from a Mac:_
+__Step 2a from a Mac:__
 
 Open a new session window from Terminal.app or other terminal utility such as Xquartz and type the following:
 
@@ -499,9 +499,9 @@ ssh -L 47033:10.60.49.204:47033 harrelwe@10.60.49.210
 
 Once you are at a prompt you can go to Step 3
 
-_Step 2b:_ from Windows
+__Step 2b: from Windows__
 
-We recommend tunneling using MobaXTerm.  There are 2 methods for tunneling in Moba, one is command line, the other is GUI-based.
+We recommend tunneling using MobaXTerm (https://mobaxterm.mobatek.net/).  There are 2 methods for tunneling in Moba, one is command line, the other is GUI-based.
 
 Method 1: Command-line, click the Start local terminal button (If you do not have this button, skip to the GUI method)
 
@@ -521,22 +521,21 @@ Once you are at a prompt you can go to Step 3
 
 Method 2: GUI-based, go to the Tunneling menu:
 
-Now click on New SSH Tunnel
+Now click on *New SSH Tunnel*
 
+When you complete the creation of your tunnel click __Start all tunnels__.  Enter your password and reply "yes" to any questions asked about accepting hostkeys or opening firewalls.  You can safely exit the tunnel building menu.
 
-When you complete the creation of your tunnel click "Start all tunnels".  Enter your password and reply "yes" to any questions asked about accepting hostkeys or opening firewalls.  You can safely exit the tunnel building menu.
-
-_Step 3_
+__Step 3__
 
 Now open your favorite web browser and then use the URL from your job output file and paste it in your browsers location bar, for example my full URL was:
 
-  http://10.60.49.204:47033/?token=badef11b1371945b314e2e89b9a182f68e39dc40783ed68e
+  __http://10.60.49.204:47033/?token=badef11b1371945b314e2e89b9a182f68e39dc40783ed68e__
 
-_Step 4_
+__Step 4__
 
 One last thing you need to do is to replace the IP address with the word *localhost*.  This will allow your browser to follow the tunnel you just opened and connect to the notebook running on an engaging compute node, in my case my address line will now look like this:
 
-  http://localhost:47033/?token=badef11b1371945b314e2e89b9a182f68e39dc40783ed68e
+  __http://localhost:47033/?token=badef11b1371945b314e2e89b9a182f68e39dc40783ed68e__
 
 Now you can hit return and you should see your notebook running on an Engaging compute node.
 
@@ -547,18 +546,18 @@ If you want more information on working with Jupyter, there is good documentatio
 #### Simple Python program using virtualenv and pip
 
 First we need to create a wokring directory and move there
-```bash
+```
 mkdir python_test
 cd python_test
 ```
 Next we load the python 3 module and use python 3 to create a python virtualenv.  This way we can install pip packages which are not installed on the cluster
-```bash
+```
 module load python/3.6.6 
 python3 -m venv mytest
 ```
 
 Activate the `mytest` virtualenv and use pip to install the `webcolors` package
-```bash
+```
 source mytest/bin/activate
 pip install webcolors
 ```
