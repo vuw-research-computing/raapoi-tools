@@ -475,7 +475,7 @@ or if using Anaconda:
 sbatch notebook-anaconda.sh
 ```
 
-This will submit the file to run a job.  It may take some time for the job to run, depending on how busy the cluster is at the time.  Once the job begins to run you will see some information in the file called notebook-<JOBID>.out (JOBID will be the actual jobid of this job, eg notebook-478903.out.  If you view this file (users can `cat notebook-<JOBID>.out` to view the file onscreen).  You will see a line such as:
+This will submit the file to run a job.  It may take some time for the job to run, depending on how busy the cluster is at the time.  Once the job begins to run you will see some information in the file called notebook-JOBID.out (JOBID will be the actual jobid of this job, eg notebook-478903.out.  If you view this file (users can `cat notebook-JOBID.out` to view the file onscreen).  You will see a line such as:
 
  *The Jupyter Notebook is running at: http://10.60.49.204:47033/?token=SOME-RANDOM-HASH*
 
@@ -503,7 +503,8 @@ __Step 2b: from Windows__
 
 We recommend tunneling using MobaXTerm (https://mobaxterm.mobatek.net/).  There are 2 methods for tunneling in Moba, one is command line, the other is GUI-based.
 
-Method 1: Command-line, click the Start local terminal button (If you do not have this button, skip to the GUI method)
+_Method 1:_
+Command-line, click the Start local terminal button (If you do not have this button, skip to the GUI method)
 
 From the command prompt type:
 ```
@@ -519,7 +520,8 @@ ssh -L 47033:10.60.49.204:47033 harrelwe@10.60.49.210
 Once you are at a prompt you can go to Step 3
 
 
-Method 2: GUI-based, go to the Tunneling menu:
+_Method 2:_
+GUI-based, go to the Tunneling menu:
 
 Now click on *New SSH Tunnel*
 
