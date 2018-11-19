@@ -454,14 +454,13 @@ Note that _singularity shell_ is primarily for interactive use and _singularity 
 
 #### Starting and Working with a Jupyter Notebook
 
-__Step 1:__ The best way to start jupyter is with a batch submit script.  We have created an example script.  
-You can copy this script from one available on the cluster, just type the following:
+__Step 1:__ The best way to start jupyter is with a batch submit script.  We have created an example script.  You can copy this script from one available on the cluster, just type the following:
 ```
-  cp /home/software/vuwrc/examples/jupyter/notebook.sh notebook.sh
+cp /home/software/vuwrc/examples/jupyter/notebook.sh notebook.sh
 ```
-If you are using Anaconda and have installed it in the default location you need to use the following submit file instead: 
+If you are using Anaconda and have installed it in the default location you need to use the following submit file instead:
 ```
-  cp /home/software/vuwrc/examples/jupyter/notebook-anaconda.sh notebook-anaconda.sh
+cp /home/software/vuwrc/examples/jupyter/notebook-anaconda.sh notebook-anaconda.sh
 ```
 This script is ready to run as is, but we recommend editing it to satisfy your own CPU, memory and time requirements.  Once you have edited the file you can run it thusly:
 
@@ -475,7 +474,11 @@ or if using Anaconda:
 sbatch notebook-anaconda.sh
 ```
 
-This will submit the file to run a job.  It may take some time for the job to run, depending on how busy the cluster is at the time.  Once the job begins to run you will see some information in the file called notebook-JOBID.out (JOBID will be the actual jobid of this job, eg notebook-478903.out.  If you view this file (users can `cat notebook-JOBID.out` to view the file onscreen).  You will see a line such as:
+This will submit the file to run a job.  It may take some time for the job to
+run, depending on how busy the cluster is at the time.  Once the job begins to
+run you will see some information in the file called notebook-JOBID.out (JOBID
+will be the actual jobid of this job, eg notebook-478903.out.  If you view this
+file (users can type `cat notebook-JOBID.out` to view the file onscreen).  You will see a line such as:
 
  *The Jupyter Notebook is running at: http://10.60.49.204:47033/?token=SOME-RANDOM-HASH*
 
@@ -501,10 +504,10 @@ Once you are at a prompt you can go to Step 3
 
 __Step 2b: from Windows__
 
-We recommend tunneling using MobaXTerm (https://mobaxterm.mobatek.net/).  There are 2 methods for tunneling in Moba, one is command line, the other is GUI-based.
+We recommend tunnelling using Git Bash, which is part of the [Git for Windows project](https://gitforwindows.org/) or [MobaXTerm](https://mobaxterm.mobatek.net/).  There are 2 methods for tunneling in Moba, one is command line, the other is GUI-based.
 
-_Method 1:_
-Command-line, click the Start local terminal button (If you do not have this button, skip to the GUI method)
+_Method 1 (Git Bash or MobaXterm):_
+Command-line, start a local terminal button (If you do not have this button, skip to the GUI method)
 
 From the command prompt type:
 ```
@@ -520,7 +523,7 @@ ssh -L 47033:10.60.49.204:47033 harrelwe@10.60.49.210
 Once you are at a prompt you can go to Step 3
 
 
-_Method 2:_
+_Method 2 (MobaXterm):_
 GUI-based, go to the Tunneling menu:
 
 Now click on *New SSH Tunnel*
@@ -558,7 +561,7 @@ cd python_test
 ```
 Next we load the python 3 module and use python 3 to create a python virtualenv.  This way we can install pip packages which are not installed on the cluster
 ```
-module load python/3.6.6 
+module load python/3.6.6
 python3 -m venv mytest
 ```
 
@@ -601,9 +604,9 @@ Using nano create the submissions script called python_submit.sh with the follow
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=me@email.com
 
-module load python/3.6.6 
+module load python/3.6.6
 
-source mytest/bin/activate 
+source mytest/bin/activate
 python test.py
 ```
 
