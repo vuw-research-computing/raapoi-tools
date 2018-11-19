@@ -43,7 +43,7 @@ You can use the built-in Terminal.app or you can download iTerm2 or XQuartz. XQu
     * Applications --> Utilities --> Terminal.app
     * Or use Spotlight search (aka Command-Space)
 * [iTerm2](https://www.iterm2.com/) is a good replacement for the default Terminal app
-* [XQuartz](https://www.xquartz.org/) is a Xforwarding application with its own terminal
+* [XQuartz](https://www.xquartz.org/) is a Xforwarding application with its own terminal.  XQuartz can be used in conjuction with the Terminal.app for GUI apps
 
 NOTE:  Once at the command prompt you can type the following to login (replace "username" with your VUW user):
 
@@ -51,12 +51,10 @@ NOTE:  Once at the command prompt you can type the following to login (replace "
 
 _Windows SSH Clients_
 
-* Free Clients:
-  * [MobaXterm](https://mobaxterm.mobatek.net/) is a good option
-  * [PuTTy](https://www.putty.org/).  
-* There are also the XWin32 and SecureCRT clients, but these cost money to license.
-  * [X-Win32](https://www.starnet.com/xwin32/)
-  * [SecureCRT](https://www.vandyke.com/products/securecrt/)
+* Recommended Clients:
+  * [Git Bash](https://gitforwindows.org/) is a great option and is part of the Git  for Windows project
+  * [MobaXterm](https://mobaxterm.mobatek.net/) is a good option, especially if you require access to GUI applications such as MATLAB or xStata.  This also has a built-in SFTP transfer window.
+
 
 # Basic Commands
 #### The _vuw_ Commands
@@ -118,7 +116,7 @@ Because of this, the cluster developers use a tool called module to allow a user
   `module avail`
 
 You will see a long list of available modules to load, including a path, eg _lua/5.3.5_
-However, instead of searching through a long list, if you know you want to use lua, you can find the path with the eo-module-find command:
+However, instead of searching through a long list, if you know you want to use lua, you can find the path with the keyword subcommand:
 
   `module keyword lua`
 
@@ -155,7 +153,7 @@ prepend_path("PATH","/home/software/apps/R/3.5.1/bin")
 
 To see what modules you have loaded into your environment you can run the command:
 
-_module list_  
+`module list`  
 
 By default you will have the config module loaded (please do not unload that module).  For example, here are the modules I have loaded in my environment when I wrote this section:
 
@@ -209,7 +207,7 @@ For example, say I want to start a job to run an interactive R session. Once log
 
 ```
   module load R/3.5.1
-  srun --pty --cpus-per-task=2 --mem=2G  --time=2-00:00 --partition=main R
+  srun --pty --cpus-per-task=2 --mem=2G  --time=08:00:00 --partition=main R
 ```
 
 So what does this all mean?
@@ -220,9 +218,9 @@ The _srun_ command will submit the job to the cluster.  The _srun_ command has m
 * --pty - Required to run interactively
 * --cpus-per-task=2 - requests 2 CPUs, can also use the -c flag, eg. -c 2
 * --mem=2G - requests 2 GigaBytes (GB) of RAM.
-* --time=2-00:00 - requests a runtime of up to 2 days (format is DAYS-HOURS:MINUTES), this is important in case the cluster or partition has a limited run-time, for example if an outage window is approaching.  Keep in mind time is a resource along with CPU and Memory.  
+* --time=08:00:00 - requests a runtime of up to 8 hours (format is DAYS-HOURS:MINUTES:SECONDS), this is important in case the cluster or partition has a limited run-time, for example if an outage window is approaching.  Keep in mind time is a resource along with CPU and Memory.  
 * --partition=main - requests a certain partition, in this case it requests the main partition, see the section on using cluster partitions for more information.
-* R - the command you wish to run, this could also be matlab, mathematica, SAS, etc. (just remember to load the module first)# Parallel Jobs
+* R - the command you wish to run, this could also be matlab, python, etc. (just remember to load the module first)
 
 # Parallel processing
 
@@ -507,7 +505,7 @@ __Step 2b: from Windows__
 We recommend tunnelling using Git Bash, which is part of the [Git for Windows project](https://gitforwindows.org/) or [MobaXTerm](https://mobaxterm.mobatek.net/).  There are 2 methods for tunneling in Moba, one is command line, the other is GUI-based.
 
 _Method 1 (Git Bash or MobaXterm):_
-Command-line, start a local terminal button (If you do not have this button, skip to the GUI method)
+Command-line, start a local Git Bash or MobaXterm terminal (or try the GUI method, below)
 
 From the command prompt type:
 ```
