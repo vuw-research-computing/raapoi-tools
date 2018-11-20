@@ -1,0 +1,10 @@
+#%Modules
+#
+
+module-whatis "Adds the automake build utilities"
+
+module load autoconf/2.69
+
+prepend-path PATH /home/software/apps/automake/1.16/bin
+prepend-path MANPATH /home/software/apps/automake/1.16/man
+

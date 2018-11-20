@@ -1,0 +1,9 @@
+#%Modules
+#
+
+module-whatis "Adds the autoconf build utilities"
+
+
+prepend-path PATH /home/software/apps/autoconf/2.69/bin
+prepend-path MANPATH /home/software/apps/autoconf/2.69/man
+

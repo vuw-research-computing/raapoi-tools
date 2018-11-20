@@ -1,0 +1,12 @@
+#%Modules
+#
+
+module-whatis "Adds phyml - Phylogenetic estimation using (Maximum) Likelihood - MPI version - to your env"
+
+module load openmpi/3.1.2
+prereq openmpi/3.1.2
+
+set               root              /home/software/apps/phyml/3.3.20180621-mpi
+prepend-path	 PATH $root/
+
+

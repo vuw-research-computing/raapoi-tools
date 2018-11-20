@@ -1,0 +1,4 @@
+#%Modules
+
+set              BBMAP_HOME /home/software/apps/bbmap/38.31
+prepend-path	 PATH $BBMAP_HOME
