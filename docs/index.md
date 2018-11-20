@@ -460,6 +460,9 @@ If you are using Anaconda and have installed it in the default location you need
 ```
 cp /home/software/vuwrc/examples/jupyter/notebook-anaconda.sh notebook-anaconda.sh
 ```
+
+__NOTE__: We also have sbatch scripts for R (IRKernel)) notebooks.  These are called *R-notebook.sh* and *R-notebook-anaconda.sh*
+
 This script is ready to run as is, but we recommend editing it to satisfy your own CPU, memory and time requirements.  Once you have edited the file you can run it thusly:
 
 ```
@@ -471,6 +474,7 @@ or if using Anaconda:
 ```
 sbatch notebook-anaconda.sh
 ```
+__NOTE:__ If using the R notebook replace notebook.sh with R-notebook.sh
 
 This will submit the file to run a job.  It may take some time for the job to
 run, depending on how busy the cluster is at the time.  Once the job begins to
