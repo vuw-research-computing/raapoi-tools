@@ -35,5 +35,7 @@ $PIP install networkx --target=/home/software/apps/local/lib/py36 --upgrade
 $PIP install boto3 --target=/home/software/apps/local/lib/py36 --upgrade
 $PIP install gensim --target=/home/software/apps/local/lib/py36 --upgrade
 $PIP install saspy --target=/home/software/apps/local/lib/py36 --upgrade
+$PIP install pysqlite --target=/home/software/apps/local/lib/py36 --upgrade
+$PIP install jupyter --target=/home/software/apps/local/lib/py36 --upgrade
 #$PIP install tensorflow --target=/home/software/apps/local/lib/py36 --upgrade
 
