@@ -474,7 +474,7 @@ or if using Anaconda:
 ```
 sbatch notebook-anaconda.sh
 ```
-__NOTE:__ If using the R notebook replace notebook.sh with R-notebook.sh
+__NOTE:__ If you copied the R notebook script, replace notebook.sh with R-notebook.sh
 
 This will submit the file to run a job.  It may take some time for the job to
 run, depending on how busy the cluster is at the time.  Once the job begins to
