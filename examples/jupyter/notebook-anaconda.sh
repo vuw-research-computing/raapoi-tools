@@ -9,4 +9,5 @@ IP=`hostname -i`
 PORT=`shuf -i 2000-65000 -n 1`
 
 export XDG_RUNTIME_DIR=""
+
 $HOME/anaconda3/bin/jupyter notebook --ip=$IP --port=$PORT --no-browser

@@ -11,4 +11,7 @@ PORT=`shuf -i 2000-65000 -n 1`
 export XDG_RUNTIME_DIR=""
 module load jupyter/notebook
 
+module load R/CRAN/3.5
+R -e "IRkernel::installspec(name = 'ir35', displayname = 'R 3.5')"
+
 jupyter-notebook --ip=$IP --port=$PORT --no-browser
