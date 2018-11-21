@@ -1,0 +1,7 @@
+#%Modules
+#
+
+module-whatis "Adds python-2.7.15 to your environment"
+
+prepend-path PATH /home/software/apps/python/2.7.15/bin
+
