@@ -1,0 +1,4 @@
+#%Modules
+
+set               root              /home/software/apps/spades/3.13.0
+prepend-path	 PATH $root/bin 

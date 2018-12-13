@@ -3,6 +3,6 @@
 
 module-whatis "Adds BioPYthon to your environment"
 
-prereq python/3.6.6
-prepend-path PYTHONPATH /home/software/apps/local/lib/biopython/1.72
+module load python/3.6.6
+prepend-path PYTHONPATH /home/software/apps/biopython/1.72
 

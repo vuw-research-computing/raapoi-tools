@@ -4,6 +4,7 @@ conflict openmpi
 conflict mpi
 
 set		 root /home/software/apps/openmpi/2.1.5
+prepend-path	 PATH $root/bin
 prepend-path	 LD_LIBRARY_PATH $root/lib
 prepend-path	 LIBRARY_PATH $root/lib
 prepend-path	 CPATH $root/include

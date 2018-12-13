@@ -1,0 +1,6 @@
+#%Modules
+
+prepend-path	 PATH /home/software/apps/netcdf/c++/4.3.0/bin
+prepend-path	 LD_LIBRARY_PATH /home/software/apps/netcdf/c++/4.3.0/lib
+prepend-path	 LIBRARY_PATH /home/software/apps/netcdf/c++/4.3.0/lib
+prepend-path	 CPLUS_INCLUDE_PATH /home/software/apps/netcdf/c++/4.3.0/include

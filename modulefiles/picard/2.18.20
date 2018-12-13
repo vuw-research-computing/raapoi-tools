@@ -1,0 +1,5 @@
+#%Modules
+
+
+prepend-path	 PICARD_TOOLS_JAR /home/software/apps/picard/2.18.20/picard.jar 
+prepend-path	 CLASSPATH /home/software/apps/picard/2.18.20
