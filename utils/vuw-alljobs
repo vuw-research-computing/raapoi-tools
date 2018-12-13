@@ -5,17 +5,15 @@
 
 RED='\033[0;31m'
 NC='\033[0m'
-printf "${RED}VUW CLUSTER PARTITION QUEUE: MAIN ${NC}\n"
-#squeue -l -p sched_mit_sloan_batch
-squeue -p main -o "%.15i %.8j %.10u %.7c %.7m %.12M %.12L %.10T %R"
+printf "${RED}RAAPOI PARTITION QUEUE: quicktest (Default queue) ${NC}\n"
+squeue -p quicktest -o "%.15i %.8j %.10u %.7c %.7m %.12M %.12L %.10T %R"
 echo ""
-#printf "${RED}SLOAN INTERACTIVE PARTITION QUEUE: sched_mit_sloan_interactive${NC}\n"
-##squeue -l -p sched_mit_sloan_interactive
-#squeue -p sched_mit_sloan_interactive -o "%.15i %.8j %.10u %.7c %.7m %.12M %.12L %.10T %R"
-#echo ""
-#printf "${RED}SLOAN GPU PARTITION QUEUE: sched_mit_sloan_gpu${NC}\n"
-#squeue -p sched_mit_sloan_gpu -o "%.15i %.8j %.10u %.7c %.7m %.6b %.12M %.12L %.10T %R"
-#echo ""
+printf "${RED}RAAPOI BIG MEMORY PARTITION QUEUE: bigmem${NC}\n"
+squeue -p quicktest -o "%.15i %.8j %.10u %.7c %.7m %.12M %.12L %.10T %R"
+echo ""
+printf "${RED}RAAPOI MAIN (BATCH) PARTITION QUEUE: main${NC}\n"
+echo ""
+
 #if [[ `groups` =~ .*sched_mit_thesmar* ]]; then
 #  printf "${RED}DAVID THESMAR PARTITION QUEUE: sched_mit_thesmar${NC}\n"
 #  squeue -p sched_mit_thesmar -o "%.15i %.8j %.10u %.7c %.7m %.6b %.12M %.12L %.10T %R"
