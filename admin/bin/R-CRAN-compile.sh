@@ -61,9 +61,9 @@ echo "Once completed, sync data to user repo area and update modulefile"
 echo "if necessary, see docs in OneNote for details"
 
 #sbatch -c 8 --mem=64G --gres=gpu:1 --time=5-00:00 \
-sbatch -c 8 --mem=64G --time=5-00:00 \
-  -o $ROUT/CRAN-build.out -e $ROUT/CRAN-build.err \
+sbatch -w c10n01 -c 8 --mem=64G --time=5-00:00 \
+  -o $ROUT/CRAN-build-${1}.out -e $ROUT/CRAN-build-${1}.err \
   --mail-type=BEGIN,END,FAIL --mail-user=sts.rc@mit.edu -J CRAN-build \
-  xvfb-run R CMD BATCH --vanilla "--args $1" $CRANBUILD $ROUT/CRAN-build.Rout
+  xvfb-run R CMD BATCH --vanilla "--args $1" $CRANBUILD $ROUT/CRAN-build-${1}.Rout
 
   #xvfb-run R CMD BATCH --vanilla "--args $1" /home/wharrell/Test/R/printargs.R \
