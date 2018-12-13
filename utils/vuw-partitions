@@ -1,17 +1,14 @@
 #!/bin/bash
 ##
-## List the queue in Sloan partitions
-##
-## Usage: sloanq -a|-p|-m
-
-#-a all
-#-p partition
-#-m my partitions (default) based on groups membership
 #
 RED='\033[0;31m'
 NC='\033[0m'
 echo ""
 printf "${RED}VUW CLUSTER PARTITIONS${NC}\n"
+sinfo -p quicktest
+echo ""
+sinfo -p bigmem
+echo ""
 sinfo -p main
 echo ""
 echo "NOTE: This utility is a wrapper for the Slurm command:"
@@ -19,3 +16,4 @@ echo '      sinfo -p main'
 echo ""
 
 exit 0
+
