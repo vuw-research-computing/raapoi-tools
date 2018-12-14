@@ -9,7 +9,7 @@ sinfo -p quicktest
 echo ""
 sinfo -p bigmem
 echo ""
-sinfo -p main
+sinfo -p parallel
 echo ""
 echo "NOTE: This utility is a wrapper for the Slurm command:"
 echo '      sinfo -p main'

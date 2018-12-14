@@ -6,7 +6,7 @@ echo -e "\033[1m              JOBID PARTITION     NAME     USER STATE           
 #printf "${RED}MY JOBS ON RAAPOI PARTITIONS${NC}\n"
 squeue -l -h -u $USER -p quicktest
 squeue -l -h -u $USER -p bigmem
-squeue -l -h -u $USER -p main
+squeue -l -h -u $USER -p parallel
 echo ""
 echo "NOTE: This utility is a wrapper for the Slurm command:"
 echo '      squeue -l -h -u $USER -p main'
