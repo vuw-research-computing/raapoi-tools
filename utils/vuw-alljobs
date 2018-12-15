@@ -22,6 +22,6 @@ echo ""
 #fi
 echo ""
 echo "This utility is a wrapper for the Slurm command:"
-echo 'squeue -p main -o "%.15i %.8j %.10u %.7c %.7m %.12M %.12L %.10T %R"'
+echo 'squeue -p PARTITION -o "%.15i %.8j %.10u %.7c %.7m %.12M %.12L %.10T %R"'
 echo ""
 exit

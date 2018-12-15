@@ -9,6 +9,6 @@ squeue -l -h -u $USER -p bigmem
 squeue -l -h -u $USER -p parallel
 echo ""
 echo "NOTE: This utility is a wrapper for the Slurm command:"
-echo '      squeue -l -h -u $USER -p main'
+echo '      squeue -l -h -u $USER -p PARTITION'
 echo ""
 exit 0

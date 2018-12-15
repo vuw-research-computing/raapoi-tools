@@ -12,7 +12,7 @@ echo ""
 sinfo -p parallel
 echo ""
 echo "NOTE: This utility is a wrapper for the Slurm command:"
-echo '      sinfo -p main'
+echo '      sinfo -p PARTITION'
 echo ""
 
 exit 0
