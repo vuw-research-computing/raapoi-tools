@@ -2,9 +2,6 @@
 #
 
 
-module load java/1.8.0_121
-prereq java/1.8.0_121
-
 conflict	 matlab 
 prepend-path	 PATH /home/software/apps/matlab/2018a/bin 
 setenv		 MATLAB_HOME /home/software/apps/matlab/2018a 
