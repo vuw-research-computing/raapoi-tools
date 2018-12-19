@@ -1,16 +1,16 @@
 # Cluster Description
 
-The CADGrid HPC Cluster (hereafter referred to as: the cluster) is a Uni-wide computing
+The Raapoi HPC Cluster (hereafter referred to as: raapoi) is a Uni-wide computing
 resource that uses the Slurm resource manager to schedule jobs and reserve
-resources.  Similar to most modern compute clusters, the cluster requires you to
+resources.  Similar to most modern compute clusters, raapoi requires you to
 request CPU, Memory and Time for your job.  If you do not request these
-resources, you will be given the minimal defaults, which may not be enough to
+resources, you will be given the minimal defaults (2 CPU, 2 GB Memory), which may not be enough to
 run your job.  The good news about resource reservations is that the resources
 you request are guaranteed to be yours, the bad news is if you request too
 little memory or time, your job may terminate prematurely and if you request too
 few CPUs then your job may run slowly.
 
-The cluster is made up of partitions.  A partition is a set of compute nodes
+Raapoi is made up of partitions.  A partition is a set of compute nodes
 (servers) and each partition has its own configuration and hardware profile.
 The partition on which you run your jobs will depend on the type of workflow or
 job you intend to submit.
@@ -27,10 +27,11 @@ languages.
 
 _Access is via SSH_
 
-*  Hostname: 10.60.49.210
+*  Hostname: raapoi.vuw.ac.nz (for CADGrid use: 10.60.49.210)
 *  Port: 22
 *  Username: Your VUW username
-*  Password: Your cluster password
+*  Password: Your VUW password
+*  NOTE: VPN access may be required for some users to connect to raapoi
 
 Note: We recommend against saving your password within your SSH client, this is counter to security best-practice and will most likely cause issues in the future.
 
@@ -47,7 +48,7 @@ You can use the built-in Terminal.app or you can download iTerm2 or XQuartz. XQu
 
 NOTE:  Once at the command prompt you can type the following to login (replace "username" with your VUW user):
 
-`ssh username@10.60.49.210`
+`ssh username@raapoi.vuw.ac.nz`
 
 _Windows SSH Clients_
 
@@ -59,7 +60,7 @@ _Windows SSH Clients_
 # Basic Commands
 #### The _vuw_ Commands
 
-In an effort to make using the cluster just a bit easier, CAD staff have created commands to help you view useful information.  We call these the _vuw_ commands.  This is because all the commands begin with the string _vuw_.  This makes it easier to see the commands available to you.  If, at a command prompt you type _vuw_ followed immediately by two _TAB_ keys you will see a list of available commands beginning with _vuw_.  Go ahead and type vuw-TAB-TAB to see for yourself.
+In an effort to make using raapoi just a bit easier, CAD staff have created commands to help you view useful information.  We call these the _vuw_ commands.  This is because all the commands begin with the string _vuw_.  This makes it easier to see the commands available to you.  If, at a command prompt you type _vuw_ followed immediately by two _TAB_ keys you will see a list of available commands beginning with _vuw_.  Go ahead and type vuw-TAB-TAB to see for yourself.
 
 The commands available as of this update are:
 
@@ -74,7 +75,7 @@ The commands available as of this update are:
 
 #### Linux Commands
 
-The cluster is built using the Linux operating system. Access is primarily via command line interface (CLI) as opposed to the graphical user interfaces (GUI) that you are more familiar with (such as those on Windows or Mac) Below are a list of common commands for viewing and managing files and directories (replace the file and directory names with ones you own):
+Raapoi is built using the Linux operating system. Access is primarily via command line interface (CLI) as opposed to the graphical user interfaces (GUI) that you are more familiar with (such as those on Windows or Mac) Below are a list of common commands for viewing and managing files and directories (replace the file and directory names with ones you own):
 
 **ls** - This command lists the contents of the current directory
 * _ls -l_ This is the same command with a flag (-l) which lists the contents with more information, including access permissions
@@ -107,11 +108,84 @@ A good tutorial for using linux can be found here:
 [Learning the linux shell](http://linuxcommand.org/lc3_learning_the_shell.php)
 
 
+# Using Partitions
+
+A partition is a collection of compute nodes, think of it as a sub-cluster or
+slice of the larger cluster.  Each partition has its own rules and
+configurations.  
+
+For example, the quicktest partition has a maximum job run-time of 1 hour, whereas the partition
+bigmem has a maximum runtime of 10 days.  Partitions can also
+limit who can run a job.  iCurrently any user can use any partition but there
+may come a time when certain research groups purchase their own kit and they are
+given exclusive access.
+
+To view the partitions available to use you can type the vuw-partitions
+command, eg
+
+```
+harrelwe@raapoi-master:~$ vuw-partitions 
+
+VUW CLUSTER PARTITIONS
+PARTITION  AVAIL  TIMELIMIT  NODES  STATE NODELIST
+quicktest*    up    1:00:00      1   idle c03n01
+
+PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
+bigmem       up 10-00:00:0      2   idle c10n01,c11n01
+
+PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
+parallel     up 5-00:00:00      6  down* c04n01,c05n04,c06n[01-04]
+parallel     up 5-00:00:00     27   idle
+c03n[02-04],c04n[02-04],c05n[01-02],c07n[01,03-04],c08n[01-04],c09n[01-04],c12n[01-04],c13n[01-04]
+
+NOTE: This utility is a wrapper for the Slurm command:
+      sinfo -p PARTITION
+```      
+
+Notice the STATE field, this describes the current condition of nodes within the
+partition, the most common states are defined as:
+
+* idle - nodes in an idle state have no jobs running, all resources are available
+for work
+* mix - nodes in a mixed state have some jobs running, but still have some
+resources available for work
+* alloc - nodes in an alloc state are completely full, all resources are in use.
+* drain - nodes in a drain state have some running jobs, but no new jobs can be
+run.  This is typically done before the node goes into maintenance
+* maint - node is in maintenance mode, no jobs can be submitted
+* resv - node is in a reservation.  A reservation is setup for future maintenance
+or for special purposes such as temporary dedicated access
+* down - node is down, either for maitnenance or due to failure
+
+Also notice the TIMELIMIT field, this describes the maximum runtime of a
+partition.  For example the quicktest partition has a maximum runtime of 1 
+hour and the parallel partition has a max runtime of 5 days.
+
+#### Partition Descriptions
+
+_Partition: quicktest_
+
+This parttion is for quick tests of code, environment, software builds or
+similar short-run jobs.  Since the max time limit is 1 hour it should not take
+long for your job to run.  This can also be used for near-on-demand interactive
+jobs.
+
+_Partition: bigmem_
+
+This partition is primarily useful for jobs that require very large shared
+memory (generally greater than 256 GB).  These are known as memory-bound jobs.
+
+_Partition: parallel_
+
+This partition is useful for parallel workflows, either loosely coupled or jobs
+requiring MPI or other message passing protocols for tightly bound jobs.
+
+
 # Preparing your environment
 
-The CAD Cluster has an extensive library of applications and software available. There are numerous programming languages and libraries (R, Julia, Python, lua, OpenMPI, blas, etc) as well as dozens of applications (Matlab, Stata, etc).  We also keep older versions of software to ensure compatibility.
+Raapoi has an extensive library of applications and software available. There are numerous programming languages and libraries (R, Julia, Python, lua, OpenMPI, blas, etc) as well as dozens of applications (Matlab, Stata, etc).  We also keep older versions of software to ensure compatibility.
 
-Because of this, the cluster developers use a tool called module to allow a user to load a specific version of an application, language or library and start using it for their work. The _module_ command will show you what software is available to load, and will add the software to your environment for immediate use. To show all software available to load type the following:
+Because of this, raapoi developers use a tool called module to allow a user to load a specific version of an application, language or library and start using it for their work. The _module_ command will show you what software is available to load, and will add the software to your environment for immediate use. To show all software available to load type the following:
 
   `module avail`
 
@@ -179,7 +253,7 @@ In this example the sbatch command runs the file myjob.sh, the contents of this 
  #!/bin/bash
  #SBATCH --cpus-per-task=2
  #SBATCH --mem-per-cpu=2G
- #SBATCH --partition=main
+ #SBATCH --partition=parallel
  #SBATCH --time=3-12:00
  #SBATCH -o /home/username/project1.out
  #SBATCH -e /home/username/project1.err
@@ -191,7 +265,7 @@ In this example the sbatch command runs the file myjob.sh, the contents of this 
 
 ```
 
-This will request 2 CPUs and 4GB of memory (2GB per CPU) and a runtime of 3 days 12 hours.  We are requesting that this job be run on the main partition, it will then load the environment module for python version 3.6.3 and run a python script called project1.py.  Any output from the script will be placed in your home directory in a file named project1.out and any error information in a file called project1.err.  If you do not specify an output or error file, the default files will have the form of Slurm-jobID.o and Slurm-jobID.e and will be located in the directory from which you ran _sbatch_.
+This will request 2 CPUs and 4GB of memory (2GB per CPU) and a runtime of 3 days 12 hours.  We are requesting that this job be run on the parallel  partition, it will then load the environment module for python version 3.6.3 and run a python script called project1.py.  Any output from the script will be placed in your home directory in a file named project1.out and any error information in a file called project1.err.  If you do not specify an output or error file, the default files will have the form of Slurm-jobID.o and Slurm-jobID.e and will be located in the directory from which you ran _sbatch_.
 
 NOTE:  We have this example script available to copy on the cluster, you can type the following to copy it to your home directory:
 
@@ -207,7 +281,7 @@ For example, say I want to start a job to run an interactive R session. Once log
 
 ```
   module load R/3.5.1
-  srun --pty --cpus-per-task=2 --mem=2G  --time=08:00:00 --partition=main R
+  srun --pty --cpus-per-task=2 --mem=2G  --time=08:00:00 --partition=bigmem R
 ```
 
 So what does this all mean?
@@ -219,7 +293,7 @@ The _srun_ command will submit the job to the cluster.  The _srun_ command has m
 * --cpus-per-task=2 - requests 2 CPUs, can also use the -c flag, eg. -c 2
 * --mem=2G - requests 2 GigaBytes (GB) of RAM.
 * --time=08:00:00 - requests a runtime of up to 8 hours (format is DAYS-HOURS:MINUTES:SECONDS), this is important in case the cluster or partition has a limited run-time, for example if an outage window is approaching.  Keep in mind time is a resource along with CPU and Memory.  
-* --partition=main - requests a certain partition, in this case it requests the main partition, see the section on using cluster partitions for more information.
+* --partition=bigmem - requests a certain partition, in this case it requests the bigmem partition, see the section on using cluster partitions for more information.
 * R - the command you wish to run, this could also be matlab, python, etc. (just remember to load the module first)
 
 # Parallel processing
@@ -246,7 +320,7 @@ The contents of the array.sh batch script looks like this:
   #SBATCH --cpus-per-task=1
   #SBATCH --mem-per-cpu=2G
   #SBATCH --time=00:10:00
-  #SBATCH --partition=main
+  #SBATCH --partition=parallel
   #SBATCH --mail-type=BEGIN,END,FAIL
   #SBATCH --mail-user=me@email.com
 
@@ -284,7 +358,14 @@ Running the array.sh script will cause the SLURM manager to spawn 50 parallel jo
 
 #### Multi-threaded or Multi-processing Job Example
 
-Multi-threaded or multi-processing programs are applications that are able to execute in parallel across multiple CPU cores within a single node using a shared memory execution model. In general, a multi-threaded application uses a single process (aka “task” in Slurm) which then spawns multiple threads of execution. By default, Slurm allocates 1 CPU core per task. In order to make use of multiple CPU cores in a multi-threaded program, one must include the --cpus-per-task option.  Below is an example of a multi-threaded program requesting 12 CPU cores per task and a total of 8GB of memory. The program itself is responsible for spawning the appropriate number of threads.
+Multi-threaded or multi-processing programs are applications that are able to
+execute in parallel across multiple CPU cores within a single node using a
+shared memory execution model. In general, a multi-threaded application uses a
+single process (aka “task” in Slurm) which then spawns multiple threads of
+execution. By default, Slurm allocates 1 CPU core per task. In order to make use
+of multiple CPU cores in a multi-threaded program, one must include the
+--cpus-per-task option.  Below is an example of a multi-threaded program
+requesting 12 CPU cores per task and a total of 256GB of memory. The program itself is responsible for spawning the appropriate number of threads.
 
 ```
   #!/bin/bash
@@ -292,7 +373,8 @@ Multi-threaded or multi-processing programs are applications that are able to ex
   #SBATCH --ntasks=1
   #SBATCH --cpus-per-task=12 # 12 threads per task
   #SBATCH --time=02:00:00 # two hours
-  #SBATCH --mem=8G
+  #SBATCH --mem=256G
+  #SBATCH -p bigmem
   #SBATCH --output=threaded.out
   #SBATCH --job-name=threaded
   #SBATCH --mail-type=BEGIN,END,FAIL
@@ -315,7 +397,7 @@ MPI (Message Passing Interface) code require special attention within Slurm. Slu
   #SBATCH --time=3-00:00:00
   #SBATCH --mem=4G # 4 GB RAM per node
   #SBATCH --output=mpi_job.log
-  #SBATCH -p main
+  #SBATCH -p parallel
   #SBATCH --mail-type=BEGIN,END,FAIL
   #SBATCH --mail-user=me@email.com
 
@@ -381,10 +463,10 @@ To view your running jobs you can type the vuw-myjobs  eg:
 ```
            [harrelwe@node142 ~]$ vuw-myjobs
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-           7921967 main          bash harrelwe  R       0:12      1 node142
+           7921967 quicktest     bash harrelwe  R       0:12      1 c03n01
 ```
 
-As you can see I have a single job running on node142 on the main partition
+As you can see I have a single job running on the node c03n01 on the quicktest partition
 
 You can see all the jobs in the queues by running the _vuw-alljobs_ command.  This will produce a very long list of jobs if the cluster is busy.
 
@@ -482,24 +564,27 @@ run you will see some information in the file called notebook-JOBID.out (JOBID
 will be the actual jobid of this job, eg notebook-478903.out.  If you view this
 file (users can type `cat notebook-JOBID.out` to view the file onscreen).  You will see a line such as:
 
- *The Jupyter Notebook is running at: http://10.60.49.204:47033/?token=SOME-RANDOM-HASH*
+ *The Jupyter Notebook is running at: http://130.195.19.20:47033/?token=SOME-RANDOM-HASH*
 
-The 2 important pieces of information here are the IP address, in this case *10.60.49.204* and the port number, *47033*.   These numbers should be different for you since the port number is random, although the IP Address may be the same since we have a limited number of compute nodes. Also notice after the ?token= you will see a random hash.  This hash is a security feature and allows you to connect to the notebook.  You will need to use these to view the notebook from your local machine.  
+The 2 important pieces of information here are the IP address, in this case *130.195.19.20* and the port number, *47033*.   These numbers should be different for you since the port number is random, although the IP Address may be the same since we have a limited number of compute nodes. Also notice after the ?token= you will see a random hash.  This hash is a security feature and allows you to connect to the notebook.  You will need to use these to view the notebook from your local machine.  
 
-__Step 2:__ To start working with the notebook you will need to tunnel a ssh session.  In your SSH tunnel you will use the cluster login node (10.60.49.210) to connect to the compute node (in the example above the compute node is at address 10.60.49.204) and transfer all the traffic back and forth between your computer and the compute node).  
+__Step 2:__ To start working with the notebook you will need to tunnel a ssh
+session.  In your SSH tunnel you will use the cluster login node (raapoi.vuw.ac.nz)
+to connect to the compute node (in the example above the compute node is at
+address 130.195.19.20) and transfer all the traffic back and forth between your computer and the compute node).  
 
 __Step 2a from a Mac:__
 
 Open a new session window from Terminal.app or other terminal utility such as Xquartz and type the following:
 
 ```
-ssh -L <PORT_NUMBER>:<IP_ADDRESS>:<PORT_NUMBER> username@10.60.49.210
+ssh -L <PORT_NUMBER>:<IP_ADDRESS>:<PORT_NUMBER> username@raapoi.vuw.ac.nz
 ```
 
 For example:
 
 ```
-ssh -L 47033:10.60.49.204:47033 harrelwe@10.60.49.210
+ssh -L 47033:130.195.19.20:47033 harrelwe@raapoi.vuw.ac.nz
 ```
 
 Once you are at a prompt you can go to Step 3
@@ -513,13 +598,13 @@ Command-line, start a local Git Bash or MobaXterm terminal (or try the GUI metho
 
 From the command prompt type:
 ```
-ssh -L <PORT_NUMBER>:<IP_ADDRESS>:<PORT_NUMBER> username@10.60.49.210
+ssh -L <PORT_NUMBER>:<IP_ADDRESS>:<PORT_NUMBER> username@raapoi.vuw.ac.nz
 ```
 
 For example:
 
 ```
-ssh -L 47033:10.60.49.204:47033 harrelwe@10.60.49.210
+ssh -L 47033:130.195.19.20:47033 harrelwe@raapoi.vuw.ac.nz
 ```
 
 Once you are at a prompt you can go to Step 3
@@ -536,7 +621,7 @@ __Step 3__
 
 Now open your favorite web browser and then use the URL from your job output file and paste it in your browsers location bar, for example my full URL was:
 
-  __http://10.60.49.204:47033/?token=badef11b1371945b314e2e89b9a182f68e39dc40783ed68e__
+  __http://130.195.19.20:47033/?token=badef11b1371945b314e2e89b9a182f68e39dc40783ed68e__
 
 __Step 4__
 
@@ -556,7 +641,7 @@ documentation, here: [Jupyter Notebooks](http://jupyter-notebook.readthedocs.io/
 
 #### Simple Python program using virtualenv and pip
 
-First we need to create a wokring directory and move there
+First we need to create a working directory and move there
 ```
 mkdir python_test
 cd python_test

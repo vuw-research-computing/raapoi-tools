@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --cpus-per-task=2
 #SBATCH --mem-per-cpu=2G
-#SBATCH --partition=main
+#SBATCH --partition=parallel
 #SBATCH --time=3-12:00
 #SBATCH -o /home/username/project1.out
 #SBATCH -e /home/username/project1.err
