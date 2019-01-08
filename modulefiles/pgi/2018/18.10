@@ -1,0 +1,8 @@
+#%Modules
+
+set PGI         /home/software/apps/pgi
+set root        $PGI/linux86-64/18.10
+set LM_LICENSE_FILE $PGI/license.dat
+
+prepend-path	 PATH $root/bin
+prepend-path	 MANPATH $root/man
