@@ -106,6 +106,13 @@ Other Commands you may use: _alias, awk, cat, export, for, grep, gzip, if, less,
 A good tutorial for using linux can be found here:
 [Learning the linux shell](http://linuxcommand.org/lc3_learning_the_shell.php)
 
+# Storage
+
+Currently users have 2 main storage areas:
+
+* _/nfs/home/USERNAME_ - This is your Home Directory, each user has a 50GB quota limit.
+
+* _nfs/scratch/USERNAME_ - This is you scratch space, currently there is no limit and the capacity is 51 TB 
 
 # Using Partitions
 
