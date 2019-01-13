@@ -106,6 +106,25 @@ Other Commands you may use: _alias, awk, cat, export, for, grep, gzip, if, less,
 A good tutorial for using linux can be found here:
 [Learning the linux shell](http://linuxcommand.org/lc3_learning_the_shell.php)
 
+# Storage and quotas
+
+Currently users have 2 main storage areas:
+
+* __/nfs/home/USERNAME__ - This is your Home Directory, each user has a 50GB quota limit.
+
+* __/nfs/scratch/USERNAME__ - This is you scratch space, currently there is no limit and the capacity is 51 TB 
+
+To view your current quota and usage use the _vuw-quota_ command, for example:
+
+```
+harrelwe@raapoi-master:~$ vuw-quota 
+
+Quotas for home directory
+
+                       Storage  Usage (GB)  Quota (GB)     % Used 
+            /nfs/home/harrelwe        0.10       25.00      0.40%
+```
+
 
 # Using Partitions
 
