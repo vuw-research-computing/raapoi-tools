@@ -12,15 +12,15 @@ module-whatis "Adds Gaussian09 -A computational chemestry package - to your env"
 set root        /home/software/apps/gaussian/
 set g09root	$root/g09-revD.01
 
-prepend-path    GAUSS_SCRDIR /nfs/scratch/$::env(USER)
+setenv    GAUSS_SCRDIR /nfs/scratch/$::env(USER)
 
 prepend-path 	 GAUSS_EXEDIR 		 $g09root/g09/bsd:/home/software/apps/gaussian/g09-revD.01/g09/local:/home/software/apps/gaussian/g09-revD.01/g09/extras:/home/software/apps/gaussian/g09-revD.01/g09
 prepend-path 	 LD_LIBRARY_PATH 	 $g09root/g09/bsd:/home/software/apps/gaussian/g09-revD.01/g09
 prepend-path 	 PATH 			 $g09root/g09:$g09root/g09/bsd
 
-prepend-path              G09BASIS 		 $g09root/g09/basis
-prepend-path 		 GAUSS_ARCHDIR 		 $g09root/g09/arch
-prepend-path 		 GAUSS_BSDDIR 		 $g09root/g09/bsd
-prepend-path 		 GAUSS_LEXEDIR 		 $g09root/g09/linda-exe
-prepend-path 		 PGI_TERM 		 trace,abort
-prepend-path 		 _DSM_BARRIER 		 SHM
+setenv              G09BASIS 		 $g09root/g09/basis
+setenv 		 GAUSS_ARCHDIR 		 $g09root/g09/arch
+setenv 		 GAUSS_BSDDIR 		 $g09root/g09/bsd
+setenv 		 GAUSS_LEXEDIR 		 $g09root/g09/linda-exe
+setenv 		 PGI_TERM 		 trace,abort
+setenv 		 _DSM_BARRIER 		 SHM
