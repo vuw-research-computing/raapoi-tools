@@ -116,6 +116,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
+#issue with XDG_RUNTIME_DIR, possibly munge?
+export XDG_RUNTIME_DIR=""
 
 # Add VUWRC modules & load stadrad config
 module use -a /home/software/vuwrc/modulefiles
