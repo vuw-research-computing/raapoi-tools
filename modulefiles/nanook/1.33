@@ -1,6 +1,5 @@
 #%Modules
 
-module load java
 module load R/3.5.1
 module load R/CRAN/3.5
 module load hdf5tools
