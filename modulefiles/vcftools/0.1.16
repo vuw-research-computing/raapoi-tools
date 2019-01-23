@@ -1,0 +1,9 @@
+#%Modules
+#
+
+module-whatis "Adds vcftools "
+
+prepend-path PATH /home/software/apps/vcftools/0.1.16/bin
+prepend-path MANPATH /home/software/apps/vcftools/0.1.16/share/man
+prepend-path PERL5LIB /home/software/apps/vcftools/0.1.16/share/perl5
+
