@@ -1,0 +1,11 @@
+#%Modules
+#
+
+module-whatis "Adds multiqc (Python 3.6) to your environment"
+
+module load python/3.6.6
+
+prepend-path PYTHONPATH /home/software/apps/multiqc/1.7
+prepend-path PATH /home/software/apps/multiqc/1.7/bin
+prepend-path LD_LIBRARY_PATH /home/software/apps/multiqc/1.7
+
