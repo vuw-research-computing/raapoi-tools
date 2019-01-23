@@ -1,0 +1,7 @@
+#%Modules
+#
+
+module-whatis "Adds selscan and norm "
+
+prepend-path PATH /home/software/apps/selscan/1.2.0/linux
+
