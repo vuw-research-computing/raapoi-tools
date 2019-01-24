@@ -1,6 +1,8 @@
 #%Modules
 #
 
+#load our version of java which seems to work better, esp for graphics related procs
+module load java/jdk/1.8.0_21
 
 conflict	 matlab 
 prepend-path	 PATH /home/software/apps/matlab/2018a/bin 
