@@ -1,0 +1,8 @@
+#%Modules
+#
+setenv		 JAVA_HOME /home/software/apps/java/jdk/1.8.0_121 
+prepend-path	 PATH /home/software/apps/java/jdk/1.8.0_121/bin 
+prepend-path	 MANPATH /home/software/apps/java/jdk/1.8.0_121/man 
+prepend-path	 LD_LIBRARY_PATH /home/software/apps/java/jdk/1.8.0_121/lib 
+prepend-path	 CPATH /home/software/apps/java/jdk/1.8.0_121/include 
+prepend-path	 LIBRARY_PATH /home/software/apps/java/jdk/1.8.0_121/lib
