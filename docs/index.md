@@ -3,7 +3,8 @@ The Raapoi HPC Cluster (hereafter referred to as: raapoi) is a Uni-wide computin
 resource that uses the Slurm resource manager to schedule jobs and reserve
 resources.  Similar to most modern compute clusters, raapoi requires you to
 request CPU, Memory and Time for your job.  If you do not request these
-resources, you will be given the minimal defaults (2 CPU, 2 GB Memory), which may not be enough to
+resources, you will be given the minimal defaults (1 CPU, 1 GB Memory, 1 hour
+runtime), which may not be enough to
 run your job.  The good news about resource reservations is that the resources
 you request are guaranteed to be yours, the bad news is if you request too
 little memory or time, your job may terminate prematurely and if you request too
@@ -188,16 +189,40 @@ similar short-run jobs.  Since the max time limit is 1 hour it should not take
 long for your job to run.  This can also be used for near-on-demand interactive
 jobs.
 
+* Maximum CPU available per task: 24
+* Maximum memory available per task: 62G
+* Maximum Runtime: 1 hour
+
 _Partition: bigmem_
 
 This partition is primarily useful for jobs that require very large shared
 memory (generally greater than 256 GB).  These are known as memory-bound jobs.
+
+* Maximum CPU available per task: 48
+* Maximum memory available per task: 1T (Note: maximum CPU for 1TB is 40)
+* Maximum Runtime: 10 days
 
 _Partition: parallel_
 
 This partition is useful for parallel workflows, either loosely coupled or jobs
 requiring MPI or other message passing protocols for tightly bound jobs.
 
+* Maximum CPU available per task: 64
+* Maximum memory available per task: 125G
+* Maximum Runtime: 5 days
+
+_Cluster Defaults_
+
+Please note that if you do not specify CPU, Memory or Time in your job request
+you will be given the cluster defaults which are:
+
+* Default CPU: 1
+* Default Memory: 1G
+* Default Time: 1 hour
+
+You can change these with the -c, --mem and --time parameters to the srun and
+sbatch commands.  Please see this documentation for more information about srun
+and sbatch.
 
 # Preparing your environment
 
