@@ -1,0 +1,8 @@
+#%Modules
+#
+
+module-whatis "Adds the Rstudio IDE"
+
+
+prepend-path PATH /home/software/apps/R/Rstudio/1.1.463/bin
+

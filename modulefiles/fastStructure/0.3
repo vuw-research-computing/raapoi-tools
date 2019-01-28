@@ -1,0 +1,12 @@
+#%Modules
+#
+module-whatis "Adds fastStructure (Python 2.7) Type `structure` to run the script"
+
+module load python/2.7.15
+
+prepend-path PYTHONPATH /home/software/apps/fastStructure/0.3
+prepend-path PATH /home/software/apps/fastStructure/0.3/bin
+prepend-path LD_LIBRARY_PATH /home/software/apps/fastStructure/0.3
+prepend-path LD_LIBRARY_PATH /home/software/apps/fastStructure/0.3/vars
+
+setenv FSHOME /home/software/apps/fastStructure/0.3

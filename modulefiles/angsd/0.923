@@ -1,0 +1,7 @@
+#%Modules
+#
+
+module-whatis "Adds angsd to your environment"
+
+prepend-path PATH /home/software/apps/angsd/0.923
+
