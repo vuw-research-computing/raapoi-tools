@@ -153,8 +153,8 @@ PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
 bigmem       up 10-00:00:0      2   idle c10n01,c11n01
 
 PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
-parallel     up 5-00:00:00      6  down* c04n01,c05n04,c06n[01-04]
-parallel     up 5-00:00:00     27   idle
+parallel     up 10-00:00:00      6  down* c04n01,c05n04,c06n[01-04]
+parallel     up 10-00:00:00     27   idle
 c03n[02-04],c04n[02-04],c05n[01-02],c07n[01,03-04],c08n[01-04],c09n[01-04],c12n[01-04],c13n[01-04]
 
 NOTE: This utility is a wrapper for the Slurm command:
@@ -178,7 +178,7 @@ or for special purposes such as temporary dedicated access
 
 Also notice the TIMELIMIT field, this describes the maximum runtime of a
 partition.  For example the quicktest partition has a maximum runtime of 1 
-hour and the parallel partition has a max runtime of 5 days.
+hour and the parallel partition has a max runtime of 10 days.
 
 #### Partition Descriptions
 
@@ -209,7 +209,7 @@ requiring MPI or other message passing protocols for tightly bound jobs.
 
 * Maximum CPU available per task: 64
 * Maximum memory available per task: 125G
-* Maximum Runtime: 5 days
+* Maximum Runtime: 10 days
 
 _Cluster Defaults_
 
