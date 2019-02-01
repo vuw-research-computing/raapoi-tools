@@ -1,0 +1,6 @@
+#%Modules
+
+
+set root /home/software/apps/diamond
+
+prepend-path	 PATH $root/0.9.24/bin
