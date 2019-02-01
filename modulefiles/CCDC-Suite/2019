@@ -5,4 +5,3 @@ set root /home/software/apps/ccdc
 
 prepend-path	 PATH $root/CSD_2019/bin
 prepend-path	 PATH $root/Discovery_2019/bin
-prepend-path	 LD_LIBRARY_PATH $root/CSD_2019/lib
