@@ -367,7 +367,9 @@ The contents of the array.sh batch script looks like this:
   #SBATCH --mail-type=BEGIN,END,FAIL
   #SBATCH --mail-user=me@email.com
 
-  bash addit.sh
+  module load fastqc/0.11.7
+
+  fastqc --nano -o $TMPDIR/output_dir seqfile_${SLURM_ARRAY_TASK_ID}
 
 ```
 
@@ -378,22 +380,8 @@ So what do these parameter mean?:
 * _--mem-per-cpu_ request 2GB of RAM per CPU, for this parallel job I will request a total of 100GB RAM (50 CPUs * 2GB RAM)
 * _--time_ is the max run time for this job, 10 minutes in this case
 * _--partition_ assigns this job to a partition
-* _bash addit.sh_ run the shell script: addit.sh  
-
-You will notice that this batch script runs the program addit.sh and passes the argument $SLURM_ARRAY_TASK_ID, this variable contains the array number, 1-50 in this case,
-
-This is what the addit.sh script contains, it is a simple example but should show you how to run and use the job array and variables:
-
-```
-  #!/bin/bash
-  echo "The compute node this is running on is $HOSTNAME"
-  # $1 is the variable containing the Task ID which was passed to this script as an argument
-  # using the $SLURM_ARRAY_TASK_ID variable in the array.sh submit script
-  echo "Task ID is $1"
-  # $RANDOM is a built-in pseudo random number generated number, we will add the Task ID to a random number
-  sum=`expr $1 + $RANDOM`
-  echo "Output is $sum"
-```
+* _module load fastqc/0.11.7_: Load software into my environment, in this case fastqc
+* _fastqc --nano -o $TMPDIR/output_dir seqfile_${SLURM_ARRAY_TASK_ID}_ Run fastqc on each input data file with the filenames seqfile_1, seqfile_2...seqfile_50
 
 Running the array.sh script will cause the SLURM manager to spawn 50 parallel jobs.
 
