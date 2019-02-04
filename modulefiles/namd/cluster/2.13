@@ -1,5 +1,5 @@
 #%Modules
 
-set               root              /home/software/apps/namd/2.13
+set               root              /home/software/apps/namd/cluster/2.13
 prepend-path	 PATH $root
 prepend-path	 LD_LIBRARY_PATH $root/lib 
