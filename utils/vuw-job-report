@@ -1,12 +1,7 @@
 #!/bin/bash
 ##
-## List the queue in Sloan partitions
+## Show a brief job report
 ##
-## Usage: sloanq -a|-p|-m
-
-#-a all
-#-p partition
-#-m my partitions (default) based on groups membership
 if [ $# -lt 1 ]; then
   echo ""
   echo "Usage: eo-job-report <JobID>"
