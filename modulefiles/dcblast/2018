@@ -1,0 +1,8 @@
+#%Modules
+
+module load ncbi/blast+
+
+set root /home/software/apps/dcblast/2018
+
+prepend-path	 PATH $root/Slurm
+prepend-path     PERL5LIB $root/Slurm
