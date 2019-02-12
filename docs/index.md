@@ -461,26 +461,27 @@ To cancel all of your jobs you can use the -u flag followed by your username:
 
 #### Viewing Job statistics
 
-If you want to get a quick view of all the jobs completed within the last 48 hours you can use the _vuw-history_ command, for example:
+If you want to get a quick view of all the jobs completed within the last 5 days you can use the _vuw-history_ command, for example:
 
 ```
   vuw-job-history
 
-  MY JOBS WITHIN LAST 48 HOURS
-   JobID State MaxVMSize JobName End
-  ------------ ---------- ---------- ---------- -------------------
-  3054196 CANCELLED+ bash 2017-05-10T15:12:31
-  3105606 CANCELLED+ bash 2017-05-11T14:21:43
-  3105608 COMPLETED 268592K bash 2017-05-11T14:31:44
-  3105622 COMPLETED 268592K bash 2017-05-11T14:34:17
-  3105656 COMPLETED 268592K bash 2017-05-11T14:43:09
+MY JOBS WITHIN LAST 5 days
+       JobID      State    JobName  MaxVMSize    CPUTime 
+------------ ---------- ---------- ---------- ---------- 
+2645          COMPLETED       bash              00:00:22 
+2645.extern   COMPLETED     extern      0.15G   00:00:22 
+2645.0        COMPLETED       bash      0.22G   00:00:20 
+2734          COMPLETED       bash              00:07:40 
+2734.extern   COMPLETED     extern      0.15G   00:07:40 
+2734.0        COMPLETED       bash      0.22G   00:07:40 
 ```
 
 You can also get a report of your completed jobs using the _sacct_ command.  For example if I wanted to get a report on how much memory my job used I could do the following:
 
-   `sacct --format="MaxVMSize" -j 2156`
+   `sacct --units=G --format="MaxVMSize" -j 2156`
 
-* MaxVMSize will report the maximum virtual memory (RAM plus swap space) used by my job in KiloBytes, divide that number by 1024 for MegaBytes, and then that number can be divided by 1024 to see it in GigaBytes..  
+* MaxVMSize will report the maximum virtual memory (RAM plus swap space) used by my job in GigBytes ( --units=G ) 
 * -j 2156 shows the information for job ID 2156
 * type _man sacct_ at a prompt in engaging to see the documentation on the _sacct_ command
 
@@ -501,7 +502,7 @@ As you can see I have a single job running on the node c03n01 on the quicktest p
 
 You can see all the jobs in the queues by running the _vuw-alljobs_ command.  This will produce a very long list of jobs if the cluster is busy.
 
-#### Job Queuing (aka Why isn't my job running?)
+#### Job Queuing (aka Why is my job running?)
 
 When a partition is busy, jobs will be placed in a queue.  You can observe this in the vuw-myjobs and vuw-alljobs commands.  The STATE of your job will be PENDING, this means it is waiting for resources or your job has been re-prioritized to allow other users access to run their jobs (this is called fair-share queueing).
 
