@@ -519,7 +519,7 @@ Time:   If you request more time than the max run-time of a partition, your job 
 
 # Cloud Providers
 
-### Amazon AWS
+#### Amazon AWS
 
 A feature-rich CLI is available in raapoi.  To use it you need to load the appropriate module and its module dependencies:
 
@@ -531,7 +531,7 @@ Once you have the appropriate environment in place and your configuration setup 
 
 More information on the CLI can be found here: http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-using.html
 
-#### Transferring Data to/from Amazon (AWS) S3
+##### Transferring Data to/from Amazon (AWS) S3
 
 To transfer data from S3 you first need to setup your AWS connect, instructions for that can be found above.
 Once that is done you should be able to use the aws commands to copy data to and from your S3 storage.  
@@ -549,13 +549,13 @@ To copy something to storage simply reverse the file paths, eg.
 ```
 The above starts a tmux session to allow the transfer to continue even if I disconnect from the cluster (type `tmux attach` to reconnect).  I then load the modules necessary to use the AWS commands.  I change directory to my project space and use the aws s3 cp command to copy from S3.  More information on using aws can be found here:  http://docs.aws.amazon.com/cli/latest/reference/s3/index.html#cli-aws-s3
 
-#### Working with AWS Data Analysis Tools
+##### Working with AWS Data Analysis Tools
 
 Amazon has a number of data analytics and database services available.  Using the command line utilities available in raapoi, researchers can perform work on the eo cluster and transfer data to AWS to perform further analysis with tools such as MapReduce (aka Hadoop), RedShift or Quicksight.
 
 A listing of available services and documentation can be found at the following: https://aws.amazon.com/products/analytics/
 
-### Google Cloud (gcloud) Connections 
+#### Google Cloud (gcloud) Connections 
 
 The Google Cloud SDK is available in raapoi.  This includes a command-line interface for connecting to gloud services.  To get started, first load the environment module.  You can find the path with the `module spider` command.  As of this writing the current version can be loaded thusly:
 
@@ -567,7 +567,7 @@ This will give you access to the `gcloud` command.  To setup a connection to you
 
 Follow the instructions to authorize your gcloud account.  Once on the Google website, you will be given an authorization code which you will copy/paste back into the raapoi terminal window.
 
-#### Transferring Data to/from Google Cloud (gcloud)
+##### Transferring Data to/from Google Cloud (gcloud)
 
 To transfer data from gcloud storage you first need to setup your gcloud credentials, instructions for that can be found above.  Once that is done you should be able to use the `gsutil` command to copy data to and from your gcloud storage.  
 
@@ -585,11 +585,76 @@ To copy something to storage simply reverse the file paths, eg.
 
 The above starts a tmux session to allow the transfer to continue even if I disconnect from the cluster (type `tmux attach` to reconnect).  I then load the modules necessary to use the gsutil commands.  I change directory to my project space and use the gsutil cp command to copy from gcloud.  More information on using gcloud can be found here:  https://cloud.google.com/sdk/gcloud/
 
-#### Working with GCloud Data Analysis Tools
+##### Working with GCloud Data Analysis Tools
 
 Google Cloud has a number of data analytics and database services available.  Using the gcloud command line utilities available on raapoi, researchers can perform work on the cluster and transfer data to gcloud to perform further analysis with tools such as Dataproc (Hadoop/Spark), BigQuery or Datalab (Visualization)
 
 A listing of available services and documentation can be found at the following: https://cloud.google.com/products/
+
+# DropBox Cloud Storage
+
+_NOTE:_ Dropbox has upload/download limitations and we have found that once your file gets above 50GB in size the transfer will have a better chance of timing out and failing.
+
+Configuring your Dropbox account on raapoi
+
+_Step A:_  On your local laptop or desktop start your browser and login to your Dropbox account
+
+_Step B:_ On Raapoi type the following:
+
+   `module load dropbox`
+
+_Step C:_ Setup account credentials (You should only need to do this once):
+
+Run the following command from Raapoi
+
+   `dbxcli account`
+
+You will now see something like the following:
+
+  1. Go to https://www.dropbox.com/1/oauth2/authorize?client_id=X12345678&response_type=code&state=state
+  2. Click "Allow" (you might have to log in first).
+  3. Copy the authorization code.
+  Enter the authorization code here:
+
+_Step D:_
+
+Copy the URL link listed in Step C1 and paste it into the web browser that you started in Step A
+
+This will provide you with a long access code (aka hash).  Now copy that access code and paste it into your Raapoi terminal after Step C3 where it is asking for Enter the authorization code here 
+
+Now hit enter or return.  You should see that you are now logged in with your Dropbox credentials
+
+#### Basic Dropbox commands
+
+Remember to load the dropbox environment module if you have not already (see `module spider` for the path)
+
+Now type `dbx` or `dbxcli` at a prompt.  You will see a number of sub-commands, for instance ls, which will list the contents of your Dropbox, eg
+
+  `dbxcli ls`
+
+#### Downloading from Dropbox
+
+Downloading uses the subcommand called: get.   The basic format for get is:
+
+  `dbxcli get fileOnDropbox fileOnRaapoi`
+
+For instance, if I have a datafile called 2018-financials.csv on Dropbox that I want to copy to my project folder I would type:
+
+  `dbxcli get 2018-financials.csv /nfs/scratch/harrelwe/projects/finance_proj/2018-financials.csv`
+
+#### Uploading to Dropbox
+
+Uploading is similar to downloading except now we use the subcommand: put.  The basic format for put is:
+
+  `dbxcli put fileOnRaapoi fileOnDropbox`
+
+For example I want to upload a PDF I generated from one of my jobs called final-report.pdf I would type:
+
+  `dbxcli put final-report.pdf final-report.pdf`
+
+This will upload the PDF and name it the same thing, if I wanted to change the name on Dropbox I could:
+
+  `dbxcli put final-report.pdf analytics-class-final-report.pdf`
 
 
 # Using Containers
