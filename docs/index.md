@@ -555,6 +555,43 @@ Amazon has a number of data analytics and database services available.  Using th
 
 A listing of available services and documentation can be found at the following: https://aws.amazon.com/products/analytics/
 
+### Google Cloud (gcloud) Connections 
+
+The Google Cloud SDK is available in raapoi.  This includes a command-line interface for connecting to gloud services.  To get started, first load the environment module.  You can find the path with the `module spider` command.  As of this writing the current version can be loaded thusly:
+
+  module load google/cloud/sdk/212.0.0
+
+This will give you access to the `gcloud` command.  To setup a connection to your gcloud account use the init sub-command, eg.
+
+  `gcloud init --console-only`
+
+Follow the instructions to authorize your gcloud account.  Once on the Google website, you will be given an authorization code which you will copy/paste back into the raapoi terminal window.
+
+#### Transferring Data to/from Google Cloud (gcloud)
+
+To transfer data from gcloud storage you first need to setup your gcloud credentials, instructions for that can be found above.  Once that is done you should be able to use the `gsutil` command to copy data to and from your gcloud storage.  
+
+For example, if I wanted to copy data from gcloud to my project directory I could do the following:
+```
+  tmux
+  module load google/cloud/sdk/212.0.0
+  cd /nfs/scratch/harrelwe/project
+  gsutil cp gs://mybucket/mydata.dat mydata.dat
+```
+To copy something to storage simply reverse the file paths, eg.
+```
+  gsutil cp mydata.dat gs://mybucket/mydata.dat 
+```
+
+The above starts a tmux session to allow the transfer to continue even if I disconnect from the cluster (type `tmux attach` to reconnect).  I then load the modules necessary to use the gsutil commands.  I change directory to my project space and use the gsutil cp command to copy from gcloud.  More information on using gcloud can be found here:  https://cloud.google.com/sdk/gcloud/
+
+#### Working with GCloud Data Analysis Tools
+
+Google Cloud has a number of data analytics and database services available.  Using the gcloud command line utilities available on raapoi, researchers can perform work on the cluster and transfer data to gcloud to perform further analysis with tools such as Dataproc (Hadoop/Spark), BigQuery or Datalab (Visualization)
+
+A listing of available services and documentation can be found at the following: https://cloud.google.com/products/
+
+
 # Using Containers
 
 Researchers can use Docker or Singularity containers within the cluster.  This is a great way to run difficult-to-compile applications or to share workflows among colleagues.
