@@ -517,6 +517,44 @@ Time:   If you request more time than the max run-time of a partition, your job 
 * **ReqNodeNotAvail** - 99% of the time you will receive this code if you have asked for too much time. This frequently occurs when the cluster is about to go into maintenance and a reservation has been placed on the cluster, which reduces the maximum run-time of all jobs.  For example, if maintenance on the cluster is 1 week away, the maximum run-time on all jobs needs to be less than 1 week, regardless if the configured maximum run-time on a partition is greater than 1 week.  To request time you can use the --time parameter.  Another issue is if you request too much memory or a CPU configuration that does not exist on any node in a partition.  
 * **Required node not available (down, drained or reserved)** - This is related to ReqNodeNotAvail, see above.
 
+# Cloud Providers
+
+### Amazon AWS
+
+A feature-rich CLI is available in raapoi.  To use it you need to load the appropriate module and its module dependencies:
+
+  `module load amazon/aws/cli`
+
+Before you proceed you will need to configure your environment with your Access Key ID and Secret Access Key, both of which will be sent to you once your account is created or linked.  The command to configure your environment is `aws configure`  You only need to do this once, unless of course you use more than one user/Access Key.  Most users can simply click through the region and profile questions (using the default of "none").  If you do have a specific region this should be relayed along with your access and secret keys.
+
+Once you have the appropriate environment in place and your configuration setup you can use the aws command, plus an appropriate sub-command (s3, emr, rds, dynamodb, etc) and supporting arguments. 
+
+More information on the CLI can be found here: http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-using.html
+
+#### Transferring Data to/from Amazon (AWS) S3
+
+To transfer data from S3 you first need to setup your AWS connect, instructions for that can be found above.
+Once that is done you should be able to use the aws commands to copy data to and from your S3 storage.  
+
+For example if I wanted to copy data from my S3 storage to my project directory I could do the following:
+```
+  tmux
+  module load amazon/aws/cli
+  cd /nfs/scratch/harrelwe/project
+  aws s3 cp s3://mybucket/mydata.dat mydata.dat
+```
+To copy something to storage simply reverse the file paths, eg.
+```
+  aws s3 cp mydata.dat s3://mybucket/mydata.dat 
+```
+The above starts a tmux session to allow the transfer to continue even if I disconnect from the cluster (type `tmux attach` to reconnect).  I then load the modules necessary to use the AWS commands.  I change directory to my project space and use the aws s3 cp command to copy from S3.  More information on using aws can be found here:  http://docs.aws.amazon.com/cli/latest/reference/s3/index.html#cli-aws-s3
+
+#### Working with AWS Data Analysis Tools
+
+Amazon has a number of data analytics and database services available.  Using the command line utilities available in raapoi, researchers can perform work on the eo cluster and transfer data to AWS to perform further analysis with tools such as MapReduce (aka Hadoop), RedShift or Quicksight.
+
+A listing of available services and documentation can be found at the following: https://aws.amazon.com/products/analytics/
+
 # Using Containers
 
 Researchers can use Docker or Singularity containers within the cluster.  This is a great way to run difficult-to-compile applications or to share workflows among colleagues.
