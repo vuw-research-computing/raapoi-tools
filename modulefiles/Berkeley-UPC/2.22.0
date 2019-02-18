@@ -1,0 +1,4 @@
+#%Modules
+
+prepend-path	 PATH /home/software/apps/berkeley-upc/2.22.0/bin
+prepend-path	 MANPATH /home/software/apps/berkely-upc/2.22.0/man
