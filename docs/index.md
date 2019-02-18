@@ -517,7 +517,7 @@ Time:   If you request more time than the max run-time of a partition, your job 
 * **ReqNodeNotAvail** - 99% of the time you will receive this code if you have asked for too much time. This frequently occurs when the cluster is about to go into maintenance and a reservation has been placed on the cluster, which reduces the maximum run-time of all jobs.  For example, if maintenance on the cluster is 1 week away, the maximum run-time on all jobs needs to be less than 1 week, regardless if the configured maximum run-time on a partition is greater than 1 week.  To request time you can use the --time parameter.  Another issue is if you request too much memory or a CPU configuration that does not exist on any node in a partition.  
 * **Required node not available (down, drained or reserved)** - This is related to ReqNodeNotAvail, see above.
 
-# Cloud Providers
+# Connecting to Cloud Providers
 
 #### Amazon AWS
 
@@ -529,7 +529,8 @@ Before you proceed you will need to configure your environment with your Access 
 
 Once you have the appropriate environment in place and your configuration setup you can use the aws command, plus an appropriate sub-command (s3, emr, rds, dynamodb, etc) and supporting arguments. 
 
-More information on the CLI can be found here: http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-using.html
+More information on the CLI can be found here:
+[http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-using.html](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-using.html)
 
 ##### Transferring Data to/from Amazon (AWS) S3
 
@@ -547,13 +548,19 @@ To copy something to storage simply reverse the file paths, eg.
 ```
   aws s3 cp mydata.dat s3://mybucket/mydata.dat 
 ```
-The above starts a tmux session to allow the transfer to continue even if I disconnect from the cluster (type `tmux attach` to reconnect).  I then load the modules necessary to use the AWS commands.  I change directory to my project space and use the aws s3 cp command to copy from S3.  More information on using aws can be found here:  http://docs.aws.amazon.com/cli/latest/reference/s3/index.html#cli-aws-s3
+The above starts a tmux session to allow the transfer to continue even if I
+disconnect from the cluster (type `tmux attach` to reconnect).  I then load the
+modules necessary to use the AWS commands.  I change directory to my project
+space and use the aws s3 cp command to copy from S3.  More information on using
+aws can be found here:
+[http://docs.aws.amazon.com/cli/latest/reference/s3/index.html#cli-aws-s3](http://docs.aws.amazon.com/cli/latest/reference/s3/index.html#cli-aws-s3)
 
 ##### Working with AWS Data Analysis Tools
 
 Amazon has a number of data analytics and database services available.  Using the command line utilities available in raapoi, researchers can perform work on the eo cluster and transfer data to AWS to perform further analysis with tools such as MapReduce (aka Hadoop), RedShift or Quicksight.
 
-A listing of available services and documentation can be found at the following: https://aws.amazon.com/products/analytics/
+A listing of available services and documentation can be found at the following:
+[https://aws.amazon.com/products/analytics/](https://aws.amazon.com/products/analytics/)
 
 #### Google Cloud (gcloud) Connections 
 
@@ -583,27 +590,33 @@ To copy something to storage simply reverse the file paths, eg.
   gsutil cp mydata.dat gs://mybucket/mydata.dat 
 ```
 
-The above starts a tmux session to allow the transfer to continue even if I disconnect from the cluster (type `tmux attach` to reconnect).  I then load the modules necessary to use the gsutil commands.  I change directory to my project space and use the gsutil cp command to copy from gcloud.  More information on using gcloud can be found here:  https://cloud.google.com/sdk/gcloud/
+The above starts a tmux session to allow the transfer to continue even if I
+disconnect from the cluster (type `tmux attach` to reconnect).  I then load the
+modules necessary to use the gsutil commands.  I change directory to my project
+space and use the gsutil cp command to copy from gcloud.  More information on
+using gcloud can be found here:
+[https://cloud.google.com/sdk/gcloud/](https://cloud.google.com/sdk/gcloud/)
 
 ##### Working with GCloud Data Analysis Tools
 
 Google Cloud has a number of data analytics and database services available.  Using the gcloud command line utilities available on raapoi, researchers can perform work on the cluster and transfer data to gcloud to perform further analysis with tools such as Dataproc (Hadoop/Spark), BigQuery or Datalab (Visualization)
 
-A listing of available services and documentation can be found at the following: https://cloud.google.com/products/
+A listing of available services and documentation can be found at the following:
+[https://cloud.google.com/products/](https://cloud.google.com/products/)
 
 # DropBox Cloud Storage
 
-_NOTE:_ Dropbox has upload/download limitations and we have found that once your file gets above 50GB in size the transfer will have a better chance of timing out and failing.
+__NOTE:__ Dropbox has upload/download limitations and we have found that once your file gets above 50GB in size the transfer will have a better chance of timing out and failing.
 
 Configuring your Dropbox account on raapoi
 
-_Step A:_  On your local laptop or desktop start your browser and login to your Dropbox account
+__Step A:__  On your local laptop or desktop start your browser and login to your Dropbox account
 
-_Step B:_ On Raapoi type the following:
+__Step B:__ On Raapoi type the following:
 
    `module load dropbox`
 
-_Step C:_ Setup account credentials (You should only need to do this once):
+__Step C:__ Setup account credentials (You should only need to do this once):
 
 Run the following command from Raapoi
 
@@ -616,7 +629,7 @@ You will now see something like the following:
   3. Copy the authorization code.
   Enter the authorization code here:
 
-_Step D:_
+__Step D:__
 
 Copy the URL link listed in Step C1 and paste it into the web browser that you started in Step A
 
@@ -656,6 +669,27 @@ This will upload the PDF and name it the same thing, if I wanted to change the n
 
   `dbxcli put final-report.pdf analytics-class-final-report.pdf`
 
+# AARNET Cloudstor
+
+All VUW researchers have access to the AARNET (Australia’s Academic and Research
+Network) Cloudstor service which provides __1 TB__ of space to each researcher.  To
+use this service first login and download an appropriate client to your laptop
+or desktop (or smarthone if you wish):
+
+[Cloudstor Login](https://apac01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcloudstor.aarnet.edu.au%2Fsimplesaml%2Fmodule.php%2Fdiscopower%2Fdisco.php%3FentityID%3Dhttps%253A%252F%252Fcloudstor.aarnet.edu.au%252Fsimplesaml%252Fmodule.php%252Fsaml%252Fsp%252Fmetadata.php%252Fdefault-sp%26return%3Dhttps%253A%252F%252Fcloudstor.aarnet.edu.au%252Fsimplesaml%252Fmodule.php%252Fsaml%252Fsp%252Fdiscoresp.php%253FAuthID%253D_d8e2f7cbdf882a033df5b33385b5936c08e0e133a1%25253Ahttps%25253A%25252F%25252Fcloudstor.aarnet.edu.au%25252Fsimplesaml%25252Fmodule.php%25252Fcore%25252Fas_login.php%25253FAuthId%25253Ddefault-sp%252526ReturnTo%25253Dhttp%2525253A%2525252F%2525252Fcloudstor.aarnet.edu.au%2525252Fplus%2525252F%26returnIDParam%3Didpentityid&data=02%7C01%7Cwes.harrell%40vuw.ac.nz%7Cefa10aeb0f1d42a6cd2408d6953c9496%7Ccfe63e236951427e8683bb84dcf1d20c%7C0%7C0%7C636860484751891881&sdata=nkN7OI6g%2BKs%2FLoMG6tOtoWqk1%2FU1gbxZK%2FjCd8NNZ6c%3D&reserved=0)
+
+Once you have setup your cloudstor (aka ownCloud) credentials you can use them
+to sync data to and from Raapoi.  For example, if I wanted to sync my project
+space to Cloudstor I would do the following from raapoi login node:
+
+```
+  tmux
+  cd /nfs/scratch/harrelwe
+  owncloudcmd -u wes.harrell@vuw.ac.nz project1 https://cloudstor.aarnet.edu.au/plus/remote.php/webdav/
+```
+
+The above sequence starts a tmux session to allow the transfer to continue even if I disconnect from the cluster
+(type `tmux attach` to reconnect), I then change directory (_cd_) to my scratch space and then use the command `owncloudcmd` to sync my project directory called project1 to the Cloudstor service.  You will be prompted for your Cloudstor password, you can also embed this within the command line using the -p paramter.  
 
 # Using Containers
 
