@@ -604,7 +604,7 @@ Google Cloud has a number of data analytics and database services available.  Us
 A listing of available services and documentation can be found at the following:
 [https://cloud.google.com/products/](https://cloud.google.com/products/)
 
-# DropBox Cloud Storage
+#### DropBox Cloud Storage
 
 __NOTE:__ Dropbox has upload/download limitations and we have found that once your file gets above 50GB in size the transfer will have a better chance of timing out and failing.
 
@@ -637,7 +637,7 @@ This will provide you with a long access code (aka hash).  Now copy that access 
 
 Now hit enter or return.  You should see that you are now logged in with your Dropbox credentials
 
-#### Basic Dropbox commands
+##### Basic Dropbox commands
 
 Remember to load the dropbox environment module if you have not already (see `module spider` for the path)
 
@@ -645,7 +645,7 @@ Now type `dbx` or `dbxcli` at a prompt.  You will see a number of sub-commands, 
 
   `dbxcli ls`
 
-#### Downloading from Dropbox
+##### Downloading from Dropbox
 
 Downloading uses the subcommand called: get.   The basic format for get is:
 
@@ -655,7 +655,7 @@ For instance, if I have a datafile called 2018-financials.csv on Dropbox that I 
 
   `dbxcli get 2018-financials.csv /nfs/scratch/harrelwe/projects/finance_proj/2018-financials.csv`
 
-#### Uploading to Dropbox
+##### Uploading to Dropbox
 
 Uploading is similar to downloading except now we use the subcommand: put.  The basic format for put is:
 
@@ -669,7 +669,7 @@ This will upload the PDF and name it the same thing, if I wanted to change the n
 
   `dbxcli put final-report.pdf analytics-class-final-report.pdf`
 
-# AARNET Cloudstor
+#### AARNET Cloudstor
 
 All VUW researchers have access to the AARNET (Australia’s Academic and Research
 Network) Cloudstor service which provides __1 TB__ of space to each researcher.  To
