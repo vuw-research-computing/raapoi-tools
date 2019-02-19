@@ -1,0 +1,10 @@
+#%Modules
+
+prepend-path	 PATH /home/software/apps/LLVM/UPC/3.9.1-0/bin
+prepend-path	 PATH /home/software/apps/LLVM/UPC/3.9.1-0/clang/bin
+prepend-path	 LD_LIBRARY_PATH /home/software/apps/LLVM/UPC/3.9.1-0/lib
+prepend-path	 LD_LIBRARY_PATH /home/software/apps/LLVM/UPC/3.9.1-0/clang/lib
+prepend-path	 CPATH /home/software/apps/LLVM/UPC/3.9.1-0/clang/include
+prepend-path	 C_INCLUDE_PATH /home/software/apps/LLVM/UPC/3.9.1-0/clang/include
+prepend-path	 CPLUS_INCLUDE_PATH /home/software/apps/LLVM/UPC/3.9.1-0/clang/include
+prepend-path	 MANPATH /home/software/apps/LLVM/UPC/3.9.1-0/clang/share/man
