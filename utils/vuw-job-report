@@ -4,8 +4,8 @@
 ##
 if [ $# -lt 1 ]; then
   echo ""
-  echo "Usage: eo-job-report <JobID>"
-  echo "   Eg: eo-job-report 267895"
+  echo "Usage: vuw-job-report <JobID>"
+  echo "   Eg: vuw-job-report 267895"
   echo ""
   exit 1
 fi
