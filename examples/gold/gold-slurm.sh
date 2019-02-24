@@ -3,11 +3,6 @@
 # for processing on a Slurm cluster. The multi-mol2
 # file is not modified but a unique gold.conf is needed for each batch.
 #
-### Defaults
-# n_procs - the number of individual jobs to launch
-#n_procs=2
-# conffile - the prepared GOLD configuration file
-#conffile=gold.conf
 usage() {
     echo
     echo "Usage: $0 [-n n_procs] [-c conf_file] -t"
@@ -96,7 +91,7 @@ EOS
     proc=`expr $proc + 1`
     lig1=`expr $lig2 + 1`
     lig2=`expr $split \* $proc`
-    # don't overwhelm qsub
+    # don't overwhelm slurm
     sleep 1
 done
 if [ -e collate_results.sh ] ; then
