@@ -85,7 +85,7 @@ EOS
 
     else
         # For Debug
-        echo $GOLD_DIR/bin/gold_auto $dir/$new_conf
+        echo "gold_auto $dir/$new_conf"
     fi
     outdirs="$dir/output_${lig1}_${lig2} $outdirs"
     proc=`expr $proc + 1`
