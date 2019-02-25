@@ -6,7 +6,7 @@
 usage() {
     echo
     echo "Usage: $0 [-n n_procs] [-c conf_file] -t"
-    echo "  -n n_procs : number of individual jobs to launch"
+    echo "  -n n_procs : number of individual jobs to launch {default: 2}"
     echo "  -c conf_file  : the prepared GOLD configuration file"
     echo "  -d : debug"
     exit
@@ -14,6 +14,7 @@ usage() {
 
 # test - for debugging, don't launch sbatch
 debug=0
+n_procs=2
 if [[ "$#" == "0" ]]; then
   usage
 fi
