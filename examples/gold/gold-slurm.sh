@@ -43,7 +43,7 @@ dir=`pwd`
 # need to get this here to work out how many ligands it's got
 file=`awk '/ligand_data_file/ { print $2 }' $conffile`
 # Calculate number of molecules to be docked
-if [[ -z $n_mols ]]; then
+if [[ -z $file ]]; then
   echo "No ligand data found in $conffile"
   exit 1
 else
@@ -81,7 +81,7 @@ while [ $proc -le $n_procs ]; do
 
 module load CCDC-Suite/2019
 
-gold_auto $dir/$new_conf"
+gold_auto $dir/$new_conf
 EOS
 
     else
