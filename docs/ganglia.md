@@ -3,4 +3,3 @@ Visit [here](http://raapoi.vuw.ac.nz/ganglia/) to get real-time metrics and hist
 Ganglia example:
 <a href="http://raapoi.vuw.ac.nz/ganglia/"><img src="../img/Ganglia_static.png"> </a>
 
-![Ganglia example](img/Ganglia_static.png)
