@@ -13,5 +13,5 @@ markdown_extensions:
 
 extra_css: [extra.css]
 
-repo_url: https://github.com/matty-plumski/vuwrc
+repo_url: https://github.com/matty-plumski/vuwrc/
 site_url: https://matty-plumski.github.io/vuwrc/
