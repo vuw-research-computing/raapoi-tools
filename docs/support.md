@@ -3,7 +3,7 @@ Visit the [Raapoi Slack Channel](https://uwrc.slack.com) for help, software requ
 Need an account on Raapoi or access to the Slack channel? Contact the CAD Research Support team:
 
 
-<img src="/img/Andre.jpg" width="200" height="200"> 
+<img src="vuwrc/img/Andre.jpg" width="200" height="200"> 
 <br>
 Andre Geldenhuis
 <br>
