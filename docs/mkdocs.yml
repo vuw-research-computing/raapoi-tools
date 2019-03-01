@@ -13,11 +13,4 @@ markdown_extensions:
 
 extra_css: [extra.css]
 
-
-- url: /vuwrc/
-  static_files: static/doc/index.html
-  upload: vuwrc/docs/index.html
-- url: /vuwrc
-  static_dir: static/vuwrc
-
-  use_directory_urls: false
+site_url: https://matty-plumski.github.io/vuwrc/
