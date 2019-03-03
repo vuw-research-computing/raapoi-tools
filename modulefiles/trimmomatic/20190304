@@ -1,0 +1,9 @@
+#%Modules
+#
+#
+#
+#
+
+module load java/jdk/1.8.0_121
+
+setenv 	 TM_HOME /home/software/apps/trimmomatic/20190304/bin
