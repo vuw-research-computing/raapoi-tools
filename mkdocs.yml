@@ -2,7 +2,6 @@ site_name: Raapoi Cluster Documentation
 nav: 
   - Documentation: index.md
   - Support: support.md
-  - Utilisation: ganglia.md
 
 theme: readthedocs
 markdown_extensions:

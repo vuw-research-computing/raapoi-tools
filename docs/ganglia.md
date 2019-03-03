@@ -1,6 +1,0 @@
-Visit [here](http://raapoi.vuw.ac.nz/ganglia/) to get real-time metrics and history of Raapoi's utilisation.
-
-Ganglia example:
-<a href="http://raapoi.vuw.ac.nz/ganglia/"><img src="vuwrc/img/Ganglia_static.png"> </a>
-
-![Ganglia_logo](/img/Ganglia_static.png)
