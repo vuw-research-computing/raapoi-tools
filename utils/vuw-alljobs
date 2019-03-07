@@ -5,14 +5,14 @@
 
 RED='\033[0;31m'
 NC='\033[0m'
-printf "${RED}QUICK TEST PARTITION QUEUE: quicktest (Default partition) ${NC}\n"
-squeue -p quicktest -o "%.15i %.8j %.10u %.7C %.7m %.12M %.12L %.10T %R"
+printf "${RED}PARALLEL PARTITION QUEUE: parallel${NC}\n"
+squeue -p parallel -o "%.15i %.8j %.10u %.7C %.7m %.12M %.12L %.10T %R"
 echo ""
 printf "${RED}BIG MEMORY PARTITION QUEUE: bigmem${NC}\n"
 squeue -p bigmem -o "%.15i %.8j %.10u %.7C %.7m %.12M %.12L %.10T %R"
 echo ""
-printf "${RED}PARALLEL PARTITION QUEUE: parallel${NC}\n"
-squeue -p parallel -o "%.15i %.8j %.10u %.7C %.7m %.12M %.12L %.10T %R"
+printf "${RED}QUICK TEST PARTITION QUEUE: quicktest (Default partition) ${NC}\n"
+squeue -p quicktest -o "%.15i %.8j %.10u %.7C %.7m %.12M %.12L %.10T %R"
 echo ""
 
 #if [[ `groups` =~ .*sched_mit_thesmar* ]]; then
