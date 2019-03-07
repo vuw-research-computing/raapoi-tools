@@ -196,7 +196,7 @@ jobs.
 _Partition: bigmem_
 
 This partition is primarily useful for jobs that require very large shared
-memory (generally greater than 256 GB).  These are known as memory-bound jobs.
+memory (generally greater than 125 GB).  These are known as memory-bound jobs.
 
 * Maximum CPU available per task: 48
 * Maximum memory available per task: 1T (Note: maximum CPU for 1TB is 40)
