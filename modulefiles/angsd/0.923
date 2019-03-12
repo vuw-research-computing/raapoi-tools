@@ -3,5 +3,7 @@
 
 module-whatis "Adds angsd to your environment"
 
+prepend-path PATH /home/software/apps/angsd/0.923/scripts
+prepend-path PATH /home/software/apps/angsd/0.923/misc
 prepend-path PATH /home/software/apps/angsd/0.923
 
