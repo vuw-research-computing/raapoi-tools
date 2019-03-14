@@ -44,7 +44,8 @@ fi
 echo "Submitting job to build CRAN, check CRAN-build logfiles"
 echo "in $ROUT for any specific log or error information."
 echo "Once completed, sync data to user repo area and update modulefile"
-echo "if necessary, see docs in OneNote for details"
+echo "if necessary"
+echo ""
 
 sbatch -p parallel -c 8 --mem=64G --time=5-00:00 \
   -o $ROUT/CRAN-build-${1}.out -e $ROUT/CRAN-build-${1}.err \
