@@ -124,7 +124,7 @@ module use -a /home/software/vuwrc/modulefiles
 module load config
 
 #launch dbus: provides for some desktop tools, eg gio
-export $(dbus-launch --exit-with-session)
+#export $(dbus-launch --exit-with-session)
 
 ##ADD your stuff below
 
