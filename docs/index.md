@@ -1,5 +1,5 @@
 
-The Raapoi HPC Cluster (hereafter referred to as: raapoi) is a Uni-wide computing
+The Rāpoi HPC Cluster (aka raapoi) is a Uni-wide computing
 resource that uses the Slurm resource manager to schedule jobs and reserve
 resources.  Similar to most modern compute clusters, raapoi requires you to
 request CPU, Memory and Time for your job.  If you do not request these
@@ -27,7 +27,7 @@ languages.
 
 _Access is via SSH_
 
-*  Hostname: raapoi.vuw.ac.nz (for CADGrid use: 10.60.49.210)
+*  Hostname: raapoi.vuw.ac.nz
 *  Port: 22
 *  Username: Your VUW username
 *  Password: Your VUW password
@@ -53,7 +53,7 @@ NOTE:  Once at the command prompt you can type the following to login (replace "
 _Windows SSH Clients_
 
 * Recommended Clients:
-  * [Git Bash](https://gitforwindows.org/) is a great option and is part of the Git  for Windows project
+  * [Git Bash](https://gitforwindows.org/) is a great option and is part of the Git for Windows project
   * [MobaXterm](https://mobaxterm.mobatek.net/) is a good option, especially if you require access to GUI applications such as MATLAB or xStata.  This also has a built-in SFTP transfer window.
 
 
@@ -98,7 +98,7 @@ Raapoi is built using the Linux operating system. Access is primarily via comman
 The _-r_ flag recursively removes files and directories
 
 **mkdir** - This will create a new directory
-* _mkdir /home/myusername/financial_
+* _mkdir /nfs/home/myusername/financial_
 
 Other Commands you may use: _alias, awk, cat, export, for, grep, gzip, if, less, sed, tar, while_
 
@@ -123,7 +123,7 @@ harrelwe@raapoi-master:~$ vuw-quota
 Quotas for home directory
 
                        Storage  Usage (GB)  Quota (GB)     % Used 
-            /nfs/home/harrelwe        0.10       25.00      0.40%
+            /nfs/home/harrelwe        0.10       50.00      0.20%
 ```
 
 
@@ -135,8 +135,8 @@ configurations.
 
 For example, the quicktest partition has a maximum job run-time of 1 hour, whereas the partition
 bigmem has a maximum runtime of 10 days.  Partitions can also
-limit who can run a job.  iCurrently any user can use any partition but there
-may come a time when certain research groups purchase their own kit and they are
+limit who can run a job.  Currently any user can use any partition but there
+may come a time when certain research groups purchase their own nodes and they are
 given exclusive access.
 
 To view the partitions available to use you can type the vuw-partitions
@@ -164,20 +164,20 @@ NOTE: This utility is a wrapper for the Slurm command:
 Notice the STATE field, this describes the current condition of nodes within the
 partition, the most common states are defined as:
 
-* idle - nodes in an idle state have no jobs running, all resources are available
+* __idle__ - nodes in an idle state have no jobs running, all resources are available
 for work
-* mix - nodes in a mixed state have some jobs running, but still have some
+* __mix__ - nodes in a mixed state have some jobs running, but still have some
 resources available for work
-* alloc - nodes in an alloc state are completely full, all resources are in use.
-* drain - nodes in a drain state have some running jobs, but no new jobs can be
+* __alloc__ - nodes in an alloc state are completely full, all resources are in use.
+* __drain__ - nodes in a drain state have some running jobs, but no new jobs can be
 run.  This is typically done before the node goes into maintenance
-* maint - node is in maintenance mode, no jobs can be submitted
-* resv - node is in a reservation.  A reservation is setup for future maintenance
+* __maint__ - node is in maintenance mode, no jobs can be submitted
+* __resv__ - node is in a reservation.  A reservation is setup for future maintenance
 or for special purposes such as temporary dedicated access
-* down - node is down, either for maitnenance or due to failure
+* __down__ - node is down, either for maitnenance or due to failure
 
-Also notice the TIMELIMIT field, this describes the maximum runtime of a
-partition.  For example the quicktest partition has a maximum runtime of 1 
+Also notice the _TIMELIMIT_ field, this describes the maximum runtime of a
+partition.  For example, the quicktest partition has a maximum runtime of 1 
 hour and the parallel partition has a max runtime of 10 days.
 
 #### Partition Descriptions
@@ -199,7 +199,7 @@ This partition is primarily useful for jobs that require very large shared
 memory (generally greater than 125 GB).  These are known as memory-bound jobs.
 
 * Maximum CPU available per task: 48
-* Maximum memory available per task: 1T (Note: maximum CPU for 1TB is 40)
+* Maximum memory available per task: 1 TB (Note: maximum CPU for 1 TB is 40)
 * Maximum Runtime: 10 days
 
 _Partition: parallel_
@@ -216,8 +216,8 @@ _Cluster Defaults_
 Please note that if you do not specify CPU, Memory or Time in your job request
 you will be given the cluster defaults which are:
 
-* Default CPU: 1
-* Default Memory: 1G
+* Default CPU: 2
+* Default Memory: 2 GB
 * Default Time: 1 hour
 
 You can change these with the -c, --mem and --time parameters to the srun and
@@ -237,7 +237,17 @@ However, instead of searching through a long list, if you know you want to use l
 
   `module keyword lua`
 
-If you want to know more about a particular module you can use the whatis subcommand.  Some modules have this available, for instance:
+If you want to know more about a particular module you can use the _whatis_ or
+_show_ subcommand.  Some modules have this available, for instance:
+
+```
+harrelwe@raapoi-master:~$ module show trimmomatic/20190304 
+-------------------------------------------------------------------------------------------------------------
+   /home/software/vuwrc/modulefiles/trimmomatic/20190304:
+-------------------------------------------------------------------------------------------------------------
+load("java/jdk/1.8.0_121")
+setenv("TM_HOME","/home/software/apps/trimmomatic/20190304/bin")
+```
 
 ```
   module whatis R/CRAN/3.5
@@ -254,7 +264,8 @@ Once you have found the module path you can load the software:
 After the module loads you can type srun --pty lua at a prompt, or add it to the path of your lua script (the RC team recommends using /usr/bin/env instead of an absolute path).
 
 Showing/listing the module environment modifications
-You can discover what the module will load into your environment you can run module show, for example here is what gurobi adds:
+You can discover what the module will load into your environment you can run
+module show, for example here is what R adds:
 
 ```
 module show R/3.5.1
@@ -489,7 +500,7 @@ You can also get a report of your completed jobs using the _sacct_ command.  For
 #### Viewing jobs in the Queue
 
 
-To view your running jobs you can type the vuw-myjobs  eg:
+To view your running jobs you can type _vuw-myjobs_  eg:
 
 
 ```
@@ -504,15 +515,15 @@ You can see all the jobs in the queues by running the _vuw-alljobs_ command.  Th
 
 #### Job Queuing (aka Why is my job running?)
 
-When a partition is busy, jobs will be placed in a queue.  You can observe this in the vuw-myjobs and vuw-alljobs commands.  The STATE of your job will be PENDING, this means it is waiting for resources or your job has been re-prioritized to allow other users access to run their jobs (this is called fair-share queueing).
+When a partition is busy, jobs will be placed in a queue.  You can observe this
+in the _vuw-myjobs_ and _vuw-alljobs_ commands.  The STATE of your job will be PENDING, this means it is waiting for resources or your job has been re-prioritized to allow other users access to run their jobs (this is called fair-share queueing).
 
 The resource manager will list a reason the job is pending, these reasons can include:
 
 * **Priority** - Your job priority has been reduced to allow other users access to the cluster.  If no other user with normal priority is also pending then your job will start once resources are available.  Possible reasons why your priority has been lowered can include:  the number of jobs you have run in the past 24-48 hours; the duration of the job and the amount of resources requested.  The Slurm manager uses fair-share queuing to ensure the best use of the cluster.  You can google fair-share queuing  if you want to know more
 * **Resources**- There are insufficient resources to start your job.  Some combination of CPU, Memory, Time or other specialized resource are unavailable.  Once resources are freed up your job will begin to run.  
 Time:   If you request more time than the max run-time of a partition, your job will be queued indefinitely (in other words:  it will never run).  Your time request must be less than or equal to the Partition Max Run-Time.  Also if a special reservation is placed on the cluster, for instance prior to a scheduled maintenance, this too will reduce the available time to run your job.  You can see Max Run-Time for our partitions described in this document.  CAD or ITS Staff will alert all users prior to any scheduled maintenance and advise them of the time restrictions.
-* **QOSMaxCPUPerUser** - This is a Quality of Service configuration to limit the number of CPUs per user.   The QOSMax is the maximum that can be requested for any single job.  If a user requests more CPUs than the QOSMax for a single job then the job will not run.  If the user requests more than QOSMax in 2 or more jobs then the subsequent jobs will queue until the users running jobs complete.
-* **QOSMaxMemPerUser** - This is a Quality of Service configuration to limit the memory usage per user.   The QOSMax is the maximum that can be requested for any single job.  If a user requests more Memory than the QOSMax for a single job then the job will not run.  If the user requests more than QOSMax in 2 or more jobs then the subsequent jobs will queue until the users running jobs complete.
+* **QOSGrpCPULimit** - This is a Quality of Service configuration to limit the number of CPUs per user.   The QOSMax is the maximum that can be requested for any single job.  If a user requests more CPUs than the QOSMax for a single job then the job will not run.  If the user requests more than QOSMax in 2 or more jobs then the subsequent jobs will queue until the users running jobs complete.
 * **PartitionTimeLimit** - This means you have requested more time than the maximum runtime of the partition.  This document contains information about the different partitions, including max run-time.  Typing _vuw-partition_ will also show the max run-time for the partitions available to you.
 * **ReqNodeNotAvail** - 99% of the time you will receive this code if you have asked for too much time. This frequently occurs when the cluster is about to go into maintenance and a reservation has been placed on the cluster, which reduces the maximum run-time of all jobs.  For example, if maintenance on the cluster is 1 week away, the maximum run-time on all jobs needs to be less than 1 week, regardless if the configured maximum run-time on a partition is greater than 1 week.  To request time you can use the --time parameter.  Another issue is if you request too much memory or a CPU configuration that does not exist on any node in a partition.  
 * **Required node not available (down, drained or reserved)** - This is related to ReqNodeNotAvail, see above.
