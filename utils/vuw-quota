@@ -12,7 +12,7 @@ luser = os.getenv('USER')
 #lines = [b.strip() for b in out.split('\n')]
 
 #print('\n\033[31m{0:>10}\033[0m'.format('Quotas for home, storage pool and shared project spaces'))
-print('\n\033[31m{0:>10}\033[0m'.format('Quotas for home directory'))
+print('\n\033[31m{0:>10}\033[0m'.format('Quota for home directory'))
 print('\n\033[1m{0:>30}  {1:10}  {2:10}  {3:10}\033[0m'.format('Storage','Usage (GB)','Quota (GB)','   % Used'))
 
 #get user quotas
@@ -36,7 +36,7 @@ for line in qfile:
       user,used,quota = line.split()
       print('{0:>30}  {1:10.2f}  {2:10.2f} {3:10.2%}'.format('/nfs/home/' + user,float(used)/(1024**2), float(quota)/(1024**2),float(used)/float(quota)))
 print ""
-print('\n\033[31m{0:>10}\033[0m'.format('Quotas for scratch directory'))
+print('\n\033[31m{0:>10}\033[0m'.format('Quota for scratch directory'))
 print('\n\033[1m{0:>30}  {1:10}  {2:10}  {3:10}\033[0m'.format('Storage','Usage (GB)','Quota (GB)','   % Used'))
 print ""
 qfile = open('/nfs/home/cad/log/scratch.log', 'r')

@@ -111,9 +111,9 @@ A good tutorial for using linux can be found here:
 
 Currently users have 2 main storage areas:
 
-* __/nfs/home/USERNAME__ - This is your Home Directory, each user has a 50GB quota limit.
+* __/nfs/home/USERNAME__ - This is your Home Directory, each user has a *50 GB* quota limit.
 
-* __/nfs/scratch/USERNAME__ - This is you scratch space, currently there is no limit and the capacity is 51 TB 
+* __/nfs/scratch/USERNAME__ - This is you scratch space, each user has a *5 TB* quota limit 
 
 To view your current quota and usage use the _vuw-quota_ command, for example:
 
