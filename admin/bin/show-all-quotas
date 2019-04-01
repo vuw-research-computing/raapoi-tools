@@ -13,13 +13,13 @@ print('\n\033[1m{0:>30}  {1:10}  {2:10}  {3:10}\033[0m'.format('Storage','Usage 
 for line in qfile:
    proj,used,quota = line.split()
    #print('{0:>30}  {1:10.2f}  {2:10.2f} {3:10.2%}'.format(proj,float(used)/(1024**2), float(quota)/(1024**2),float(used)/float(quota)))
-   print('{0:>30}  {1:10.2f}  {2:10.2f} {3:10.2%}'.format(proj,float(used)/(1024**2), float(quota)/(1024**2)))
+   print('{0:>30}  {1:10.2f}  {2:10.2f}'.format(proj,float(used)/(1024**2), float(quota)/(1024**2)))
 
 print ""
 qfile = open('/nfs/home/cad/log/scratch.log', 'r')
 print('\n\033[1m{0:>30}  {1:10}  {2:10}  {3:10}\033[0m'.format('Storage','Usage (GB)','Quota (GB)','   % Used'))
 for line in qfile:
    proj,used,quota = line.split()
-   print('{0:>30}  {1:10.2f}  {2:10.2f} {3:10.2%}'.format(proj,float(used)/(1024**2), float(quota)/(1024**2)))
+   print('{0:>30}  {1:10.2f}  {2:10.2f}'.format(proj,float(used)/(1024**2), float(quota)/(1024**2)))
 
 print ""
