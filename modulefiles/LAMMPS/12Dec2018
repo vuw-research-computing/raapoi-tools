@@ -4,7 +4,7 @@
 module-whatis "Adds LAMMPS"
 
 module load openmpi/3.1.2
-require openmpi/3.1.2
+prereq openmpi/3.1.2
 
 prepend-path PATH /home/software/apps/LAMMPS/12Dec2018/bin
 prepend-path MANPATH /home/software/apps/LAMMPS/12Dec2018/share/man
