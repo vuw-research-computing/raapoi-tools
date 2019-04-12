@@ -1,0 +1,5 @@
+#%Modules
+
+set               root              /home/software/apps/kraken/2.0.7-beta
+prepend-path	 PATH $root
+prepend-path	 PERL5LIB $root
