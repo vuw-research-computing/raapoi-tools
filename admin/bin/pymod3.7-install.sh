@@ -35,5 +35,6 @@ $PIP install networkx --target=/home/software/apps/local/lib/py37 --upgrade
 $PIP install boto3 --target=/home/software/apps/local/lib/py37 --upgrade
 $PIP install gensim --target=/home/software/apps/local/lib/py37 --upgrade
 $PIP install saspy --target=/home/software/apps/local/lib/py37 --upgrade
-#$PIP install tensorflow --target=/home/software/apps/local/lib/py37 --upgrade
+$PIP install tabulate --target=/home/software/apps/local/lib/py37 --upgrade
+$PIP install sphinx --target=/home/software/apps/local/lib/py37 --upgrade
 
