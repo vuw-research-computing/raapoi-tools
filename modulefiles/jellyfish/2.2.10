@@ -1,0 +1,4 @@
+#%Modules
+
+set               root              /home/software/apps/jellyfish/2.2.10
+prepend-path	 PATH $root
