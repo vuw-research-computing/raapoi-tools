@@ -1,0 +1,14 @@
+#%Modules
+#
+
+module-whatis "Adds Gaussview 5.0"
+
+module load Gaussian
+
+set root        /home/software/apps/Gaussview/5.0
+
+setenv    GV_DIR $root
+
+prepend-path 	 PATH 			 $root/bin
+prepend-path 	 PATH 			 $root
+prepend-path 	 LD_LIBRARY_PATH 	 $root/lib
