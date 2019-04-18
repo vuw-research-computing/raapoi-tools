@@ -44,7 +44,8 @@ You can use the built-in Terminal.app or you can download iTerm2 or XQuartz. XQu
     * Applications --> Utilities --> Terminal.app
     * Or use Spotlight search (aka Command-Space)
 * [iTerm2](https://www.iterm2.com/) is a good replacement for the default Terminal app
-* [XQuartz](https://www.xquartz.org/) is a Xforwarding application with its own terminal.  XQuartz can be used in conjuction with the Terminal.app for GUI apps
+* [XQuartz](https://www.xquartz.org/) is a Xforwarding application with its own terminal.  XQuartz can be used in conjuction with the Terminal.app for GUI apps.  NOTE: Mac users should run the following command: `sudo defaults write org.macosforge.xquartz.X11 enable_iglx -bool true`   We have found that this allows some older GUI applications to run with fewer errors.
+ 
 
 NOTE:  Once at the command prompt you can type the following to login (replace "username" with your VUW user):
 
@@ -70,7 +71,7 @@ The commands available as of this update are:
 * _vuw-partitions_:      Prints a list of available partitions and the availability of compute nodes
 * _vuw-alljobs_:         Prints a list of all user jobs
 * _vuw-myjobs_:          Prints a list of your running or pending jobs
-* _vuw-job-history_:     Show jobs finished in last 48 hours
+* _vuw-job-history_:     Show jobs finished in last 5 days
 
 
 #### Linux Commands
