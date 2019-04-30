@@ -1,0 +1,6 @@
+#%Modules
+
+setenv	MINIMAP2_HOME	/home/software/apps/minimap2/2.16
+set               root              /home/software/apps/minimap2/2.16
+prepend-path	 PATH $root 
+prepend-path	MANPATH $root
