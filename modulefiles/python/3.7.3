@@ -3,6 +3,8 @@
 
 module-whatis "Adds python-3.7.3 to your environment"
 
-prepend-path PATH /home/software/apps/python/3.7.3/bin
-prepend-path LD_LIBRARY_PATH /home/software/apps/python/3.7.3/lib
-
+set root  /home/software/apps/python/3.7.3
+prepend-path PATH $root/bin
+prepend-path LD_LIBRARY_PATH $root/lib
+prepend-path CPATH $root/include
+prepend-path C_INCLUDE_PATH $root/include
