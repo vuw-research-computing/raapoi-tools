@@ -31,7 +31,7 @@ _Access is via SSH_
 *  Port: 22
 *  Username: Your VUW username
 *  Password: Your VUW password
-*  NOTE: VPN access may be required for some users to connect to raapoi
+*  *NOTE:* On-campus network connection or VPN access is required.
 
 Note: We recommend against saving your password within your SSH client, this is counter to security best-practice and will most likely cause issues in the future.
 
