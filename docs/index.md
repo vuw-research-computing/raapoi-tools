@@ -28,11 +28,15 @@ languages.
 _Access is via SSH_
 
 *  Hostname: raapoi.vuw.ac.nz
+*  IP Address: 130.195.19.14
 *  Port: 22
 *  Username: Your VUW username
 *  Password: Your VUW password
 
-*NOTE:* On-campus wired network connection or VPN.  VPN is required if connecting from campus wifi or from off-campus
+*NOTE:* On-campus wired network connection or VPN.  VPN is required if
+connecting from campus wifi or from off-campus. Some users have had issues with
+using the hostname and instead need to use the IP address, eg
+`harrelwe@130.195.19.14`
 
 
 #### SSH Clients
