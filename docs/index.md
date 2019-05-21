@@ -31,7 +31,8 @@ _Access is via SSH_
 *  Port: 22
 *  Username: Your VUW username
 *  Password: Your VUW password
-*  *NOTE:* On-campus network connection or VPN access is required.
+
+*NOTE:* On-campus wired network connection or VPN.  VPN is required if connecting from campus wifi or from off-campus
 
 Note: We recommend against saving your password within your SSH client, this is counter to security best-practice and will most likely cause issues in the future.
 
