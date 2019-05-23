@@ -1,0 +1,9 @@
+#%Modules
+#
+
+module-whatis "Adds the R language path to your environment"
+
+#prereq R
+
+prepend-path PATH /home/software/apps/R/3.6.0/bin
+

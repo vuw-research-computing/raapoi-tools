@@ -28,7 +28,7 @@ fi
 
 #Load modules required for successful build
 module load $2
-module load mpi/openmpi
+module load openmpi/3.1.2
 module load java/jdk/1.8.0_121
 
 echo "Did you receive any module load errors? (y|n)"
@@ -47,7 +47,7 @@ echo "Once completed, sync data to user repo area and update modulefile"
 echo "if necessary"
 echo ""
 
-sbatch -p parallel -c 8 --mem=60G --time=5-00:00 \
+sbatch -p bigmem -c 8 --mem=120G --time=5-00:00 \
   -o $ROUT/CRAN-build-${1}.out -e $ROUT/CRAN-build-${1}.err \
   --mail-type=BEGIN,END,FAIL --mail-user=wes.harrell@vuw.ac.nz -J CRAN-build \
   xvfb-run R CMD BATCH --vanilla "--args $1" $CRANBUILD $ROUT/CRAN-build-${1}.Rout
