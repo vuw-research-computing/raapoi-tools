@@ -1,0 +1,7 @@
+#%Modules
+
+set              root /home/software/apps/ISSM/4.15/trunk
+prepend-path PATH $root/scripts
+prepend-path LD_LIBRARY_PATH $root/lib
+prepend-path MATLABPATH $root/bin
+prepend-path MATLABPATH $root/lib
