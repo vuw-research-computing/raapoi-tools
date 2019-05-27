@@ -6,5 +6,9 @@ module-whatis "Adds the Schrodinger Suite "
 set root /home/software/apps/Schrodinger/2019-2
 prepend-path PATH $root/thirdparty/bin/Linux-x86_64/blast/bin
 prepend-path PATH $root/thirdparty/bin/Linux-x86_64/hmmer/bin
+prepend-path PATH $root/utilities
 prepend-path PATH $root
+
+setenv schrodinger $root
+setenv SCHRODINGER $root
 
