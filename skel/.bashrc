@@ -120,7 +120,7 @@ fi
 export XDG_RUNTIME_DIR=""
 
 # Add VUWRC modules & load stadrad config
-module use -a /home/software/vuwrc/modulefiles
+module use -a /home/software/tools/modulefiles
 module load config
 
 #launch dbus: provides for some desktop tools, eg gio
