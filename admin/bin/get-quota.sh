@@ -1,9 +1,11 @@
 #!/bin/bash
-LOG=/home/software/sloan/local/log/quota.log
-if [ "${HOSTNAME%%.cm.cluster}" != "eofe-data008-mgmt" ]; then
-  echo "Must be run from eofe-data008"
+LOG=/nfs/home/cad/log/quota.log
+SCRATCH=/nfs/home/cad/log/scratch.log
+if [ "${HOSTNAME%%}" != "raapoi_fs01" ]; then
+  echo "Must be run from raapoi_fs01"
   echo ""
   exit
 else
-  sudo xfs_quota -x -c 'report' /sloanlab001 | grep _proj | awk '{print $1, $2, $4}' > $LOG
+  sudo xfs_quota -x -c 'report -u' /mnt/home | awk '{print $1, $2, $4}' > $LOG
+  sudo xfs_quota -x -c 'report -u' /mnt/scratch | awk '{print $1, $2, $4}' > $SCRATCH
 fi
