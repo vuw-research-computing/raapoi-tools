@@ -1,8 +1,10 @@
 #%Modules
 
+set root /home/software/apps/netcdf/fortran/4.4.4
 prepend-path	 PATH /home/software/apps/netcdf/fortran/4.4.4/bin
 prepend-path	 LD_LIBRARY_PATH /home/software/apps/netcdf/fortran/4.4.4/lib
 prepend-path	 LIBRARY_PATH /home/software/apps/netcdf/fortran/4.4.4/lib
 prepend-path	 C_INCLUDE_PATH /home/software/apps/netcdf/fortran/4.4.4/include
 prepend-path	 CPATH /home/software/apps/netcdf/fortran/4.4.4/include
 prepend-path	 MANPATH /home/software/apps/netcdf/fortran/4.4.4/share
+setenv NETCDF_FORTRAN_PATH $root
