@@ -2,7 +2,7 @@
 d48=`date --date="5 days ago" +%Y-%m-%d`
 printf "${RED}MY JOBS WITHIN LAST 5 days${NC}\n"
 #sacct --format="JobID, State, MaxRSS, JobName, End" -S $d48 -s CD -s CA -s F
-sacct --units=G --format="JobID, State, JobName, MaxVMSize, CPUTime" -S $d48 -s CD -s CA -s F
+sacct --units=G --format="JobID, State, JobName, MaxVMSize, CPUTime" -S $d48 
 echo ""
 echo "MaxVMSize represents the maximum memory used by your job.  You can use"
 echo "this to help determine your future resource requests"
@@ -14,6 +14,6 @@ echo "You can also use the vuw-job-report command to see more information about"
 echo "a specific job"
 echo ""
 echo "NOTE: This utility is a wrapper for the Slurm command:"
-echo '       sacct --units=G --format="JobID, State, JobName, MaxVMSize, CPUTime" -s CD -s CA -s F'
+echo '       sacct --units=G --format="JobID, State, JobName, MaxVMSize, CPUTime"'
 echo ""
 exit 0
