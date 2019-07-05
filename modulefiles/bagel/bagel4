@@ -6,3 +6,4 @@ prepend-path	 PATH $root/tools/glimmer3.02/bin
 prepend-path	 PATH $root/tools/hmmsearch/binaries
 prepend-path	 PATH $root/tools/MOODS-python-1.9.3
 prepend-path	 PATH $root/tools/transterm_hp_v2.09
+prepend-path     PERL5LIB $root/lib
