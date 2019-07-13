@@ -2,11 +2,9 @@
 ##
 RED='\033[0;31m'
 NC='\033[0m'
-echo -e "\033[1m              JOBID PARTITION     NAME     USER STATE            TIME          NODES  NODELIST(REASON) \033[0m"
+#echo -e "\033[1m          JOBID     PARTITION           NAME     CPUs  MEM    TIME          STATE   NODES  NODELIST(REASON) \033[0m"
 #printf "${RED}MY JOBS ON RAAPOI PARTITIONS${NC}\n"
-squeue -l -h -u $USER -p quicktest
-squeue -l -h -u $USER -p bigmem
-squeue -l -h -u $USER -p parallel
+squeue -u $USER -o "%.15i %.10P  %.16j %.7C %.7m %.12M %.12L %.10T %R"
 echo ""
 echo "NOTE: This utility is a wrapper for the Slurm command:"
 echo '      squeue -l -h -u $USER -p PARTITION'
