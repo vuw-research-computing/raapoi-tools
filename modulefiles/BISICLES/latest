@@ -1,0 +1,9 @@
+#%Modules
+
+
+module load openmpi/3.1.2
+module load hdf5tools/1.8.21
+
+set root /home/software/apps/BISICLES
+
+setenv BISICLES_HOME $root
