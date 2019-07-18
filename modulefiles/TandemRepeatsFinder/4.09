@@ -1,0 +1,3 @@
+#%Module
+
+prepend-path PATH /home/software/apps/TandemRepeatFinder/4.09/
