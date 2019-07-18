@@ -34,7 +34,7 @@ function build_perl_modules {
     echo "Log: ${LOG}"
 
     BUILD_DIR="${LIB_DIR}/${DATE}"
-    mkdir ${BUILD_DIR} && cat ${MOD_FILE} | ${WRAPPER_SHELL} "${CPANM} --notest -L ${BUILD_DIR} --mirror http://cpan.catalyst.net.nz/CPAN/ --mirror-only --auto-cleanup 2" >${LOG} 2>&1
+    mkdir ${BUILD_DIR} && cat ${MOD_FILE} | ${WRAPPER_SHELL} "${CPANM} --notest -l ${BUILD_DIR} --mirror http://cpan.catalyst.net.nz/CPAN/ --mirror-only --auto-cleanup 2" >${LOG} 2>&1
 
     if [ $? -eq 0 ]; then
     	echo "[SUCCESS] CPANM compiled all Perl ${BUILD_VER} modules."

@@ -1,1 +1,11 @@
+DBI
+DBD::SQLite
+forks
+forks::shared
+File::Which
+Perl::Unsafe::Signals
+Bit::Vector
+Inline::C
+IO::All
+IO::Prompt
 Term::Cap
