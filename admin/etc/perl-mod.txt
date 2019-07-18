@@ -1,12 +1,5 @@
-Parse::RPM::Spec
 Pod::Usage
-Proc::Daemon
-Proc::PID::File
-Proc::ProcessTable
-Readonly
-RT::Client::REST
 Scalar::Util
-SNMP::Util
 String::ShellQuote
 Sys::Filesystem
 Sys::Hostname
@@ -18,9 +11,4 @@ Text::Wrap
 Tie::IxHash
 Time::HiRes
 Time::Local
-UI::Dialog
-Unicode::Japanese
 URI
-User::pwent
-WebService::Prowl
-WWW::Mechanize
