@@ -1,0 +1,5 @@
+#%Modules
+
+set               root              /home/software/apps/RECON/1.08
+prepend-path	 PATH $root/bin
+prepend-path	 PATH $root/scripts

@@ -1,0 +1,6 @@
+#%Modules
+
+set               root              /home/software/apps/RepeatModeler/1.0.11
+prepend-path	 PATH $root/util
+prepend-path	 PATH $root
+prepend-path     PERL5LIB $root
