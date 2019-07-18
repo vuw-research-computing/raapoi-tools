@@ -1,14 +1,1 @@
-Pod::Usage
-Scalar::Util
-String::ShellQuote
-Sys::Filesystem
-Sys::Hostname
-Term::ANSIColor
 Term::Cap
-Term::ReadLine::Gnu
-Test::Exception
-Text::Wrap
-Tie::IxHash
-Time::HiRes
-Time::Local
-URI
