@@ -1,3 +1,4 @@
+Bio::Root::Version
 Bit::Vector
 DBI
 DBD::SQLite
