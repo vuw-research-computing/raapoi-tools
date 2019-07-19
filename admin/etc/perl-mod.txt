@@ -1,7 +1,6 @@
 Bit::Vector
 DBI
 DBD::SQLite
-DBD::Pg
 forks
 forks::shared
 File::Which
