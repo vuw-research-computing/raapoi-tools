@@ -1,0 +1,6 @@
+#%Modules
+
+set              root              /home/software/apps/local/lib/perl/5.16/current
+prepend-path	   PATH $root/bin
+prepend-path     PERL5LIB $root/lib
+prepend-path     MANPATH $root/man
