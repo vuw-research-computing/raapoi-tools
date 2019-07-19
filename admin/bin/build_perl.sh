@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Build modules for perl and install on NFS
-#  (the NFS dir is added to @INC by sitecustomize.pl -- see `man perlrun`)
+# NOTE: To add modules to be built edit raapoi-tools:admin/etc/perl-mod.txt
+#
+# Build modules for perl
 
 DATE=$(date +'%m%d%Y%H%M')
 MX='/bin/mailx -r no-reply@vuw.ac.nz'
@@ -10,9 +11,6 @@ LIB_BASE_DIR='/home/software/apps/local/lib/perl'
 
 # Desired target perl version
 BUILD_VER="$1"
-
-# prevent our sitecustomize.pl from loading modules from the prior build RT#248677
-export HMDC_PERL_OMIT_SITECUSTOMIZE=1
 
 ###
 ### Functions
