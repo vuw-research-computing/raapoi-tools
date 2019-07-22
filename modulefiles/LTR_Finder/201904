@@ -1,0 +1,5 @@
+#%Module
+
+set root 	/home/software/apps/LTR_Finder/201904
+
+prepend-path	PATH 	$root/source
