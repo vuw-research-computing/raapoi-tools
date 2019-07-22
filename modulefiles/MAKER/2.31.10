@@ -1,0 +1,16 @@
+#%Module
+
+module load perl/CPAN/5.16
+module load BioPerl/1.7.2
+module load Exonerate/2.2.0
+module load ncbi/blast+/2.7.1
+module load RepeatMasker/4.0.8
+module load SNAP/latest
+module load openmpi/3.1.2
+
+
+set root 	/home/software/apps/MAKER/2.31.10
+
+prepend-path	PATH 	$root/bin
+prepend-path    PERL5LIB $root/perl/lib
+prepend-path	MANPATH $root/perl/man
