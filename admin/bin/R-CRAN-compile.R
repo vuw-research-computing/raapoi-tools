@@ -1,4 +1,3 @@
-
 # Global option to not test before loading.  We might get a few broken pkgs but
 # we also get some packages that build OK but for some reason fail a test.  We
 # can look into these if users complain.
@@ -10,7 +9,7 @@ args = commandArgs()
 base = "/home/software/apps/local/lib/R/"
 plib = paste(base, args[9], sep = "")
 
-## CRAN repo options( repos = 'ftp://mirror.hmdc.harvard.edu/CRAN' )
+## CRAN repo
 options(repos = "http://cran.stat.auckland.ac.nz")
 # Get new modules
 plist <- new.packages(lib.loc = plib)
