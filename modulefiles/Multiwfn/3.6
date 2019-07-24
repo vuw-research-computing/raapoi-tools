@@ -1,5 +1,9 @@
 #%Modules
 
+module load gaussian/g09-revD.01
+
 set           root    /home/software/apps/Multiwfn/3.6
 prepend-path  PATH    $root
 setenv        Multiwfnpath  $root
+setenv        cubegenpath   /home/software/apps/gaussian//g09-revD.01/g09/cubegen
+setenv        gaupath       /home/software/apps/gaussian//g09-revD.01/g09
