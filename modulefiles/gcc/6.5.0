@@ -2,6 +2,7 @@
 
 prepend-path	 PATH /home/software/apps/gcc/6.5.0/bin
 prepend-path	 LD_LIBRARY_PATH /home/software/apps/gcc/6.5.0/lib
+prepend-path	 LD_LIBRARY_PATH /home/software/apps/gcc/6.5.0/lib64
 prepend-path	 CPATH /home/software/apps/gcc/6.5.0/include
 prepend-path	 C_INCLUDE_PATH /home/software/apps/gcc/6.5.0/include
 prepend-path	 CPLUS_INCLUDE_PATH /home/software/apps/gcc/6.5.0/include
