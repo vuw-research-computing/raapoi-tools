@@ -1,5 +1,6 @@
 #%Modules
 
 set               root              /home/software/apps/pilon/1.23
+prepend-path	  PATH $root
 prepend-path	  CLASSPATH $root
-setenv          PILONPATH $root     
+setenv          PILONPATH $root
