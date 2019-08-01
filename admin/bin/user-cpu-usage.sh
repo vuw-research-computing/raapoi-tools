@@ -16,11 +16,11 @@ else
   STOPTIME=$2
 fi
 #
-FOUT="eo-usage-$STARTTIME-$STOPTIME"
+FOUT="raapoi-usage-$STARTTIME-$STOPTIME"
 if [ -f ~/$FOUT ]; then
   rm -f ~/$FOUT
-fi 
-for i in `eo-show-users`; do 
+fi
+for i in `get-users`; do
 #  sacct -p -u $i -S $STARTTIME -E $STOPTIME --format User,CPUTimeRAW -X |grep ^[a-z] |awk -F"|" '{sec+=$2} END {print $1"," sec}' |grep -v ^, | tee -a ~/$FOUT
   sacct -p -u $i -S $STARTTIME -E $STOPTIME --format $SACCT_FORMAT -X >> ~/$FOUT
 done
