@@ -12,7 +12,7 @@ FILTER3="sublime_text |cat |head |more |view|bin\/aws "
 
 mailuser ()
 {
-mailx -s "WARNING: process on Cluster login node" $1@mit.edu<<EOW
+mailx -s "WARNING: process on Cluster login node" $1@email.addr<<EOW
 
 You are running the following process on the Cluster login node:
 
