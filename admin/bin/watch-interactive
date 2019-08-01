@@ -1,2 +1,0 @@
-#!/bin/bash
-watch -n 10 'squeue -p sched_mit_sloan_interactive -o "%.15i %.8j %.10u %.7c %.7m %.12M %.12L %.10T %R"'
