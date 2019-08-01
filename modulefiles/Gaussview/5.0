@@ -3,7 +3,7 @@
 
 module-whatis "Adds Gaussview 5.0"
 
-module load Gaussian
+module load gaussian
 
 set root        /home/software/apps/Gaussview/5.0
 
