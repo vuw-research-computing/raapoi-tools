@@ -30,7 +30,7 @@ print('\n\033[1m{0:>30}  {1:10}  {2:10}  {3:10}\033[0m'.format('Storage','Usage 
 #g = subprocess.Popen(['groups'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 #out,err = g.communicate()
 #groups = out.split()
-qfile = open('/nfs/home/cad/log/quota.log', 'r')
+qfile = open('/nfs/home/cad/log/quota.log', 'w')
 for line in qfile:
     if luser in line:
       user,used,quota = line.split()
