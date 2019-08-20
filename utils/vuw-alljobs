@@ -8,7 +8,7 @@ NC='\033[0m'
 printf "${RED}PARALLEL PARTITION QUEUE: parallel${NC}\n"
 squeue -p parallel -o "%.15i %.16j %.10u %.7C %.7m %.12M %.12L %.10T %R"
 echo ""
-echo ""
+# add echo?
 printf "${RED}BIG MEMORY PARTITION QUEUE: bigmem${NC}\n"
 squeue -p bigmem -o "%.15i %.16j %.10u %.7C %.7m %.12M %.12L %.10T %R"
 echo ""
