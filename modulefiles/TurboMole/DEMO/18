@@ -1,0 +1,6 @@
+#%Modules
+#
+
+
+prepend-path PATH /home/software/apps/COSMOlogic/TmoleX18/DEMO/bin
+prepend-path LD_LIBRARY_PATH /home/software/apps/COSMOlogic/TmoleX18/DEMO/lib
