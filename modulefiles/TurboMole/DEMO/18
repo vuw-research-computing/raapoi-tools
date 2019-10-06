@@ -2,5 +2,8 @@
 #
 
 
-prepend-path PATH /home/software/apps/COSMOlogic/TmoleX18/DEMO/bin
+prepend-path PATH /home/software/apps/COSMOlogic/TmoleX18/DEMO/bin/em64t-unknown-linux-gnu
+prepend-path PATH /home/software/apps/COSMOlogic/TmoleX18/DEMO/TURBOMOLE/bin/em64t-unknown-linux-gnu
+prepend-path PATH /home/software/apps/COSMOlogic/TmoleX18/DEMO/TURBOMOLE/bin/em64t-unknown-linux-gnu_mpi
+prepend-path PATH /home/software/apps/COSMOlogic/TmoleX18/DEMO/TURBOMOLE/bin/em64t-unknown-linux-gnu_smp
 prepend-path LD_LIBRARY_PATH /home/software/apps/COSMOlogic/TmoleX18/DEMO/lib
