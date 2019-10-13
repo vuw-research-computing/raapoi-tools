@@ -1,0 +1,4 @@
+#%Modules
+
+set               root              /home/software/apps/pinfish
+prepend-path	 PATH $root/LATEST
