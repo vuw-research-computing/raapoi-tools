@@ -9,5 +9,5 @@ if [ "${HOSTNAME%%}" != "raapoi_fs01" ]; then
 else
   sudo xfs_quota -x -c 'report -u' /mnt/home | awk '{print $1, $2, $4}' > $LOG
   sudo xfs_quota -x -c 'report -u' /mnt/scratch | awk '{print $1, $2, $4}' > $SCRATCH
-  sudo xfs_quota -x -c 'report -g' /mnt/scratch | awk '{print $1, $2, $4}' > $GROUP
+  sudo xfs_quota -x -c 'report -g' /mnt/scratch | egrep -v "(^#|users|root|wheel|cadadm)" | awk '{print $1, $2, $4}' > $GROUP
 fi
