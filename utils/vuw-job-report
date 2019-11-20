@@ -17,6 +17,10 @@ sacct --units=G  -j $1 --format="JobName,NNodes, ReqMem, MaxVMSize, ReqCPUS%9, A
 echo ""
 echo "# ReqMem output includes Requested Memory per Node (n) or per CPU (c), eg 2Gc is 2 GB per CPU"
 echo ""
+echo "# There may be a difference between Requested CPUs and Allocated CPUs."
+echo "# This is due to hyperthreading being enabled on the cluster.  If you request an odd number"
+echo "# of CPUs you will be given an extra CPU so a CPU core is not shared between 2 different jobs"
+echo ""
 echo "NOTE: This utility is a wrapper for the Slurm command:"
 echo '      sacct --units=G -j $1 --format="JobName, NNodes, ReqMem, MaxVMSize, ReqCPUS%9, TotalCPU, State, End" -n'
 echo ""
