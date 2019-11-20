@@ -12,10 +12,10 @@ fi
 RED='\033[0;31m'
 NC='\033[0m'
 printf "${RED}JOB REPORT FOR JOB $1${NC}\n"
-echo -e "\033[1m     JobName  Nodes    ReqMem   UsedMem(GB)  ReqCPUs CPUTime    State    Completed \033[0m"
-sacct --units=G  -j $1 --format="JobName,NNodes, ReqMem, MaxVMSize, ReqCPUS%9, TotalCPU, State, End" -n
+echo -e "\033[1m     JobName  Nodes    ReqMem   TotalMemUsed  ReqCPUs AllocCPUs    CPUTime     State    Completed \033[0m"
+sacct --units=G  -j $1 --format="JobName,NNodes, ReqMem, MaxVMSize, ReqCPUS%9, AllocCPUS, TotalCPU%15, State, End" -n
 echo ""
-echo "# ReqMem output includes Requested Memory per Node (n) or per CPU (c), eg 2Gc is 2 GB per CPU" 
+echo "# ReqMem output includes Requested Memory per Node (n) or per CPU (c), eg 2Gc is 2 GB per CPU"
 echo ""
 echo "NOTE: This utility is a wrapper for the Slurm command:"
 echo '      sacct --units=G -j $1 --format="JobName, NNodes, ReqMem, MaxVMSize, ReqCPUS%9, TotalCPU, State, End" -n'
