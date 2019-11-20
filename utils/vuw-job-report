@@ -19,9 +19,11 @@ echo "# ReqMem output includes Requested Memory per Node (n) or per CPU (c), eg 
 echo ""
 echo "# There may be a difference between Requested CPUs and Allocated CPUs."
 echo "# This is due to hyperthreading being enabled on most nodes in the cluster.  If you request an odd number"
-echo "# of CPUs you will be given an extra CPU so a CPU core is not shared between 2 different jobs"
+echo "# of CPUs you may be given an extra CPU so a CPU core is not shared between 2 different jobs. This will only"
+echo "# occur if your job is run on a node with hyperthreading enabled.  This will also affect your memory allocation."
+echo "# If you have any questions or concerns about hyperthreading and memory usage, please send a message to Slack"
 echo ""
 echo "NOTE: This utility is a wrapper for the Slurm command:"
-echo '      sacct --units=G -j $1 --format="JobName, NNodes, ReqMem, MaxVMSize, ReqCPUS%9, AllocCPUS, TotalCPU%15, State, End" -n'
+echo 'sacct --units=G -j $1 --format="JobName, NNodes, ReqMem, MaxVMSize, ReqCPUS%9, AllocCPUS, TotalCPU%15, State, End" -n'
 echo ""
 exit 0
