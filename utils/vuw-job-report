@@ -22,6 +22,6 @@ echo "# This is due to hyperthreading being enabled on the cluster.  If you requ
 echo "# of CPUs you will be given an extra CPU so a CPU core is not shared between 2 different jobs"
 echo ""
 echo "NOTE: This utility is a wrapper for the Slurm command:"
-echo '      sacct --units=G -j $1 --format="JobName, NNodes, ReqMem, MaxVMSize, ReqCPUS%9, TotalCPU, State, End" -n'
+echo '      sacct --units=G -j $1 --format="JobName, NNodes, ReqMem, MaxVMSize, ReqCPUS%9, AllocCPUS, TotalCPU%15, State, End" -n'
 echo ""
 exit 0
