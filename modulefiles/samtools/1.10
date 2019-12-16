@@ -1,0 +1,6 @@
+#%Modules
+
+conflict	 samtools
+set               root              /home/software/apps/samtools/1.10
+prepend-path	 PATH $root/bin
+prepend-path	 MANPATH $root/share/man
