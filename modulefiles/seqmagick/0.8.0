@@ -6,4 +6,4 @@ module-whatis "Adds seqmagick"
 module load python/3.7.3
 
 prepend-path PATH /home/software/apps/seqmagick/0.8.0/bin
-prepend-path PYTHONPATH /home/software/apps/seqmagick/0.8.0/lib
+prepend-path PYTHONPATH /home/software/apps/seqmagick/0.8.0/lib/python3.7/site-packages
