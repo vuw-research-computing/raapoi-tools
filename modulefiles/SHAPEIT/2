@@ -1,0 +1,5 @@
+#%Modules
+
+set               root              /home/software/apps/SHAPEIT/2
+prepend-path	 PATH $root/bin
+setenv SHAPEIT_EXAMPLE $root/example
