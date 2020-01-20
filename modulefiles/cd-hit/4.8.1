@@ -1,0 +1,12 @@
+#%Modules
+
+
+module load ncbi/blast+/2.7.1
+
+set               root              /home/software/apps/cd-hit/4.8.1
+prepend-path	 PATH $root
+prepend-path	 PATH $root/cd-hit-auxtools
+prepend-path	 PATH $root/psi-cd-hit
+prepend-path	 PATH $root/usecases/miRNA-seq
+prepend-path	 PATH $root/usecases/Miseq-165
+setenv SHAPEIT_EXAMPLE $root/example
