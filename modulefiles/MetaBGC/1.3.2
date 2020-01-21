@@ -1,0 +1,11 @@
+#%Modules
+#
+
+module-whatis "Adds MetaBGC to PATH &  PYTHONPATH"
+
+set root /home/software/apps/MetaBGC/1.3.2
+module load python/3.7.3
+prereq python/3.7.3
+
+prepend-path PYTHONPATH $root/lib/python3.7/site-packages
+prepend-path PATH $root/bin
