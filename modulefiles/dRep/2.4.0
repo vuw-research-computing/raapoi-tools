@@ -6,6 +6,8 @@ module-whatis "Adds dRep"
 module load python/3.7.3
 module load mummer
 module load mash
+module load ANIcalculator/v1
+module load prodigal/2.6.3
 
 set root /home/software/apps/drep/2.4.0
 
