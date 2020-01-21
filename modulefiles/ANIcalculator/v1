@@ -1,0 +1,4 @@
+#%Modules
+
+set               root              /home/software/apps/ANIcalculator/v1
+prepend-path	 PATH $root
