@@ -9,6 +9,7 @@ module load mash
 module load ANIcalculator/v1
 module load prodigal/2.6.3
 module load CheckM/1.1.2
+module load centrifuge/1.0.4
 
 set root /home/software/apps/drep/2.4.0
 
