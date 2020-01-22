@@ -1,0 +1,8 @@
+#%Modules
+
+module load python/3.7.3
+
+set root /home/software/apps/CONCOCT/1.1.0
+
+prepend-path PATH $root/bin
+prepend-path PYTHONPATH $root/lib/python3.7/site-packages
