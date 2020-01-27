@@ -1,0 +1,12 @@
+#%Modules
+#
+
+module-whatis "Adds python-3.8.1 to your environment"
+
+module load gcc/8.2.0
+
+set root  /home/software/apps/python/3.8.1
+prepend-path PATH $root/bin
+prepend-path LD_LIBRARY_PATH $root/lib
+prepend-path CPATH $root/include
+prepend-path C_INCLUDE_PATH $root/include
