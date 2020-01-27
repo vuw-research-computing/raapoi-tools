@@ -2,10 +2,10 @@
 #
 #SBATCH -c 2
 #SBATCH --mem=8G
-#SBATCH -p main
+#SBATCH -p parallel
 #SBATCH --time=2-00:00
 #SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --mail-user=wesley@aandw.net
+#SBATCH --mail-user=wes.harrell@vuw.ac.nz
 #
 # CFLAGS required to build some modules, eg cffi, which is a requirement for scrapy
 #export CFLAGS="-I/home/software/apps/local/lib/libffi-3.2.1/include -L/home/software/sloan/local/lib64"
