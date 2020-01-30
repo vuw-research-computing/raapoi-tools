@@ -13,13 +13,13 @@ for i in $(cat $TMPFILE); do
   CPUS=$(echo $i | cut -d"|" -f 3)
   RAWMEM=$(echo $i | cut -d"|" -f 4)
 
-  if [ $RAWMEM =~ "Gn" ]; then
+  if [[ "$RAWMEM" =~ "Gn" ]]; then
     MEM=${RAWMEM%Gn}
   else
     let MEM="${RAWMEM%Gc} * $CPUS"
   fi
 
-  if [ $MEM -lt 100 ]; then
-    echo "$USER is a bad user"
+  if [[ $MEM -lt 100 ]]; then
+    echo "$USER is using $MEM GB on bigmem"
   fi
-done  
+done
