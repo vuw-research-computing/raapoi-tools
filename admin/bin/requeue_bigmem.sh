@@ -20,6 +20,7 @@ for i in $(cat $TMPFILE); do
   fi
 
   if [[ $MEM -lt 100 ]]; then
-    echo "$USER is using $MEM GB on bigmem"
+    #echo "$USER is using $MEM GB on bigmem"
+    echo "$USER $JOBID $CPUS $MEM" | mailx -s "$USER using $MEM on bigmem" wes.harrell@vuw.ac.nz
   fi
 done
