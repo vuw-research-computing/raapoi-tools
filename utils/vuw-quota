@@ -13,13 +13,20 @@ qfile = open('/nfs/home/cad/log/quota.log', 'r')
 for line in qfile:
     if luser in line:
       user,used,quota = line.split()
-      print('{0:>30}  {1:10.2f}  {2:10.2f} {3:10.2%}'.format('/nfs/home/' + user,float(used)/(1024**2), float(quota)/(1024**2),float(used)/float(quota)))
+      if int(quota) > 0:
+          print('{0:>30}  {1:10.2f}  {2:10.2f} {3:10.2%}'.format('/nfs/home/' + user,float(used)/(1024**2), float(quota)/(1024**2),float(used)/float(quota)))
+      else:
+          print('Quota not set for user: {0}'.format(user))
 print ""
 qfile = open('/nfs/home/cad/log/scratch.log', 'r')
 for line in qfile:
     if luser in line:
       user,used,quota = line.split()
-      print('{0:>30}  {1:10.2f}  {2:10.2f} {3:10.2%}'.format('/nfs/scratch/' + user,float(used)/(1024**2), float(quota)/(1024**2),float(used)/float(quota)))
+      if int(quota) > 0:
+          print('{0:>30}  {1:10.2f}  {2:10.2f} {3:10.2%}'.format('/nfs/scratch/' + user,float(used)/(1024**2), float(quota)/(1024**2),float(used)/float(quota)))
+      else:
+          print('Quota not set for user: {0}'.format(user))
+
 print ""
 #
 print('\n\033[31m{0:>10}\033[0m'.format('Group Quotas'))
@@ -31,5 +38,8 @@ qfile = open('/nfs/home/cad/log/group.log', 'r')
 for line in qfile:
     group,used,quota = line.split()
     if group in groups:
-      print('{0:>30}  {1:10.2f}  {2:10.2f} {3:10.2%}'.format('/nfs/scratch/' + group,float(used)/(1024**2), float(quota)/(1024**2),float(used)/float(quota)))
+      if int(quota) > 0:
+          print('{0:>30}  {1:10.2f}  {2:10.2f} {3:10.2%}'.format('/nfs/scratch/' + group,float(used)/(1024**2), float(quota)/(1024**2),float(used)/float(quota)))
+      else:
+          print('Quota not set for group: {0}'.format(group))
 print ""
