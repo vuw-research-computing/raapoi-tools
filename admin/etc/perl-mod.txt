@@ -5,6 +5,7 @@ CGI
 Clone
 Convert::Binary::C
 Data::Stag
+Data::Dumper
 DB_File
 DBI
 DBD::SQLite
