@@ -1,0 +1,9 @@
+#%Modules
+
+
+module-whatis "a tool aimed at simplifying the process of creating reproducible experiments from command-line executions. It tracks operating system calls and creates a package that contains all the binaries, files, and dependencies required to run a given command on the author’s computational environment. A reviewer can then extract the experiment in his own environment to reproduce the results, even if the environment has a different operating system from the original one."
+
+module load python/3.7.3
+
+prepend-path PATH /home/software/apps/reprozip/1.0.16/bin
+prepend-path PYTHONPATH /home/software/apps/reprozip/1.0.16/lib/Python3.7/site-packages
