@@ -1,0 +1,10 @@
+#%Modules
+#
+
+module-whatis "Adds cutadapt to PATH &  PYTHONPATH"
+
+module load python/3.7.3
+prereq python/3.7.3
+
+prepend-path PYTHONPATH /home/software/apps/cutadapt/2.8/lib/python3.7/site-packages
+prepend-path PATH /home/software/apps/cutadapt/2.8/bin
