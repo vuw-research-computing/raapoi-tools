@@ -4,11 +4,12 @@ import pwd
 import string
 import json
 
-#qfile = '/nfs/home/cad/log/home.log'
-qfile = '/home/wharrell/home.log'
+in_qfile = '/nfs/home/cad/log/home.log'
+out_qfile = '/nfs/home/cad/log/quota.log'
 char = "UID:"
+output = open(out_qfile,"w")
 
-with open(qfile, 'r', encoding='utf-8') as jfile:
+with open(in_qfile, 'r', encoding='utf-8') as jfile:
     jdata = json.load(jfile)
 
 
@@ -19,8 +20,8 @@ for item in jdata['quotas']:
            user = pwd.getpwuid(uid).pw_name
        except:
            print(str(uid) + " not found, skipping...")
-       quota = int(item['thresholds']['hard'])
-       used = int(item['usage']['physical'])
-       print("User: " + user)
-       print("Quota: " + str(quota))
-       print("Used: " + str(used))
+       quota = item['thresholds']['hard']
+       used = item['usage']['physical']
+       record = (user + " " + str(used) + " " + str(quota))
+       output.write(record + "\n")
+output.close()
