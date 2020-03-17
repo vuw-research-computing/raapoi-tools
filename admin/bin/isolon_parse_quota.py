@@ -3,8 +3,13 @@
 import pwd
 import string
 import json
+import os
 
-in_qfile = '/nfs/home/cad/log/home.log'
+#hrm, a non JSON header got added to the output from isolon, strip
+#it out before we continue
+os.system('tail -n +5 /nfs/home/cad/log/home.log > /nfs/home/cad/log/home.json')
+
+in_qfile = '/nfs/home/cad/log/home.json'
 out_qfile = '/nfs/home/cad/log/quota.log'
 char = "UID:"
 output = open(out_qfile,"w")
