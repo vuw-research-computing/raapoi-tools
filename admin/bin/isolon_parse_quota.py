@@ -21,7 +21,7 @@ for item in jdata['quotas']:
        except:
            print(str(uid) + " not found, skipping...")
        quota = item['thresholds']['hard']
-       used = item['usage']['physical']
+       used = item['usage']['logical']
        record = (user + " " + str(used) + " " + str(quota))
        output.write(record + "\n")
 output.close()
