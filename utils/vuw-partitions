@@ -7,6 +7,8 @@ echo ""
 printf "${RED}VUW CLUSTER PARTITIONS${NC}\n"
 sinfo -p quicktest
 echo ""
+sinfo -p gpu
+echo ""
 sinfo -p bigmem
 echo ""
 sinfo -p parallel
@@ -16,4 +18,3 @@ echo '      sinfo -p PARTITION'
 echo ""
 
 exit 0
-
