@@ -1,0 +1,13 @@
+#%Modules
+
+
+module-whatis "Adds MrBayes, built with MPI support"
+
+module load gcc/8.2.0
+module load openmpi/3.1.5
+module load beagle-lib/3.1.2
+
+prereq gcc/8.2.0
+
+set               root              /home/software/apps/MrBayes/3.2.7-mpi
+prepend-path	 PATH $root/bin
