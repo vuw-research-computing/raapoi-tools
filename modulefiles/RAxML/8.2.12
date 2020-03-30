@@ -1,12 +1,12 @@
 #%Modules
 
-module-whatis "Adds RAxML, there are 4 versions: \
-      raxmlHPC - standard build, will run slowest but can run across entire cluster \
-      raxmlHPC-AVX - built with AVX instructions, req Slurm param:--constraint=AVX \
-      raxmlHPC-MPI - built with MPI support \
-      raxmlHPC-MPI-AVX - built with MPI and AVX, req Slurm param:--constraint=AVX \
-      eg. To run using AVX instruction set: \
-         srun --pty -p parallel --constraint=AVX raxmlHPC-AVX -h"
+module-whatis "Adds RAxML, there are 4 versions:"
+module-whatis "      raxmlHPC - standard build, will run slowest but can run across entire cluster"
+module-whatis "      raxmlHPC-AVX - built with AVX instructions, req Slurm param:--constraint=AVX"
+module-whatis "      raxmlHPC-MPI - built with MPI support"
+module-whatis "      raxmlHPC-MPI-AVX - built with MPI and AVX, req Slurm param:--constraint=AVX"
+module-whatis "      eg. To run using AVX instruction set:"
+module-whatis "         srun --pty -p parallel --constraint=AVX raxmlHPC-AVX -h"
 
 module load gcc/8.2.0
 module load openmpi/3.1.5
