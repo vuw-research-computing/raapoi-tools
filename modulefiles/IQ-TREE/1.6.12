@@ -1,0 +1,7 @@
+#%Modules
+
+module-whatis "Adds iqtree.  Example files can be found in the installation"
+module-whatis "directory.  Run `module show IQ-TREE/1.6.12` to find the path."
+
+set root  /home/software/apps/IQ-TREE/1.6.12
+prepend-path PATH $root/bin
