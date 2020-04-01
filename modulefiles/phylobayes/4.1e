@@ -1,0 +1,8 @@
+#%Modules
+
+module load gcc/8.2.0
+
+prereq gcc/8.2.0
+
+set               root              /home/software/apps/phylobayes/4.1e
+prepend-path	 PATH $root
