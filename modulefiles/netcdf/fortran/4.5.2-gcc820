@@ -1,0 +1,12 @@
+#%Modules
+
+module load netcdf/c/4.7.3-gcc820
+
+set root /home/software/apps/netcdf/fortran/4.5.2-gcc820
+prepend-path	 PATH $root/bin
+prepend-path	 LD_LIBRARY_PATH $root/lib
+prepend-path	 LIBRARY_PATH $root/lib
+prepend-path	 C_INCLUDE_PATH $root/include
+prepend-path	 CPATH $root/include
+prepend-path	 MANPATH $root/share
+setenv NETCDF_FORTRAN_PATH $root
