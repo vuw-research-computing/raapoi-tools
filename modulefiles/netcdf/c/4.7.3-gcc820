@@ -1,10 +1,10 @@
 #%Modules
 
 set root	/home/software/apps/netcdf/c/4.7.3-gcc820
-prepend-path	 PATH /home/software/apps/netcdf/c/4.6.2/bin
-prepend-path	 LD_LIBRARY_PATH /home/software/apps/netcdf/c/4.6.2/lib
-prepend-path	 LIBRARY_PATH /home/software/apps/netcdf/c/4.6.2/lib
-prepend-path	 CPATH /home/software/apps/netcdf/c/4.6.2/include
-prepend-path	 C_INCLUDE_PATH /home/software/apps/netcdf/c/4.6.2/include
-prepend-path	 MANPATH /home/software/apps/netcdf/c/4.6.2/share
+prepend-path	 PATH $root/bin
+prepend-path	 LD_LIBRARY_PATH $root/lib
+prepend-path	 LIBRARY_PATH $root/lib
+prepend-path	 CPATH $root/include
+prepend-path	 C_INCLUDE_PATH $root/include
+prepend-path	 MANPATH $root/share
 setenv NETCDF_C_PATH $root
