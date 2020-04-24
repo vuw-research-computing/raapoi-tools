@@ -1,4 +1,5 @@
 Algorithm::Munkres
+Archive::Tar
 Array::Compare
 Bit::Vector
 CGI
