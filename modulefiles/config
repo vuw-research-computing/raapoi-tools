@@ -1,9 +1,12 @@
 #%Modules
 
 
-module-whatis   "This module initiates bin PATH for cluster tools"
+module-whatis   "This module initiates standard paths and language for cluster tools"
 
 prepend-path PATH /home/software/apps/local/bin
 prepend-path LD_LIBRARY_PATH /home/software/apps/local/lib
 prepend-path PATH /home/software/vuwrc/utils
 
+setenv LANGUAGE en_NZ.UTF-8
+setenv LANG C.UTF-8
+setenv LC_ALL en_NZ.UTF-8
