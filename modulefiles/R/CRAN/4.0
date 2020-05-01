@@ -1,0 +1,6 @@
+#%Modules
+#
+
+module-whatis "Adds the R library path to the pre-built CRAN modules"
+
+prepend-path R_LIBS /home/software/apps/local/lib/R/4.0
