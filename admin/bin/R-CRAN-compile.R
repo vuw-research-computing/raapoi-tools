@@ -24,9 +24,9 @@ sapply(ulist, function(x) {
 # Add useful tools from non-CRAN repo
 library("devtools")
 devtools::install_github("hadley/multidplyr", lib = plib)
-devtools::install_github("IRkernel/IRkernel", lib = plib)
+#devtools::install_github("IRkernel/IRkernel", lib = plib)
 # IRkernel::installspec() # to register the kernel in the current R installation
-install.packages("/home/software/src/poRe-0.24.tgz", lib=plib, repos=NULL, type="source")
+#install.packages("/home/software/src/poRe-0.24.tgz", lib=plib, repos=NULL, type="source")
 
 # Save any warnings
 cat(file = "warnings.rinstall")
