@@ -1,0 +1,25 @@
+#%Modules
+
+module-whatis "Earth System Modeling Framework (ESMF) is a suite of software
+tools for developing high-performance, multi-component Earth science modeling
+applications. Such applications may include a few or dozens of components
+representing atmospheric, oceanic, terrestrial, or other physical domains, and
+their constituent processes (dynamical, chemical, biological, etc.). Often
+these components are developed by different groups independently, and must
+be coupled together using software that transfers and transforms data among
+the components in order to form functional simulations."
+
+module load perl/CPAN/5.16
+module load gcc/8.2.0
+module load openmpi/3.1.5
+module load hdf5tools/1.10.5-gcc820
+module load netcdf/c/4.7.3-gcc820
+module load netcdf/fortran/4.5.2-gcc820
+
+set root /home/software/apps/ESMF/8.0.0
+prepend-path PATH $root/bin/binO/Linux.gfortran.64.openmpi.default
+prepend-path LD_LIBRARY_PATH $root/lib/lib0/Linux.gfortran.64.openmpi.default
+prepend-path INCLUDE_PATH $root/include
+prepend-path CPLUS_INCLUDE_PATH $root/include
+
+setenv ESMFMKFILE $root/lib/lib0/Linux.gfortran.64.openmpi.default/esmf.mk
