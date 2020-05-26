@@ -1,0 +1,6 @@
+#%Modules
+#
+
+module-whatis "Adds the Dropbox CLI (Command Line Interface)"
+
+prepend-path PATH /home/software/apps/dbxcli/3.0.0
