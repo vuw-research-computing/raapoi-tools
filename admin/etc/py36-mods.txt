@@ -3,6 +3,7 @@ boto3
 csvkit
 gensim
 ggplot
+glob2
 jupyter-core
 matplotlib
 mpmath
