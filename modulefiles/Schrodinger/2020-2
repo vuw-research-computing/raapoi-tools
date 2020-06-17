@@ -1,0 +1,13 @@
+#%Modules
+#
+
+module-whatis "Adds the Schrodinger Suite v 2020-2"
+
+set root /home/software/apps/Schrodinger/2020-2
+prepend-path PATH $root/thirdparty/bin/Linux-x86_64/blast/bin
+prepend-path PATH $root/thirdparty/bin/Linux-x86_64/hmmer/bin
+prepend-path PATH $root/utilities
+prepend-path PATH $root
+
+setenv schrodinger $root
+setenv SCHRODINGER $root
