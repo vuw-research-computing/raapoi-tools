@@ -2,7 +2,8 @@
 
 module-whatis "UCAR/NCAR Weather Research and Forecasting (WRF) Model. \
                 To run the model you will need to copy the following file to \
-                your project folder: cp $WPS/namelist.wps namelist.wps"
+                your project folder: \
+                cp /home/software/apps/WRF/4.2/WPS/namelist.wps namelist.wps"
 
 module load gcc/8.2.0
 
@@ -14,7 +15,6 @@ set root /home/software/apps/WRF/4.2
 setenv JASPERLIB $root/WRF/Build_WRF/LIBRARIES/grib2/lib
 setenv JASPERINC $root/WRF/Build_WRF/LIBRARIES/grib2/include
 setenv NETCDF $root/WRF/Build_WRF/LIBRARIES/netcdf
-setenv WPS $root/WPS
 
 prepend-path PATH $root/WRF/Build_WRF/LIBRARIES/mpich/bin
 prepend-path PATH $root/WRF/Build_WRF/LIBRARIES/netcdf/bin
