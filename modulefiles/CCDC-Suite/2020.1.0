@@ -1,0 +1,8 @@
+#%Modules
+
+module-whatis "Cambridge Structural Database System - CSDS"
+
+set root /home/software/apps/ccdc/2020.1.0
+
+prepend-path	 PATH $root/CSD_2020/bin
+prepend-path	 PATH $root/Discovery_2020/bin
