@@ -6,7 +6,3 @@ module-whatis   "This module initiates standard paths and language for cluster t
 prepend-path PATH /home/software/apps/local/bin
 prepend-path LD_LIBRARY_PATH /home/software/apps/local/lib
 prepend-path PATH /home/software/vuwrc/utils
-
-setenv LANGUAGE C.UTF-8
-setenv LANG C.UTF-8
-setenv LC_ALL C.UTF-8
