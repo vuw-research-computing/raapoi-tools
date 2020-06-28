@@ -1,12 +1,12 @@
 #%Modules
 
-module-whatis "OpenMPI 4.0.4 with ucx"
+module-whatis "OpenMPI 4.0.4 with ucx and cuda support (with gdrcopy)"
 
 module load ucx/1.8.0
 
 prereq ucx/1.8.0
 
-set		 root /home/software/apps/openmpi/4.0.4_nocuda
+set		 root /home/software/apps/openmpi/4.04
 prepend-path	 PATH $root/bin
 prepend-path	 LD_LIBRARY_PATH $root/lib
 prepend-path	 LIBRARY_PATH $root/lib
