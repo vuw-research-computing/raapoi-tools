@@ -19,5 +19,5 @@ if (myShellName() == "bash") then
 end
 
 whatis("Name        : specfem2d")
-whatis("Version     : Nov2018")
+whatis("Version     : Nov2018_container")
 whatis("URL         : https://github.com/geodynamics/specfem2d")
