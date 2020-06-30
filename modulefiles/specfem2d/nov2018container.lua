@@ -18,6 +18,6 @@ if (myShellName() == "bash") then
  execute{cmd="export -f runspecfem2d",modeA={"load"}}
 end
 
-whatis("Name        : specfem2d")
+whatis("Name        : specfem2d-container")
 whatis("Version     : Nov2018_container")
 whatis("URL         : https://github.com/geodynamics/specfem2d")
