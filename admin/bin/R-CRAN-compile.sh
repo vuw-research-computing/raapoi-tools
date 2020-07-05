@@ -21,14 +21,15 @@ if [[ ! -e $MODPATH/CRAN/$1 ]]; then
   exit 1
 elif [[ ! -d $BUILDPATH/$1 ]]; then
   mkdir -p $BUILDPATH
-  
+
 else
   echo "Loading Modules..."
 fi
 
 #Load modules required for successful build
 module load $2
-module load openmpi/3.1.2
+module load gcc/8.2.0
+module load openmpi/3.1.5
 module load java/jdk/1.8.0_121
 
 echo "Did you receive any module load errors? (y|n)"
