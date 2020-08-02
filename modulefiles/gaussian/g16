@@ -1,0 +1,20 @@
+#%Modules
+#
+
+module-whatis "Adds Gaussian 16 -A computational chemistry package - to your env"
+
+set root        /home/software/apps/gaussian/
+set g16root	$root/g16
+
+setenv    GAUSS_SCRDIR /nfs/scratch/$::env(USER)
+
+prepend-path 	 GAUSS_EXEDIR 		 $g16root/bsd:$g16root/local:$g16root/extras:$g16root
+prepend-path 	 LD_LIBRARY_PATH 	 $g16root/bsd:$g16root
+prepend-path 	 PATH 			 $g16root:$g16root/bsd
+
+setenv              G09BASIS 		 $g16root/basis
+setenv 		 GAUSS_ARCHDIR 		 $g16root/arch
+setenv 		 GAUSS_BSDDIR 		 $g16root/bsd
+setenv 		 GAUSS_LEXEDIR 		 $g16root/linda-exe
+setenv 		 PGI_TERM 		 trace,abort
+setenv 		 _DSM_BARRIER 		 SHM
