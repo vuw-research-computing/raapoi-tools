@@ -15,5 +15,5 @@ module load python/3.8.1
 module load python/modules/3.8
 #
 for mod in $( cat ../etc/py38-mods.txt ); do
-  $PIP install $mod --target=/home/software/apps/local/lib/py38 --upgrade
+  $PIP install $mod --prefix=/home/software/apps/local/lib/py38_new --upgrade
 done
