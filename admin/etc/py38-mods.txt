@@ -9,6 +9,7 @@ matplotlib
 mpmath
 networkx
 numpy
+obspy
 pandas
 plotly
 prettyplotlib
