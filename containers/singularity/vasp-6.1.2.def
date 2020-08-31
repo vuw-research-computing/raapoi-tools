@@ -1,0 +1,18 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+%post
+apt-get update && apt-get -y install ssh rsync wget vim
+apt-get -y install make build-essential g++ gfortran
+apt-get -y install libblas-dev liblapack-dev libopenmpi-dev libscalapack-mpi-dev libfftw3-dev
+
+
+wget https://www.dropbox.com/s/oenhs1mcimte72p/vasp.6.1.2.tgz?dl=0 -O /opt/vasp.6.1.2.tgz
+cd /opt && tar xvfz vasp.6.1.2.tgz
+cd vasp.6.1.2 && make std gam ncl
+
+%environment
+    PATH=/opt/vasp.6.1.2/bin:$PATH
+
+%labels
+    Author Wes Harrell <wes.harrell@vuw.ac.nz>
