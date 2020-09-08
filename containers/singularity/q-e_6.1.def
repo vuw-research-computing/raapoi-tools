@@ -1,0 +1,19 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+# Definition file for Quantum Espresso: https://github.com/vuw-research-computing/q-e
+
+%post
+apt-get update && apt-get -y install ssh rsync wget vim git
+apt-get -y install make build-essential fftw3-dev gfortran
+apt-get -y install xcrysden gnuplot libopenmpi-dev lapack
+
+cd /opt && git clone https://github.com/vuw-research-computing/q-e.git
+cd q-e && ./configure --enable-parallel=no --enable-openmp=yes
+make all
+
+%environment
+    PATH=/opt/q-e/bin
+
+%labels
+    Author Wes Harrell <wes.harrell@vuw.ac.nz>
