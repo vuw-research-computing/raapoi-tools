@@ -1,0 +1,10 @@
+#%Modules
+#
+
+module-whatis "Adds BLAST+ to your env"
+
+set ver 2.6.0
+set root /home/software/apps/ncbi/blast+
+
+prepend-path PATH $root/$ver/bin
+prepend-path LD_LIBRARY_PATH $root/$ver/lib
