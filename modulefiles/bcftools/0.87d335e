@@ -1,0 +1,7 @@
+#%Modules
+
+set               root              /home/software/apps/bcftools/0.87d335e
+prepend-path	 PATH $root/bin
+prepend-path	 LD_LIBRARY_PATH $root/libexec/bcftools
+prepend-path	 LIBRARY_PATH $root/libexec/bcftools 
+prepend-path	 MANPATH $root/share/man
