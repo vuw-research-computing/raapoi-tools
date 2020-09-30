@@ -6,6 +6,6 @@ module-whatis "Adds python-2.7.15 to your environment"
 set root  /home/software/apps/python/2.7.15
 prepend-path PATH $root/bin
 prepend-path LD_LIBRARY_PATH $root/lib
-prepend-path CPATH $root/include
-prepend-path C_INCLUDE_PATH $root/include
+prepend-path CPATH $root/include/python2.7
+prepend-path C_INCLUDE_PATH $root/include/python2.7
 
