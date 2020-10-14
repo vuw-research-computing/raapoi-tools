@@ -1,0 +1,2 @@
+# nightly dump of SlurmDB, place in /etc/cron.d
+05 02 * * * root /home/software/tools/admin/bin/dump_SlurmDB.sh
