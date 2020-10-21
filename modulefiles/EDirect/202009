@@ -1,0 +1,8 @@
+#%Modules
+
+module-whatis "NCBI commmand line utilities EntrezDirect"
+
+module load perl/CPAN
+
+set root /home/software/apps/EDirect/202009
+prepend-path PATH $root
