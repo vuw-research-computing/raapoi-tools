@@ -1,0 +1,28 @@
+
+Bootstrap: docker
+From: ubuntu:18.04
+
+# Definition file for Quantum Espresso: https://github.com/vuw-research-computing/q-e
+
+%post
+export TERM=linux
+export DEBIAN_FRONTEND=noninteractive
+apt-get update && apt-get -y install ssh rsync wget vim git
+apt-get -y install make build-essential fftw3-dev gfortran
+apt-get -y install xcrysden gnuplot libopenmpi-dev liblapack3 libblas-dev
+
+cd /opt && git clone https://github.com/vuw-research-computing/q-e.git
+cd q-e && ./configure --enable-libbeef=no
+make all
+./configure --enable-libbeef=no
+
+cd /opt && git clone https://bitbucket.org/bonfus/unfold-x.git
+cd unfold-x
+make QE_ROOT=/opt/q-e
+
+%environment
+    PATH=/opt/q-e/bin:/opt/unfold-x/bin:$PATH
+
+%labels
+    Author Wes Harrell <wes.harrell@vuw.ac.nz>
+    Unfold-x added by Will Hewett <william.holmes-Hewett@vuw.ac.nz>
