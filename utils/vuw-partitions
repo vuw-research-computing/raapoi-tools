@@ -1,10 +1,10 @@
 #!/bin/bash
 ##
 #
-RED='\033[0;31m'
+GREEN='\033[0;32m'
 NC='\033[0m'
 echo ""
-printf "${RED}VUW CLUSTER PARTITIONS${NC}\n"
+printf "${GREEN}VUW CLUSTER PARTITIONS${NC}\n"
 sinfo -p quicktest
 echo ""
 # GPU nodes returned to ECS :(

@@ -9,9 +9,9 @@ if [ $# -lt 1 ]; then
   echo ""
   exit 1
 fi
-RED='\033[0;31m'
+GREEN='\033[0;32m'
 NC='\033[0m'
-printf "${RED}JOB REPORT FOR JOB $1${NC}\n"
+printf "${GREEN}JOB REPORT FOR JOB $1${NC}\n"
 echo ""
 seff $1
 echo ""

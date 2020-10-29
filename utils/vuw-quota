@@ -5,7 +5,7 @@ import subprocess
 
 luser = os.getenv('USER')
 
-print('\n\033[31m{0:>10}\033[0m'.format('User Quotas'))
+print('\n\033[32m{0:>10}\033[0m'.format('User Quotas'))
 print('\n\033[1m{0:>30}  {1:10}  {2:10}  {3:10}\033[0m'.format('Storage','Usage (GB)','Quota (GB)','   % Used'))
 
 #
@@ -39,7 +39,7 @@ for line in qfile:
 
 print ""
 #
-print('\n\033[31m{0:>10}\033[0m'.format('Group Quotas'))
+print('\n\033[32m{0:>10}\033[0m'.format('Group Quotas'))
 print('\n\033[1m{0:>30}  {1:10}  {2:10}  {3:10}\033[0m'.format('Storage','Usage (GB)','Quota (GB)','   % Used'))
 g = subprocess.Popen(['groups'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 out,err = g.communicate()
