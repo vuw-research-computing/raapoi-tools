@@ -1,0 +1,7 @@
+#%Modules
+
+module-whatis "SMRT Link and SMRT Tools, see https://www.pacb.com/"
+
+set root /home/software/apps/smrtlink/9.0.0.92188
+
+prepend-path PATH $root/smrtcmds/bin
