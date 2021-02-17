@@ -3,9 +3,9 @@
 cat << EOF
 
 For information about research computing at VUW, including this system:
-ADD DOCS HERE
+https://vuw-research-computing.github.io/raapoi-docs/
 
-For general questions or assistance send mail to ADD EMAIL HERE
+For general questions or assistance join our slack channel: https://uwrc.slack.com
 
 List of helpful commands for cluster users:
 
