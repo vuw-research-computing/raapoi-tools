@@ -18,7 +18,7 @@ vuw-job-history:     Show jobs finished in last 48 hours
 vuw-help:            Prints this help information
 
 You can use TAB completion to help you recall these commands, TAB completion uses the TAB key to help
-complete the command or path for example type eo-<TAB><TAB> and you will see the list of commands beginning 
-with eo-  You can also use this to complete path or file names.
+complete the command or path for example type vuw-<TAB><TAB> and you will see the list of commands beginning 
+with vuw-  You can also use this to complete path or file names.
 
 EOF
