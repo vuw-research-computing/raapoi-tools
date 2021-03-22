@@ -1,0 +1,9 @@
+#%Modules
+#
+
+module-whatis "Globus CLI, see https://docs.globus.org/cli/ for details on using the client""
+
+module load python/3.8.1
+
+prepend-path PYTHONPATH /home/software/apps/globus/2.0.0/lib/python3.8/site-packages
+prepend-path PATH /home/software/apps/globus/2.0.0/bin
