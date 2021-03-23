@@ -23,6 +23,4 @@ local root = "/home/software/apps/rclone/1.54.1"
 conflict("rclone")
 
 prepend_path("CMAKE_PREFIX_PATH", root)
-prepend_path("MANPATH", pathJoin(root, "share/man"))
-prepend_path("PATH", pathJoin(root, "bin"))
-prepend_path("XDG_DATA_DIRS", pathJoin(root, "share"))
+prepend_path("PATH", pathJoin(root))

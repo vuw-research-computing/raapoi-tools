@@ -33,3 +33,4 @@ conflict("copyToCloudStor")
 always_load("rclone")
 
 prepend_path("CMAKE_PREFIX_PATH", root)
+prepend_path("PATH", pathJoin(root))
