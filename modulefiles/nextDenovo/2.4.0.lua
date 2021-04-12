@@ -15,6 +15,7 @@ local root = "/home/software/apps/nextDenovo/2.4.0"
 
 conflict("nextDenovo")
 always_load("python/3.8.1")
+always_load("xz/4.999.9beta")
 
 prepend_path("PATH", pathJoin(root))
 prepend_path("PATH", pathJoin(root,"/bin"))
