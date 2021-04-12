@@ -10,7 +10,7 @@ More information
 ]==])
 
 whatis([==[Description: 
-Rclone script to copy to cloudstor in paranoid while loop
+old xz version - mostly for nextDenovo which depends on this old version
 ]==])
 whatis([==[Homepage: https://tukaani.org/xz/old.html]==])
 whatis([==[URL: https://tukaani.org/xz/old.html]==])
