@@ -15,5 +15,6 @@ local root = "/home/software/apps/nextDenovo/2.4.0"
 
 conflict("nextDenovo")
 
-prepend_path("CMAKE_PREFIX_PATH", root)
 prepend_path("PATH", pathJoin(root))
+prepend_path("PATH", pathJoin(root,"/bin"))
+prepend_path( "LD_LIBRARY_PATH",pathJoin(root,"/lib"))
