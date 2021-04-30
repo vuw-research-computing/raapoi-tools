@@ -21,3 +21,4 @@ local root = "/home/software/apps/nbo/7.0.10"
 conflict("NBO")
 
 prepend_path("PATH", pathJoin(root,"/bin"))
+setenv("NBOBIN",pathJoin(root,"/bin")
