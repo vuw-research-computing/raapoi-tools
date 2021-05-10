@@ -1,0 +1,9 @@
+#%Modules
+#
+
+module-whatis "Adds vuw-job-eff - note uses the system python 3.6.8 so may override your python loads!"
+
+set root /home/software/apps/vuw-tools/
+
+prepend-path PYTHONPATH $root/lib/python3.6.8
+prepend-path PATH $root/bin
