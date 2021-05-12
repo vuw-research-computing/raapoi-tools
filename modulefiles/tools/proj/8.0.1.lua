@@ -11,12 +11,8 @@ More information
 ]==])
 
 whatis([==[Description: 
- The GNU Readline library provides a set of functions for use by applications
- that allow users to edit command lines as they are typed in. Both Emacs and
- vi editing modes are available. The Readline library includes additional
- functions to maintain a list of previously-entered command lines, to recall
- and perhaps reedit those lines, and perform csh-like history expansion on
- previous commands.
+Program proj is a standard Unix filter function which converts
+    geographic longitude and latitude coordinates into cartesian coordinates
 ]==])
 whatis([==[Homepage: https://download.osgeo.org/proj/]==])
 whatis([==[URL: https://download.osgeo.org/proj/]==])
