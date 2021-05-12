@@ -21,7 +21,7 @@ whatis([==[Description:
 whatis([==[Homepage: https://download.osgeo.org/proj/]==])
 whatis([==[URL: https://download.osgeo.org/proj/]==])
 
-local root = "/home/software/EasyBuild/software/libreadline/8.0-GCCcore-8.2.0"
+local root = "/home/software/apps/tools/proj/8.0.1"
 
 conflict("tools/proj")
 
