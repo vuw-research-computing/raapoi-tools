@@ -29,3 +29,4 @@ end
 
 prepend_path("CMAKE_PREFIX_PATH", root)
 prepend_path("CPATH", pathJoin(root, "include"))
+prepend_path("PATH", pathJoin(root, "tools"))
