@@ -7,6 +7,6 @@ NC='\033[0m'
 squeue -u $USER -o "%.15i %.10P  %.16j %.7C %.7m %.12M %.12L %.10T %R"
 echo ""
 echo "NOTE: This utility is a wrapper for the Slurm command:"
-echo '      squeue -l -h -u $USER -p PARTITION'
+echo '      squeue -u $USER -o "%.15i %.10P  %.16j %.7C %.7m %.12M %.12L %.10T %R"'
 echo ""
 exit 0

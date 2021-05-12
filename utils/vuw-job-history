@@ -14,6 +14,6 @@ echo "You can also use the vuw-job-report command to see more information about"
 echo "a specific job"
 echo ""
 echo "NOTE: This utility is a wrapper for the Slurm command:"
-echo '       sacct --units=G --format="JobID, State, JobName, MaxVMSize, CPUTime"'
+echo '       sacct --units=G --format="JobID, State, JobName, MaxVMSize, CPUTime" -S $(date --date="5 days ago" +%Y-%m-%d)'
 echo ""
 exit 0
