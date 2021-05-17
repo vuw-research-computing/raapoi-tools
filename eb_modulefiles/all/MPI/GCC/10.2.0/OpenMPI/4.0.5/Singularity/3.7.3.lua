@@ -31,4 +31,4 @@ if not ( isloaded("Go/1.14.1") ) then
 end
 
 
-prepend_path("PATH", root, "bin")
+prepend_path("PATH", pathJoin(root, "bin"))
