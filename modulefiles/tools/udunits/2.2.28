@@ -1,0 +1,10 @@
+#%Modules
+
+set		 root /home/software/apps/tools/udunits/2.2.28
+prepend-path	 PATH $root/bin
+prepend-path	 LD_LIBRARY_PATH $root/lib
+prepend-path	 LIBRARY_PATH $root/lib
+prepend-path	 CPATH $root/include
+prepend-path	 C_INCLUDE_PATH $root/include
+prepend-path	 CPLUS_INCLUDE_PATH $root/include
+prepend-path	 FORTRAN_INCLUDE_PATH $root/include

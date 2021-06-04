@@ -1,0 +1,9 @@
+#%Modules
+#
+
+#load our version of java which seems to work better, esp for graphics related procs
+module load java/jdk/1.8.0_121
+
+conflict	 matlab 
+prepend-path	 PATH /home/software/apps/matlab/2021a/bin 
+setenv		 MATLAB_HOME /home/software/apps/matlab/2021a 

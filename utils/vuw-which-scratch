@@ -1,0 +1,7 @@
+#!/bin/bash
+##
+## Show	which scratch partition	a user is in
+##
+
+if ls -tlrh | grep $USER |   
+
