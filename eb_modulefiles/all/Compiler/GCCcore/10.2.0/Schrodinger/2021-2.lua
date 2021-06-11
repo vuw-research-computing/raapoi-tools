@@ -25,4 +25,4 @@ prepend_path("PATH", pathJoin(root,"/thirdparty/bin/Linux-x86_64/hmmer/bin"))
 prepend_path("PATH", pathJoin(root,"/utilities"))
 
 setenv("schrodinger",root)
-setenv("SCHRODINGER".root)
+setenv("SCHRODINGER", root)
