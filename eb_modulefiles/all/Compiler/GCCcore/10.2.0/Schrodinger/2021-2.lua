@@ -8,7 +8,7 @@ More information
 whatis([==[Description: 
 Adds the Schrodinger Suite v 2021-2]==])
 whatis([==[Homepage: https://www.schrodinger.com/]==])
-whatis([==[URL: https://www.schrodinger.com/==])
+whatis([==[URL: https://www.schrodinger.com/]==])
 
 local root = "/home/software/apps/Schrodinger/2021-2"
 
