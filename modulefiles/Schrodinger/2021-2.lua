@@ -13,7 +13,6 @@ whatis([==[URL: https://www.schrodinger.com/]==])
 local root = "/home/software/apps/Schrodinger/2021-2"
 
 conflict("Schrodinger")
-always_load("Python/3.8.6")
 
 prepend_path("PATH", pathJoin(root))
 prepend_path("PATH", pathJoin(root,"/utilities"))
