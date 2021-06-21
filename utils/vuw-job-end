@@ -1,0 +1,70 @@
+#!/usr/bin/python3.6
+
+import sys
+# import pandas as pd
+# import numpy as np
+# import getpass as gp
+import argparse as ap
+import datetime as dt
+import calendar
+import subprocess
+#import pdb; pdb.set_trace()
+
+parser = ap.ArgumentParser(prog='vuw-job-end', description='Raapoi Job End Time tool. Reports the worst case job end time based on start time and job length.', epilog='For more information see the Raapoi Cluster Documentation: https://vuw-research-computing.github.io/raapoi-docs/')
+parser.add_argument('-j', '--jobid', help='Jobid to check worst case endtime for')
+parser.add_argument('--raw', help='time in raw datetime (y/n) default(n))',default='n')
+args = parser.parse_args()
+
+jobid=int(args.jobid)
+rawdatetime=args.raw
+if jobid>1e7:
+    jobid=1
+
+sacct_string = subprocess.run(['sacct -p -j '+str(jobid)+' --format="Start, Timelimit" --noconvert -n | head -n 1'],shell=True,stdout=subprocess.PIPE).stdout.decode('utf-8')
+#returns
+#'2021-06-21T09:56:55|1-00:00:00|\n'
+sacct_string = sacct_string.split('\n')[0]
+starttime=sacct_string.split('|')[0]
+runtime=sacct_string.split('|')[1]
+starttime = dt.datetime.strptime(starttime, "%Y-%m-%dT%H:%M:%S")
+
+def timeformat_lambda(timein):
+    #format times from slurms [DD-[HH:]]MM:SS to always having fields eg 01:20.456 to 00 days 00:01:20.456
+    if timein=="":
+        timeout = '00 days 00:00:00'
+    elif timein.count('-')==1:
+        timeout = timein.replace('-', ' days ')
+    elif timein.count(':')==1:
+        timeout = '00 days 00:'+timein
+    elif timein.count(':')==2:
+        timeout = '00 days '+timein
+    else:
+        print(timein)
+        1/0 #error! weird time function
+    #timeout currently: 1 days 00:00:00
+    d = int(timeout.split('days')[0])
+    h = int(timeout.split('days')[1].split(':')[0])
+    m = int(timeout.split('days')[1].split(':')[1])
+    s = int(timeout.split('days')[1].split(':')[2])
+    timeout = dt.timedelta(days = d, hours = h, minutes=m, seconds=s)
+    return timeout
+
+def get_part_of_day(hour):
+    return (
+        "morning" if 5 <= hour <= 11
+        else
+        "afternoon" if 12 <= hour <= 17
+        else
+        "evening" if 18 <= hour <= 22
+        else
+        "night"
+    )
+
+runtime=timeformat_lambda(runtime)
+endtime=starttime+runtime
+daypart=get_part_of_day(endtime.hour)
+weekday = endtime.strftime("%A")
+if rawdatetime=='y':
+    print(runtime)
+else:
+    print('Job '+ str(jobid)+ ' will end no later than: ' + str(endtime) + " (" +weekday +" "+daypart + ")")
