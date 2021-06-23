@@ -1,0 +1,9 @@
+#%Modules
+
+set root	/home/software/apps/olex/olex2-1.5-alpha
+prepend-path	 PATH $root 
+prepend-path	 LD_LIBRARY_PATH $root/lib
+prepend-path	 LIBRARY_PATH $root/lib
+prepend-path	 CPATH $root/include
+prepend-path	 C_INCLUDE_PATH $root/include
+setenv NETCDF_C_PATH $root
