@@ -21,7 +21,7 @@ local root = "/home/software/apps/olex/olex2-1.5-alpha"
 conflict("olex")
 
 prepend_path("CMAKE_PREFIX_PATH", root)
-setenv("OLEX2_CCTBX_DIR", pathJoin(root,"cctbx")
+setenv("OLEX2_CCTBX_DIR", pathJoin(root,"cctbx"))
 
 setenv("BOOST_ADAPTBX_FPE_DEFAULT", "1")
 setenv("BOOST_ADAPTBX_SIGNALS_DEFAULT", "1")
