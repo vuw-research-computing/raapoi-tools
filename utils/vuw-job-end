@@ -67,4 +67,4 @@ weekday = endtime.strftime("%A")
 if rawdatetime=='y':
     print(runtime)
 else:
-    print('Job '+ str(jobid)+ ' will end no later than: ' + str(endtime) + " (" +weekday +" "+daypart + ")")
+    print('Job '+ str(jobid)+ ' will end no later than: ' + str(endtime) + " (" +weekday +" "+daypart + "). Job max runtime is " +str(runtime))
