@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#place this script as /etc/cron.hourly/restart_ccdc-licence
+/bin/systemctl restart ccdc-licence
