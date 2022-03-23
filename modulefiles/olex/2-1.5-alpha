@@ -1,0 +1,4 @@
+#%Modules
+
+set root	/home/software/apps/olex/olex2-1.5-alpha
+prepend-path	 PATH $root 
