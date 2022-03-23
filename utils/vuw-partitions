@@ -8,8 +8,8 @@ printf "${GREEN}VUW CLUSTER PARTITIONS${NC}\n"
 sinfo -p quicktest
 echo ""
 # GPU nodes returned to ECS :(
-#sinfo -p gpu
-#echo ""
+sinfo -p gpu
+echo ""
 sinfo -p bigmem
 echo ""
 sinfo -p parallel
