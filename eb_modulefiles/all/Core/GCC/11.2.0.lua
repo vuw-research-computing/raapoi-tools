@@ -16,21 +16,21 @@ whatis([==[Description: The GNU Compiler Collection includes front ends for C, C
 whatis([==[Homepage: https://gcc.gnu.org/]==])
 whatis([==[URL: https://gcc.gnu.org/]==])
 
-local root = "/home/software/EasyBuild/software/GCC/9.3.0"
+local root = "/home/software/EasyBuild/software/GCC/11.2.0"
 
 conflict("GCC")
 
-if not ( isloaded("GCCcore/9.3.0") ) then
-    load("GCCcore/9.3.0")
+if not ( isloaded("GCCcore/11.2.0") ) then
+    load("GCCcore/11.2.0")
 end
 
-if not ( isloaded("binutils/2.34") ) then
-    load("binutils/2.34")
+if not ( isloaded("binutils/2.37") ) then
+    load("binutils/2.37")
 end
-prepend_path("MODULEPATH", "/home/software/tools/eb_modulefiles/all/Compiler/GCC/9.3.0")
+prepend_path("MODULEPATH", "/home/software/tools/eb_modulefiles/all/Compiler/GCC/11.2.0")
 
-setenv("EBROOTGCC", "/home/software/EasyBuild/software/GCCcore/9.3.0")
-setenv("EBVERSIONGCC", "9.3.0")
-setenv("EBDEVELGCC", pathJoin(root, "easybuild/Core-GCC-9.3.0-easybuild-devel"))
+setenv("EBROOTGCC", "/home/software/EasyBuild/software/GCCcore/11.2.0")
+setenv("EBVERSIONGCC", "11.2.0")
+setenv("EBDEVELGCC", pathJoin(root, "easybuild/Core-GCC-11.2.0-easybuild-devel"))
 
--- Built with EasyBuild version 4.5.3
+-- Built with EasyBuild version 4.5.4

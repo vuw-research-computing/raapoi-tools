@@ -33,7 +33,7 @@ the desired level of scalability.
 whatis([==[Homepage: https://pmix.org/]==])
 whatis([==[URL: https://pmix.org/]==])
 
-local root = "/home/software/EasyBuild/software/PMIx/3.1.5-GCCcore-10.2.0"
+local root = "/home/software/EasyBuild/software/PMIx/4.1.0-GCCcore-11.2.0"
 
 conflict("PMIx")
 
@@ -45,8 +45,12 @@ if not ( isloaded("zlib/1.2.11") ) then
     load("zlib/1.2.11")
 end
 
-if not ( isloaded("hwloc/2.2.0") ) then
-    load("hwloc/2.2.0")
+if not ( isloaded("hwloc/2.5.0") ) then
+    load("hwloc/2.5.0")
+end
+
+if not ( isloaded("libfabric/1.13.2") ) then
+    load("libfabric/1.13.2")
 end
 
 prepend_path("CMAKE_PREFIX_PATH", root)
@@ -54,9 +58,10 @@ prepend_path("CPATH", pathJoin(root, "include"))
 prepend_path("LD_LIBRARY_PATH", pathJoin(root, "lib"))
 prepend_path("LIBRARY_PATH", pathJoin(root, "lib"))
 prepend_path("PATH", pathJoin(root, "bin"))
+prepend_path("PKG_CONFIG_PATH", pathJoin(root, "lib/pkgconfig"))
 prepend_path("XDG_DATA_DIRS", pathJoin(root, "share"))
 setenv("EBROOTPMIX", root)
-setenv("EBVERSIONPMIX", "3.1.5")
-setenv("EBDEVELPMIX", pathJoin(root, "easybuild/Compiler-GCCcore-10.2.0-PMIx-3.1.5-easybuild-devel"))
+setenv("EBVERSIONPMIX", "4.1.0")
+setenv("EBDEVELPMIX", pathJoin(root, "easybuild/Compiler-GCCcore-11.2.0-PMIx-4.1.0-easybuild-devel"))
 
--- Built with EasyBuild version 4.5.3
+-- Built with EasyBuild version 4.5.4
