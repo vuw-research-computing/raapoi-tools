@@ -1,7 +1,7 @@
 #!/usr/bin/python3.6
 
 import sys
-# import pandas as pd
+import pandas as pd
 # import numpy as np
 import getpass as gp
 import argparse as ap
@@ -10,10 +10,54 @@ import calendar
 import subprocess
 import math
 #import pdb; pdb.set_trace()
+from tabulate import tabulate
+
+from nodefunctions import convert_size
 
 # load slurm conf
 
 partitions={}
+nodedata={}
+
+nodedf = pd.DataFrame(columns=['nodename','partition','cpus','realmem'])
+nodedatalist=[]
+#jobdf = pd.DataFrame(columns=['jobid','job_name','user','state','runtime','nodes','nodename','memreq','cpualloc'])
+jobdf = pd.DataFrame(columns=['jobid','job_name','user','state','runtime','nodes','nodename','memreq','cpualloc'])
+joblist=[]
+
+# #Test functions
+# nodedf.loc[len(nodedf.index)]=['amd01','parallel',256,515056]
+# nodedf.loc[len(nodedf.index)]=['amd02','parallel',256,515056]
+# jobdf.loc[len(jobdf.index)]=['1','catcat1','andre','R','1-00:00','1','amd01','16G','4']
+# jobdf.loc[len(jobdf.index)]=['2','catcat2','andre','R','1-00:00','1','amd01','16G','4']
+# jobdf.loc[len(jobdf.index)]=['3','catcat3','andre','R','1-00:00','1','amd01','16G','4']
+# jobdf.loc[len(jobdf.index)]=['4','catcat4','andre','R','1-00:00','1','amd02','2G','2']
+# jobdf.loc[len(jobdf.index)]=['4','catcat5','andre','PD','1-00:00','1','amd02','2G','2']
+# jobdf.loc[len(jobdf.index)]=['4','jack1','jack','R','1-00:00','1','amd02','9G','8']
+# #joins
+# # nodedf.loc[len(nodedf.index)]=['amd02','parallel',256,1000]
+# df = jobdf.join(nodedf.set_index('nodename'), on='nodename')
+
+# # convert G to Mebibytes
+# df['MebiByteReq'] = [convert_size(x) for x in df['memreq']]
+
+# # convert strings to ints
+# df[['nodes', 'cpualloc','cpus','realmem']] = df[['nodes', 'cpualloc','cpus','realmem']].astype(int)
+
+# #Only Running Jobs
+
+# agg_func_math = {
+#     'MebiByteReq':['sum'], 'cpualloc':['sum']
+# }
+
+# df1 = df.groupby(['nodename','user','state','partition','cpus','realmem'],as_index=False).agg(agg_func_math)
+# df1.columns = ["_".join(col_name).rstrip('_') for col_name in df1.columns.to_flat_index()]  #https://stackoverflow.com/questions/26323926/pandas-groupby-agg-how-to-return-results-without-the-multi-index
+
+
+# # #calculate stats, this should work for all users?? #TODO check this
+# df1['MemClaim%'] = df1['MebiByteReq_sum']/df1['realmem']*100
+# df1['CpuClaim%'] = df1['cpualloc_sum']/df1['cpus']*100
+
 
 with open('slurm.conf') as f:
     lines = f.readlines()
@@ -43,103 +87,64 @@ with open('slurm.conf') as f:
             for key in partitions:
                 if nodename in partitions[key]:
                     partition = key
-            # print(partition)
-            nodedata=[nodename,partition,cpus,realmem]
-            print(nodedata)
+            #nodedata[nodename]=[partition,cpus,realmem,0,0]
+            nodedatalist.append([nodename, partition,cpus,realmem])
+            
+            # print(nodedata)
         else:
             pass
+
             
+nodedf = pd.DataFrame(nodedatalist, columns=['nodename','partition','cpus','realmem'])
 
 
-# parser = ap.ArgumentParser(prog='vuw-cluter-usage', description='Raapoi Job End Time tool. Reports the worst case job end time based on start time and job length.', epilog='For more information see the Raapoi Cluster Documentation: https://vuw-research-computing.github.io/raapoi-docs/')
-# parser.add_argument('-u', '--username', help=ap.SUPPRESS, default=gp.getuser())
-# args = parser.parse_args()
+parser = ap.ArgumentParser(prog='vuw-cluter-usage', description='Raapoi Job End Time tool. Reports the worst case job end time based on start time and job length.', epilog='For more information see the Raapoi Cluster Documentation: https://vuw-research-computing.github.io/raapoi-docs/')
+parser.add_argument('-u', '--username', help=ap.SUPPRESS, default=gp.getuser())
+args = parser.parse_args()
 
-# username = str(args.username)
+username = str(args.username)
+username = "maclacjord" #for testing
 
-# def convert_size(slurm_mem):
-#     gibimibi=1024
-#     mem = slurm_mem.replace('M','')
-#     mem = mem.replace('G','')
-#     mem=float(mem)
-#     # Convert Gibibytes to Mibibytes
-#     if 'G' in slurm_mem:
-#         mem = mem * gibimibi
-#     elif 'M' in slurm_mem:
-#         pass
-#     else:
-#         1/0  #error
 
-# class Node:
-#     '''class containing node specific info'''
-#     def __init__(
-#             self,
-#             name: str,
-#             cpu: int,
-#             memory: float
-#         ):
-#         self.name = name
-#         self.cpu = cpu
-#         self.memory = memory
+squeue_string = subprocess.run(['squeue -u ' + username +' -o "%i,%j,%u,%t,%M,%D,%R,%m,%C"'],shell=True,stdout=subprocess.PIPE).stdout.decode('utf-8')
 
-# class PartitionResources:
-#     '''Class for keeping track of Partition Resources.'''
-#     cpu: int
-#     memory: float
+squeue_strings=squeue_string.split('\n')
 
-#     cpu_total: int
-#     memory_total: float
-
-#     def __init__(
-#             self, 
-#             cpu_total: float,
-#             memory_total: float
-#         ) 
-#         self.cpu_total = cpu_total
-#         self.memory_total = memory_total
-
-#     def add_job(self, incpu, inmemory):
-#         cpu=cpu
+if squeue_strings[1]=='':
+    no_jobs=True
+else:
+    for line in squeue_strings:
+        linesplit = line.split(',')
+        if linesplit==['']:
+            pass
+        elif linesplit[0]=='JOBID':
+            pass
+        elif linesplit[3]=='R':  #just get running jobs
+            joblist.append(linesplit)
         
-#         return self.unit_price * self.quantity_on_hand
-    
-#     def __repr__(self) -> str:
-#         return (
-#             'InventoryItem('
-#             f'name={self.name!r}, unit_price={self.unit_price!r}, '
-#             f'quantity_on_hand={self.quantity_on_hand!r})'
+jobdf = pd.DataFrame(joblist, columns=['jobid','job_name','user','state','runtime','nodes','nodename','memreq','cpualloc'])
+df = jobdf.join(nodedf.set_index('nodename'), on='nodename')
+# convert G,T to Mebibytes
+df['MebiByteReq'] = [convert_size(x) for x in df['memreq']]
 
-#     def __hash__(self) -> int:
-#         return hash((self.name, self.unit_price, self.quantity_on_hand))
+dfRunning = df[df['state']=='R'].copy()  #need a copy not an slice and reference to the old df
 
-#     def __eq__(self, other) -> bool:
-#         if not isinstance(other, InventoryItem):
-#             return NotImplemented
-#         return (
-#             (self.name, self.unit_price, self.quantity_on_hand) == 
-#             (other.name, other.unit_price, other.quantity_on_hand))
+# convert strings to ints
+dfRunning[['nodes', 'cpualloc','cpus','realmem']] = dfRunning[['nodes', 'cpualloc','cpus','realmem']].astype(int)
+
+agg_func_math = {
+    'MebiByteReq':['sum'], 'cpualloc':['sum']
+}
+
+df1 = dfRunning.groupby(['nodename','user','state','partition','cpus','realmem'],as_index=False).agg(agg_func_math)
+df1.columns = ["_".join(col_name).rstrip('_') for col_name in df1.columns.to_flat_index()]  #https://stackoverflow.com/questions/26323926/pandas-groupby-agg-how-to-return-results-without-the-multi-index
 
 
-# squeue_string = subprocess.run(['squeue -u ' + username +' -o "%i,%P,%j,%u,%t,%M,%D,%R,%m,%C"'],shell=True,stdout=subprocess.PIPE).stdout.decode('utf-8')
+# #calculate stats, this should work for all users?? #TODO check this
+df1['MemClaim%'] = df1['MebiByteReq_sum']/df1['realmem']*100
+df1['CpuClaim%'] = df1['cpualloc_sum']/df1['cpus']*100
 
-# squeue_strings=squeue_string.split('\n')
-# if squeue_strings[1]=='':
-#     no_jobs=True
-# else:
-#     for line in squeue_strings:
-#         linesplit = line.split(',')
-
-#         try:
-#             partition = linesplit[1]
-
-#             if partition == "PARTITION":
-#                 pass
-#             elif partition == 'parallel':
-#                 print('parallel')
-#             elif partition == 'bigmem':
-#                 print('bigmem')
-#             else:
-#                 print('Error!')
-#         except:
-#             pass
-        
+df1mod = df1[['nodename','user','partition','CpuClaim%','MemClaim%']].sort_values(["partition","CpuClaim%","MemClaim%"], ascending = [True,False,False])
+print(tabulate(df1mod, headers='keys', tablefmt='psql'))
+print(" ")
+print(df1mod.to_markdown()) 
