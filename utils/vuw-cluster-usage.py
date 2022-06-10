@@ -25,9 +25,9 @@ username = "maclacjord" #for testing
 nodedf = pd.DataFrame(columns=['nodename','partition','cpus','realmem'])
 jobdf = pd.DataFrame(columns=['jobid','job_name','user','state','runtime','nodes','nodename','memreq','cpualloc'])
 
-
-nodedf = get_node_info()
 jobdf = get_job_list(username, nodedf)
+nodestatedf = get_node_state()
+nodedf = get_node_info(nodestatedf)
 
 
 df = jobdf.join(nodedf.set_index('nodename'), on='nodename')
@@ -48,14 +48,26 @@ df1 = dfRunning.groupby(['nodename','user','state','partition','cpus','realmem']
 df1.columns = ["_".join(col_name).rstrip('_') for col_name in df1.columns.to_flat_index()]  #https://stackoverflow.com/questions/26323926/pandas-groupby-agg-how-to-return-results-without-the-multi-index
 
 
-# #calculate stats, this should work for all users?? #TODO check this
+# #calculate per node stats, this should work for all users?? -- it does
 df1['MemClaim%'] = df1['MebiByteReq_sum']/df1['realmem']*100
 df1['CpuClaim%'] = df1['cpualloc_sum']/df1['cpus']*100
 
 df1mod = df1[['nodename','user','partition','CpuClaim%','MemClaim%']].sort_values(["partition","CpuClaim%","MemClaim%"], ascending = [True,False,False])
 
+# calculate active partition stats
+activePartitionResources = nodedf[nodedf['nodestate']=='up'].groupby(['partition'],as_index=False).agg({'cpus': 'sum', 'realmem':'sum'})
+partition_used = df1.groupby(['partition','user']).agg({'cpualloc_sum': 'sum', 'MebiByteReq_sum': 'sum'})
+partition_used = partition_used.join(activePartitionResources.set_index('partition'), on='partition')
+partition_used = partition_used.reset_index()
+partition_used['CpuClaim%'] = partition_used['cpualloc_sum']/partition_used['cpus']*100
+partition_used['MemClaim%'] = partition_used['MebiByteReq_sum']/partition_used['realmem']*100
+partition_used = partition_used.reset_index
 
 
 print(" ")
 print("Cluster Resources Allocated Per Node")
 print(df1mod.to_markdown(index=False)) 
+
+print(" ")
+print("Cluster Resources Allocated Per Partition")
+print(partition_used.to_markdown()) 
