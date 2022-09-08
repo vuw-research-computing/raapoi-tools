@@ -38,6 +38,9 @@ for line in qfile:
           #print('Quota not set for user: {0}'.format(user))
 
 print ""
+print('{0:>30}'.format('Get new scratch quota by df -h | grep $USER from your scratch directory'))
+
+print ""
 #
 print('\n\033[32m{0:>10}\033[0m'.format('Group Quotas'))
 print('\n\033[1m{0:>30}  {1:10}  {2:10}  {3:10}\033[0m'.format('Storage','Usage (GB)','Quota (GB)','   % Used'))
