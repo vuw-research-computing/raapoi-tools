@@ -17,13 +17,13 @@ whatis([==[Description:
 whatis([==[Homepage: https://www.comsol.com]==])
 whatis([==[URL: https://www.comsol.com]==])
 
-local err_message={"COMSOL is currently only licenced for a subset of Robinson users \n" ..
-		  "Ask for options for access on the slack channel. \n"}
+local err_message="\n COMSOL is currently only licenced for a subset of Robinson users \n For more info and possible access, ask on slack.\n"
 
-local found = required_group("comsol-robinsol")
+local foundgroup = required_group("comsol-robinson")
+LmodMessage(foundgroup)
 
-if (not found) then
-	LmodError(err_message)
+if (not foundgroup) then
+ 	LmodError(err_message)
 end
 
 always_load("intel/2022a")
