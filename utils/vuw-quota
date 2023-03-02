@@ -47,7 +47,7 @@ if len(output_lines_filtered) > 0:
     userpath = output_fields[5]
 else:
     used = quota = percent = userpath = ""
-print('{0:>30}  {1:10.2f}  {2:10.2f} {3:10.2%}'.format(userpath,used,quota,percent))
+print('{0:>30}  {0:>12}  {0:>12} {0:>12}'.format(userpath,used,quota,percent))
 
 print ""
 #
