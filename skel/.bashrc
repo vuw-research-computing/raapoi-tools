@@ -119,8 +119,9 @@ fi
 #issue with XDG_RUNTIME_DIR, possibly munge?
 export XDG_RUNTIME_DIR=""
 
-# Add VUWRC modules & load stadrad config
+# Add VUWRC modules & load standard config
 module use -a /home/software/tools/modulefiles
+module use /home/software/tools/eb_modulefiles/all/Core
 module load config
 
 #launch dbus: provides for some desktop tools, eg gio
