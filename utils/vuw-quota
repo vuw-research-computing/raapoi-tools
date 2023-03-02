@@ -28,17 +28,26 @@ print ""
 #           #print('Quota not set for user: {0}'.format(user))
 
 print ""
-qfile = open('/nfs/home/cad/log/scratch2.log', 'r')
-for line in qfile:
-    if luser in line:
-      user,used,quota = line.split()
-      if int(quota) > 0:
-          print('{0:>30}  {1:10.2f}  {2:10.2f} {3:10.2%}'.format('/nfs/old-scratch2/' + user,float(used)/(1024**2), float(quota)/(1024**2),float(used)/float(quota)))
-      #else:
-          #print('Quota not set for user: {0}'.format(user))
+# Set the username to check
+username = luser
 
-print ""
-print('{0:>30}'.format('Get new scratch quota by df -h | grep $USER from your scratch directory'))
+# Run the df command and get the output as a string
+output = subprocess.check_output(["df", "-hP"]).decode("utf-8")
+
+# Filter the output to only include the file system information for the specified username
+output_lines = output.split("\n")
+output_lines_filtered = [line for line in output_lines if username in line]
+
+# Extract the used, quota, percent and userpath values from the filtered output
+if len(output_lines_filtered) > 0:
+    output_fields = output_lines_filtered[0].split()
+    used = output_fields[2]
+    quota = output_fields[1]
+    percent = output_fields[4]
+    userpath = output_fields[5]
+else:
+    used = quota = percent = userpath = ""
+print('{0:>30}  {1:10.2f}  {2:10.2f} {3:10.2%}'.format(userpath,used,quota,percent))
 
 print ""
 #
