@@ -6,7 +6,7 @@ import subprocess
 luser = os.getenv('USER')
 
 print('\n\033[32m{0:>10}\033[0m'.format('User Quotas'))
-print('\n\033[1m{0:>30}  {1:10}  {2:10}  {3:10}\033[0m'.format('Storage','Usage (GB)','Quota (GB)','   % Used'))
+print('\n\033[1m{0:>30}  {1:10}  {2:10}  {3:10}\033[0m'.format('Storage','Usage','Quota','   % Used'))
 
 #
 qfile = open('/nfs/home/cad/log/quota.log', 'r')
@@ -14,19 +14,9 @@ for line in qfile:
     if luser in line:
       user,used,quota = line.split()
       if int(quota) > 0:
-          print('{0:>30}  {1:10.2f}  {2:10.2f} {3:10.2%}'.format('/nfs/home/' + user,float(used)/(1024**3), float(quota)/(1024**3),float(used)/float(quota)))
+          print('{0:>30}  {1:10.2f}GB  {2:10.2f}GB {3:10.2%}'.format('/nfs/home/' + user,float(used)/(1024**3), float(quota)/(1024**3),float(used)/float(quota)))
       else:
           print('Quota not set for user: {0}'.format(user))
-print ""
-# qfile = open('/nfs/home/cad/log/scratch.log', 'r')
-# for line in qfile:
-#     if luser in line:
-#       user,used,quota = line.split()
-#       if int(quota) > 0:
-#           print('{0:>30}  {1:10.2f}  {2:10.2f} {3:10.2%}'.format('/nfs/old-scratch/' + user,float(used)/(1024**2), float(quota)/(1024**2),float(used)/float(quota)))
-#       #else:
-#           #print('Quota not set for user: {0}'.format(user))
-
 print ""
 # Set the username to check
 username = luser
@@ -47,22 +37,7 @@ if len(output_lines_filtered) > 0:
     userpath = output_fields[5]
 else:
     used = quota = percent = userpath = ""
-print('{0:>30}  {1:>12}  {2:>12} {3:>12}'.format(userpath,used,quota,percent))
+print('{0:>30}  {1:10}  {2:10}  {3:10}'.format(userpath,used,quota,percent))
 
 print ""
-#
-# print('\n\033[32m{0:>10}\033[0m'.format('Group Quotas'))
-# print('\n\033[1m{0:>30}  {1:10}  {2:10}  {3:10}\033[0m'.format('Storage','Usage (GB)','Quota (GB)','   % Used'))
-# g = subprocess.Popen(['groups'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-# out,err = g.communicate()
-# groups = out.split()
-# qfile = open('/nfs/home/cad/log/group.log', 'r')
-# for line in qfile:
-#     group,used,quota = line.split()
-#     if group in groups:
-#       if int(quota) > 0:
-#           print('{0:>30}  {1:10.2f}  {2:10.2f} {3:10.2%}'.format('/nfs/old-scratch/' + group,float(used)/(1024**2), float(quota)/(1024**2),float(used)/float(quota)))
-#       else:
-#           print('Quota not set for group: {0}'.format(group))
-# print ""
 
