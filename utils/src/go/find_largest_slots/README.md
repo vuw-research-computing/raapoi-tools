@@ -1,6 +1,6 @@
 Initialise a go module
 ```bash
-go mod init find_largest_slots
+go mod init vuw-largest-slots
 ```
 
 This command will create a new go.mod file in your project directory.
@@ -13,7 +13,7 @@ go get github.com/alecthomas/kingpin
 
 Now, you should be able to compile your Go code with the following command:
 ```bash
-go build find_largest_slots.go
+go build vuw-largest-slots.go
 ```
 
-This will create an executable file named find_largest_slots
+This will create an executable file named vuw-largest-slots
