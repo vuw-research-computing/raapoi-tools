@@ -169,7 +169,7 @@ func partitionExists(partition string) bool {
 func main() {
     if len(os.Args) == 1 {
         fmt.Println("Usage:")
-        fmt.Println(app.Usage())
+        app.Writer().Write([]byte(app.UsageTemplate()))
         os.Exit(0)
     }
 
@@ -177,7 +177,7 @@ func main() {
     if err != nil {
         fmt.Printf("Error: %v\n", err)
         fmt.Println("Usage:")
-        fmt.Println(app.Usage())
+        app.Writer().Write([]byte(app.UsageTemplate()))
         os.Exit(1)
     }
 
@@ -188,6 +188,7 @@ func main() {
 
     printLargestSlots(*partition, *allNodes, *mostGPUs)
 }
+
 
 
 
