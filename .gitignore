@@ -8,3 +8,4 @@ slurm/*
 url.txt
 *.mod
 *.sum
+vuw-largest-slots
