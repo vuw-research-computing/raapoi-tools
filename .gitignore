@@ -1,3 +1,4 @@
+build/
 eb_modulefiles/
 .Rproj.user
 .Rhistory
@@ -5,3 +6,5 @@ eb_modulefiles/
 .Ruserdata
 slurm/*
 url.txt
+*.mod
+*.sum
