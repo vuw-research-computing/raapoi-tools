@@ -167,15 +167,28 @@ func partitionExists(partition string) bool {
 
 
 func main() {
-	app.Parse(os.Args[1:])
+    if len(os.Args) == 1 {
+        fmt.Println("Usage:")
+        fmt.Println(app.Usage())
+        os.Exit(0)
+    }
 
-	if !partitionExists(*partition) {
-		fmt.Printf("Error: The partition '%s' does not exist or you misspelled the partition name.\n", *partition)
-		os.Exit(1)
-	}
+    _, err := app.Parse(os.Args[1:])
+    if err != nil {
+        fmt.Printf("Error: %v\n", err)
+        fmt.Println("Usage:")
+        fmt.Println(app.Usage())
+        os.Exit(1)
+    }
 
-	printLargestSlots(*partition, *allNodes, *mostGPUs)
+    if !partitionExists(*partition) {
+        fmt.Printf("Error: The partition '%s' does not exist or you misspelled the partition name.\n", *partition)
+        os.Exit(1)
+    }
+
+    printLargestSlots(*partition, *allNodes, *mostGPUs)
 }
+
 
 
 
