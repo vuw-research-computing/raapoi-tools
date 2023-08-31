@@ -1,4 +1,4 @@
-#!/bin/python
+#!/bin/python3
 
 import os
 import subprocess
@@ -39,5 +39,5 @@ else:
     used = quota = percent = userpath = ""
 print('{0:<30}  {1:>12}  {2:>12}  {3:>12}'.format(userpath,used,quota,percent))
 
-print ""
+print("")
 
