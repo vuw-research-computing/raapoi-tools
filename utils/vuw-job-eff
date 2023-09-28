@@ -1,8 +1,24 @@
 #!/usr/bin/python3.6
 
 import sys
-import pandas as pd
-import numpy as np
+try:
+    import pandas as pd
+except:
+    print('ERROR: You do not have Pandas install on your Python 3.6.')
+    print('To install Pandas on Python 3.6, run the following in your Raapoi terminal:')
+    print()
+    print('pip3.6 install --user --upgrade pandas')
+    print()
+    exit('Once you have done this, run the vuw-job-eff command again')
+try:
+    import numpy as np
+except:
+    print('ERROR: You do not have Numpy install on your Python 3.6.')
+    print('To install Numpy on Python 3.6, run the following in your Raapoi terminal:')
+    print()
+    print('pip3.6 install --user --upgrade numpy')
+    print()
+    exit('Once you have done this, run the vuw-job-eff command again')
 import getpass as gp
 import argparse as ap
 import datetime as dt
@@ -111,7 +127,7 @@ def collate_saact(indf):
     'AllocCPUS': lambda x: x.iloc[0],
     'TotalCPU': np.max,
     'ReqMem': lambda x: x.iloc[0],
-    'AllocGRES': lambda x: x.iloc[0],
+    'AllocTRES': lambda x: x.iloc[0],
     'State': lambda x: x.iloc[0],
     'End': lambda x: x.iloc[0]
     })
@@ -119,7 +135,7 @@ def collate_saact(indf):
     return df_agg
 
 def user_usage(user,start_date,calcOld=False):
-    sacct_string = subprocess.run(['sacct --units=M -p -T -S ' + start_date.isoformat() + ' --format="jobid%30,Elapsed%15,Timelimit,Start,NNodes,NCPUS,NTasks,MaxRSS,MaxVMSize,Partition,ReqCPUS,AllocCPUS,TotalCPU%15,CPUtime,ReqMem,AllocGRES,State%10,End, User, Account" -u '+ username + ' --noconvert ' + '|grep -v ext'],shell=True,stdout=subprocess.PIPE).stdout.decode('utf-8')
+    sacct_string = subprocess.run(['sacct --units=M -p -T -S ' + start_date.isoformat() + ' --format="jobid%30,Elapsed%15,Timelimit,Start,NNodes,NCPUS,NTasks,MaxRSS,MaxVMSize,Partition,ReqCPUS,AllocCPUS,TotalCPU%15,CPUtime,ReqMem,AllocTRES,State%10,End, User, Account" -u '+ username + ' --noconvert ' + '|grep -v ext'],shell=True,stdout=subprocess.PIPE).stdout.decode('utf-8')
     sacct_stringio=StringIO(sacct_string)
     df=pd.read_csv(sacct_stringio,sep='|')
     # Drop rows for jobs that started running before the specified report start time
@@ -139,6 +155,15 @@ def totalmem(row):
         totalmemreq = int( row.ReqMem.strip('Mn') ) * row.NNodes
     elif 'c' in row.ReqMem:  #memory per core
         totalmemreq = int( row.ReqMem.strip('Mc') ) * row.AllocCPUS
+    elif 'M' in row.ReqMem:  #memory per core
+        totalmemreq = int( row.ReqMem.strip('M') ) 
+    else:
+        print('Issue: Problem with ReqMem found in row.')
+        print('row.ReqMem = '+str(row.ReqMem))
+        print('row given below')
+        print(row)
+        import pdb; pdb.set_trace()
+        raise Exception('Issue: Problem with ReqMem found in row')
     totalmemreq = totalmemreq / gibimibi
     return totalmemreq
 
