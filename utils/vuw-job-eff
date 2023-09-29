@@ -1,8 +1,26 @@
-#!/usr/bin/python3.6
+#!/usr/bin/env python3
 
 import sys
-import pandas as pd
-import numpy as np
+try:
+    import pandas as pd
+except:
+    print('ERROR: You do not have Pandas install on your Python '+str(sys.version).replace('\n','')+'.')
+    print('(You are currently running Python '+str(sys.version).replace('\n','')+')')
+    print('To install Pandas on Python '+str(sys.version).replace('\n','')+', run the following in your Raapoi terminal:')
+    print()
+    print('pip3 install --user --upgrade pandas')
+    print()
+    exit('Once you have done this, run the vuw-job-eff command again')
+try:
+    import numpy as np
+except:
+    print('ERROR: You do not have Numpy install on your Python '+str(sys.version).replace('\n','')+'.')
+    print('(You are currently running Python '+str(sys.version).replace('\n','')+')')
+    print('To install Numpy on Python '+str(sys.version).replace('\n','')+', run the following in your Raapoi terminal:')
+    print()
+    print('pip3 install --user --upgrade numpy')
+    print()
+    exit('Once you have done this, run the vuw-job-eff command again')
 import getpass as gp
 import argparse as ap
 import datetime as dt
@@ -11,7 +29,7 @@ from io import StringIO
 #import pdb; pdb.set_trace()
 
 today_csv = dt.datetime.now()
-pd.set_option('use_inf_as_na', True)
+# pd.set_option('use_inf_as_na', True) # FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead. Geoff Weal 29/9/2023
 
 def check_positive_days(value):
     days = int(value)
@@ -99,19 +117,19 @@ def collate_saact(indf):
     'User':lambda x: x.iloc[0],
     'Account': lambda x: x.iloc[0],
     'JobID': lambda x: x.iloc[0],
-    'Elapsed': np.max,
-    'Timelimit': np.max,
+    'Elapsed': 'max', #np.max, # Update to Pandas 2.1.1, call string max instead of function, Geoff Weal 29/9/23
+    'Timelimit': 'max', #np.max, # Update to Pandas 2.1.1, call string max instead of function, Geoff Weal 29/9/23
     'Start': lambda x: x.iloc[0],  #first one in group
     'NNodes': lambda x: x.iloc[0],
-    'NTasks': np.max,
-    'MaxRSS' : np.max,
-    'MaxVMSize' : np.max,
+    'NTasks': 'max', #np.max, # Update to Pandas 2.1.1, call string max instead of function, Geoff Weal 29/9/23
+    'MaxRSS' : 'max', #np.max, # Update to Pandas 2.1.1, call string max instead of function, Geoff Weal 29/9/23
+    'MaxVMSize' : 'max', #np.max, # Update to Pandas 2.1.1, call string max instead of function, Geoff Weal 29/9/23
     'Partition': lambda x: x.iloc[0],
     'ReqCPUS': lambda x: x.iloc[0],
     'AllocCPUS': lambda x: x.iloc[0],
-    'TotalCPU': np.max,
+    'TotalCPU': 'max', #np.max, # Update to Pandas 2.1.1, call string max instead of function, Geoff Weal 29/9/23
     'ReqMem': lambda x: x.iloc[0],
-    'AllocGRES': lambda x: x.iloc[0],
+    'AllocTRES': lambda x: x.iloc[0],
     'State': lambda x: x.iloc[0],
     'End': lambda x: x.iloc[0]
     })
@@ -119,7 +137,7 @@ def collate_saact(indf):
     return df_agg
 
 def user_usage(user,start_date,calcOld=False):
-    sacct_string = subprocess.run(['sacct --units=M -p -T -S ' + start_date.isoformat() + ' --format="jobid%30,Elapsed%15,Timelimit,Start,NNodes,NCPUS,NTasks,MaxRSS,MaxVMSize,Partition,ReqCPUS,AllocCPUS,TotalCPU%15,CPUtime,ReqMem,AllocGRES,State%10,End, User, Account" -u '+ username + ' --noconvert ' + '|grep -v ext'],shell=True,stdout=subprocess.PIPE).stdout.decode('utf-8')
+    sacct_string = subprocess.run(['sacct --units=M -p -T -S ' + start_date.isoformat() + ' --format="jobid%30,Elapsed%15,Timelimit,Start,NNodes,NCPUS,NTasks,MaxRSS,MaxVMSize,Partition,ReqCPUS,AllocCPUS,TotalCPU%15,CPUtime,ReqMem,AllocTRES,State%10,End, User, Account" -u '+ username + ' --noconvert ' + '|grep -v ext'],shell=True,stdout=subprocess.PIPE).stdout.decode('utf-8')
     sacct_stringio=StringIO(sacct_string)
     df=pd.read_csv(sacct_stringio,sep='|')
     # Drop rows for jobs that started running before the specified report start time
@@ -139,12 +157,22 @@ def totalmem(row):
         totalmemreq = int( row.ReqMem.strip('Mn') ) * row.NNodes
     elif 'c' in row.ReqMem:  #memory per core
         totalmemreq = int( row.ReqMem.strip('Mc') ) * row.AllocCPUS
+    elif 'M' in row.ReqMem:  #memory per core
+        totalmemreq = int( row.ReqMem.strip('M') ) 
+    else:
+        print('Issue: Problem with ReqMem found in row.')
+        print('row.ReqMem = '+str(row.ReqMem))
+        print('row given below')
+        print(row)
+        import pdb; pdb.set_trace()
+        raise Exception('Issue: Problem with ReqMem found in row')
     totalmemreq = totalmemreq / gibimibi
     return totalmemreq
 
 all_jobs_newdf = pd.DataFrame([],index=[0])
 newdf = user_usage(username, start_date, calcOld=True)
 all_jobs_newdf  = pd.concat([all_jobs_newdf, newdf ],sort=False)
+all_jobs_newdf.replace([np.inf, -np.inf], np.nan, inplace=True) # Updated to replace pd.set_option('use_inf_as_na', True), Geoff Weal 29/9/23
 all_jobs_newdf.dropna(how='all', inplace=True)
 
 if not all_jobs_newdf.empty:
@@ -186,15 +214,15 @@ if 'cpu_efficiency' in all_jobs_newdf.columns:
     gdf = df.groupby(['User', 'Partition', 'State'], as_index=False, dropna=True).agg(
             **{
                 'Num Jobs': pd.NamedAgg(column='JobID', aggfunc='count'),
-                'Min % CPU Eff': pd.NamedAgg(column='cpu_efficiency', aggfunc=np.min),
-                'Max % CPU Eff': pd.NamedAgg(column='cpu_efficiency', aggfunc=np.max),
-                'Mean % CPU Eff': pd.NamedAgg(column='cpu_efficiency', aggfunc=np.mean),
-                'Min % Mem Eff': pd.NamedAgg(column='mem_efficiency', aggfunc=np.min),
-                'Max % Mem Eff': pd.NamedAgg(column='mem_efficiency', aggfunc=np.max),
-                'Mean % Mem Eff': pd.NamedAgg(column='mem_efficiency', aggfunc=np.mean),
-                'Min % Time Eff': pd.NamedAgg(column='time_efficiency', aggfunc=np.min),
-                'Max % Time Eff': pd.NamedAgg(column='time_efficiency', aggfunc=np.max),
-                'Mean % Time Eff': pd.NamedAgg(column='time_efficiency', aggfunc=np.mean)
+                'Min % CPU Eff':   pd.NamedAgg(column='cpu_efficiency',  aggfunc='min'),  # np.min),  # Update to Pandas 2.1.1, call string min  instead of function, Geoff Weal 29/9/23
+                'Max % CPU Eff':   pd.NamedAgg(column='cpu_efficiency',  aggfunc='max'),  # np.max),  # Update to Pandas 2.1.1, call string max  instead of function, Geoff Weal 29/9/23
+                'Mean % CPU Eff':  pd.NamedAgg(column='cpu_efficiency',  aggfunc='mean'), # np.mean), # Update to Pandas 2.1.1, call string mean instead of function, Geoff Weal 29/9/23
+                'Min % Mem Eff':   pd.NamedAgg(column='mem_efficiency',  aggfunc='min'),  # np.min),  # Update to Pandas 2.1.1, call string min  instead of function, Geoff Weal 29/9/23
+                'Max % Mem Eff':   pd.NamedAgg(column='mem_efficiency',  aggfunc='max'),  # np.max),  # Update to Pandas 2.1.1, call string max  instead of function, Geoff Weal 29/9/23
+                'Mean % Mem Eff':  pd.NamedAgg(column='mem_efficiency',  aggfunc='mean'), # np.mean), # Update to Pandas 2.1.1, call string mean instead of function, Geoff Weal 29/9/23
+                'Min % Time Eff':  pd.NamedAgg(column='time_efficiency', aggfunc='min'),  # np.min),  # Update to Pandas 2.1.1, call string min  instead of function, Geoff Weal 29/9/23
+                'Max % Time Eff':  pd.NamedAgg(column='time_efficiency', aggfunc='max'),  # np.max),  # Update to Pandas 2.1.1, call string max  instead of function, Geoff Weal 29/9/23
+                'Mean % Time Eff': pd.NamedAgg(column='time_efficiency', aggfunc='mean'), # np.mean)  # Update to Pandas 2.1.1, call string mean instead of function, Geoff Weal 29/9/23
             }
     )
 
