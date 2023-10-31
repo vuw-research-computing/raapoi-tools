@@ -7,12 +7,14 @@ echo ""
 printf "${GREEN}VUW CLUSTER PARTITIONS${NC}\n"
 sinfo -p quicktest
 echo ""
+sinfo -p parallel
+echo ""
 # GPU nodes returned to ECS :(
 sinfo -p gpu
 echo ""
 sinfo -p bigmem
 echo ""
-sinfo -p parallel
+sinfo -p longrun
 echo ""
 echo "NOTE: This utility is a wrapper for the Slurm command:"
 echo '      sinfo -p PARTITION'
