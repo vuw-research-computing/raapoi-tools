@@ -25,6 +25,7 @@ for item in jdata['quotas']:
            user = pwd.getpwuid(uid).pw_name
        except:
            print(str(uid) + " not found, skipping...")
+           continue
        quota = item['thresholds']['hard']
        used = item['usage']['logical']
        record = (user + " " + str(used) + " " + str(quota))
