@@ -2,7 +2,7 @@
 
 import os
 import subprocess
-
+import re
 luser = os.getenv('USER')
 
 print('\n\033[32m{0:<10}\033[0m'.format('User Quotas'))
@@ -11,7 +11,7 @@ print('\n\033[1m{0:<30}  {1:>12}  {2:>12}  {3:>12}\033[0m'.format('Storage','Usa
 #
 qfile = open('/nfs/home/cad/log/quota.log', 'r')
 for line in qfile:
-    if luser in line:
+    if re.fullmatch(luser,line.split()[0]):
       user,used,quota = line.split()
       if int(quota) > 0:
           print('{0:<30}  {1:>10.2f}GB  {2:>10.2f}GB {3:>13.2%}'.format('/nfs/home/' + user,float(used)/(1024**3), float(quota)/(1024**3),float(used)/float(quota)))
