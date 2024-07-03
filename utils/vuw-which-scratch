@@ -3,5 +3,15 @@
 ## Show	which scratch partition	a user is in
 ##
 
-if ls -tlrh | grep $USER |   
+#if ls -tlrh | grep $USER |   
+hashes="###"
+GREEN="\033[32m"
+NC="\033[0m"
+
+
+echo ""
+echo ""
+echo -e "       $GREEN/nfs/scratch/noquota-volatile$NC      "
+echo ""
+echo "#Note: A temporary nobackup location. Please make sure to move your data."
 
