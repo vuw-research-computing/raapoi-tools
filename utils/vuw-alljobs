@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 ##
 ## List the queue in cluster partitions
 ##
@@ -11,6 +11,9 @@ echo ""
 # add echo?
 printf "${GREEN}BIG MEMORY PARTITION QUEUE: bigmem${NC}\n"
 squeue -p bigmem -o "%.15i %.16j %.10u %.7C %.7m %.12M %.12L %.10T %R"
+echo ""
+printf "${GREEN}BIG MEMORY PARTITION QUEUE: longrun${NC}\n"
+squeue -p longrun -o "%.15i %.16j %.10u %.7C %.7m %.12M %.12L %.10T %R"
 echo ""
 # GPU nodes 
 printf "${GREEN}GPU PARTITION QUEUE: gpu${NC}\n"
@@ -30,3 +33,4 @@ echo "This utility is a wrapper for the Slurm command:"
 echo 'squeue -p PARTITION -o "%.15i %.16j %.10u %.7c %.7m %.12M %.12L %.10T %R"'
 echo ""
 exit
+
