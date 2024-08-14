@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+
+import subprocess
+import sys
+
+def node_info():
+    node_info = subprocess.check_output(['scontrol', 'show', 'nodes'], universal_newlines=True)
+    gibimibi = 1024
+
+    nodes = []
+    for node_block in node_info.strip().split("\n\n"):
+        if node_block:
+            node_info = {}
+            lines = node_block.split("\n")
+            for line in lines:
+                if line.startswith("NodeName"):
+                    node_info["NodeName"] = line.split("=")[1].split()[0]
+                if "State=" in line:
+                    node_info["State"] = line.split("State=")[1].split()[0]
+                if "CPUTot=" in line:
+                    node_info["CPU"] = int(line.split("CPUTot=")[1].split()[0])
+                if "RealMemory=" in line:
+                    node_info["Mem"] = round(int(line.split("RealMemory=")[1].split()[0]) / gibimibi, 2)
+                if "AllocTRES=" in line:
+                    alloc_tres = line.split("AllocTRES=")[1].strip()
+                    if alloc_tres == "":
+                        node_info["AllocCPUs"] = 0
+                        node_info["AllocMem"] = 0
+                    else:
+                        for tres in alloc_tres.split(","):
+                            if tres.startswith("cpu="):
+                                node_info["AllocCPUs"] = round(int(tres.split("=")[1]),2)
+                            if tres.startswith("mem="):
+                                mem_value = tres.split("=")[1]
+                                if mem_value.endswith("G"):
+                                    node_info["AllocMem"] = round(int(mem_value[:-1]), 2)
+                                elif mem_value.endswith("M"):
+                                    node_info["AllocMem"] = round(int(mem_value[:-1]) / gibimibi, 2)
+                                elif mem_value.endswith("K"):
+                                    node_info["AllocMem"] = round(int(mem_value[:-1]) / 1024, 2)
+                                else:
+                                    node_info["AllocMem"] = round(int(mem_value) / gibimibi, 2)
+        if node_info:
+            nodes.append(node_info)
+
+    return nodes
+
+def vuw_info(nodes, nodename=None):
+    for node in nodes:
+        node['AvailCPUs'] = node['CPU'] - node['AllocCPUs']
+        node['AvailMem'] = round(node['Mem'] - node['AllocMem'],2)
+
+    if nodename:
+        nodes = [node for node in nodes if nodename in node['NodeName']]
+
+    return nodes
+
+def print_nodes(nodes):
+    if not nodes:
+        print("No nodes found.")
+        return
+
+    headers = ["NodeName", "CPU", "Mem", "AllocCPUs", "AllocMem", "AvailCPUs", "AvailMem","State"]
+    header_line = " | ".join(headers)
+
+    # Calculate the width of each column
+    column_widths = {header: len(header) for header in headers}
+    for node in nodes:
+        for header in headers:
+            column_widths[header] = max(column_widths[header], len(str(node[header])))
+
+    # Create format string
+    format_string = " | ".join(f"{{:<{column_widths[header]}}}" for header in headers)
+
+    # Print header
+    print(format_string.format(*headers))
+    print("-" * (sum(column_widths.values()) + 3 * (len(headers) - 1)))
+
+    # Print rows
+    for node in nodes:
+        print(format_string.format(*[node[header] for header in headers]))
+
+if __name__ == '__main__':
+    nodename = None
+
+    if '-w' in sys.argv or '--nodename' in sys.argv:
+        try:
+            nodename_index = sys.argv.index('-w') + 1
+        except ValueError:
+            nodename_index = sys.argv.index('--nodename') + 1
+        nodename = sys.argv[nodename_index]
+
+    info = node_info()
+    filtered_info = vuw_info(info, nodename)
+    print_nodes(filtered_info)
