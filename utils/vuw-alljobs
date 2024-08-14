@@ -10,8 +10,9 @@ to see the total amount of memory requested.
 '''
 import os
 import subprocess
-import re
-luser = os.getenv('USER')
+
+GREEN='\033[0;32m'
+NC='\033[0m'
 
 def get_total_memory(jobid):
 	"""
@@ -60,7 +61,7 @@ partitions = [('PARALLEL', 'parallel'), ('BIG MEMORY', 'bigmem'), ('LONG RUN', '
 for partition_name, partition in partitions:
 
 	# Print the title for the partition
-	print(f"{partition_name} PARTITION QUEUE: {partition}")
+	print(f"{GREEN}{partition_name} PARTITION QUEUE: {partition}{NC}")
 
 	# Execute the command to get all the info about the jobs in the partition of interest. 
 	executable = ('squeue', '-p', partition, '-o', '"%.12i %.16j %.6D %.10u %.7C %.7m %.12M %.12L %.10T %R"')
@@ -109,13 +110,18 @@ for partition_name, partition in partitions:
 
 		# Print the information about the line
 		print(''.join(new_line))
+	
+	# Separate the partitions by a line
+	print()
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+#print('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ')
 print()
 print("This utility is a wrapper for the Slurm command (where the memory has been modified in the current command):")
 print('squeue -p PARTITION -o "%.15i %.16j %.6D %.10u %.7C %.7m %.12M %.12L %.10T %R"')
 print()
+#print('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ')
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
