@@ -1,0 +1,71 @@
+#!/usr/bin/env python3
+
+import subprocess
+from io import StringIO
+import argparse
+
+def memfix(inmem):
+    gibimibi = 1024
+    inmem = str(inmem)
+    # takes 1.38M or nan and returns 1.38 or 0
+    if inmem.lower() == 'nan' or not inmem:
+        outmem = 0
+    else:
+        outmem = float(inmem.strip('M')) / gibimibi
+    return outmem
+
+def usage():
+    squeue_string = subprocess.run(['squeue -t R --noconvert --noheader -o "%C %m %i %F %N %u"'], shell=True, stdout=subprocess.PIPE).stdout.decode('utf-8')
+    squeue_stringio = StringIO(squeue_string)
+
+    # Read lines from the string IO and process them
+    data = []
+    for line in squeue_stringio:
+        if line.strip():  # Skip empty lines
+            columns = line.split()
+            if len(columns) == 6:  # Ensure there are exactly 6 columns
+                data.append({
+                    'CPUS': float(columns[0]),
+                    'Mem': memfix(columns[1]),
+                    'JobId': columns[2],
+                    'Job': columns[3],
+                    'Node': columns[4],
+                    'User': columns[5]
+                })
+    return data
+
+def newfunc(data, var1):
+    grouped_data = {}
+    for row in data:
+        key = row[var1]
+        if key not in grouped_data:
+            grouped_data[key] = {'Num Jobs': 0, 'Alloc Mem (GB)': 0, 'Alloc CPUs': 0}
+
+        grouped_data[key]['Num Jobs'] += 1
+        grouped_data[key]['Alloc Mem (GB)'] += row['Mem']
+        grouped_data[key]['Alloc CPUs'] += row['CPUS']
+
+    # Round the results
+    for key in grouped_data:
+        grouped_data[key]['Alloc Mem (GB)'] = round(grouped_data[key]['Alloc Mem (GB)'], 1)
+        grouped_data[key]['Alloc CPUs'] = round(grouped_data[key]['Alloc CPUs'], 1)
+
+    # Convert to list of dictionaries for printing
+    grouped_list = [{'Variable': key, **value} for key, value in grouped_data.items()]
+    return grouped_list
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(prog='my_mem_adv', description='Mem_adv', epilog='For more info')
+    parser.add_argument('-w', '--variable', help='e.g., -w Node', default='Node')
+
+    args = parser.parse_args()
+    var1 = args.variable
+
+    data = usage()
+    out = newfunc(data, var1)
+
+    # Print the result in a table format
+    print("{:<20} {:<10} {:<15} {:<10}".format(var1, 'Num Jobs', 'Alloc Mem (GB)', 'Alloc CPUs'))
+    for row in out:
+        print("{:<20} {:<10} {:<15} {:<10}".format(row['Variable'], row['Num Jobs'], row['Alloc Mem (GB)'], row['Alloc CPUs']))
+
