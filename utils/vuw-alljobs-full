@@ -68,13 +68,13 @@ for partition_name, partition in partitions:
 	output = subprocess.check_output(executable).decode("utf-8")
 
 	# For each line in output
-	for line in output.split('\n'):
+	for line_original in output.split('\n'):
 
 		# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 		# The next few lines are a bit convoluted because of weird stuff to do with perserving whitespaces. GRW
 
 		# There seems to be these " at the start and end of the line, so remove them
-		line = line.replace('"','')
+		line = line_original.replace('"','')
 
 		# Preserve the whitespaces with starts
 		line = line.replace(" ","* *").replace("**","")
@@ -83,16 +83,21 @@ for partition_name, partition in partitions:
 		line = line.split("*")
 
 		# The first line is always nothing, so remove it
-		del line[0]
+		if not line[0].isspace():
+			del line[0]
 
-		# Paste the whitespace suffix for each line you want to display
-		new_line = []
-		for index in range(0,len(line),2):
-			new_line.append(line[index] + line[index+1])
+			# Paste the whitespace suffix for each line you want to display
+			new_line = []
+			for index in range(0,len(line),2):
+				new_line.append(line[index] + line[index+1])
+	
+			# If the line contains nothing, move on. 
+			if len(new_line) < 1:
+				continue
+		
+		else:
+			jobid = line[0].split("_")[0]
 
-		# If the line contains nothing, move on. 
-		if len(new_line) < 1:
-			continue
 		# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 		# Get the job id of current interest. 
@@ -102,7 +107,10 @@ for partition_name, partition in partitions:
 		if 'JOBID' not in jobid:
 
 			# Get the total memory for this job 
-			total_memory = get_total_memory(jobid)
+			try:
+				total_memory = get_total_memory(jobid)
+			except:
+				pass
 
 			# Create the line to paste, keeping the preluding whitespaces
 			total_length = len(new_line[5])
