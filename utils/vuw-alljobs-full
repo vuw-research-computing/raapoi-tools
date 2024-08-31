@@ -1,0 +1,175 @@
+#!/usr/bin/env python3
+'''
+vuw-alljobs-full, Andre Geldenhuis and Geoffrey Weal, 14/8/24
+
+This method is designed to show the user details about all jobs running on the cluster.
+
+This script has been patched to repair a bug where the total memory requested is not shown if a user put in 
+"--mem-per-cpu" in their submission .sl script, but rather the mem-per-cpu instead. THis patch allows users
+to see the total amount of memory requested. 
+'''
+import os
+import subprocess
+
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+def get_total_memory(jobid):
+	"""
+	This method is designed to extract the total amount of memory that a job is using
+		
+	Parameters
+	----------
+	jobid : str
+		This is the id of the job you want to get the total memory of.
+
+	Returns
+	-------
+	total_memory : str or None
+		This is the total memory of the job. If this method could not get it, return None
+	"""
+
+	# First, execute the process for obtaining all the information about a job.
+	executable = f'scontrol show job {jobid}'.split()
+	job_output = subprocess.check_output(executable).decode("utf-8")
+
+	# Second, for each line in the output from above
+	for line in job_output.split('\n'):
+
+		# 2.1: There are a lot of spaces before and after this line. So remove these prefix and suffix spaces.
+		line = line.lstrip().rstrip()
+
+		# 2.2: The line that contains the total memory is in the line that starts with 'ReqTRES'. 
+		#      If you get this line, grab it.
+		if line.startswith('ReqTRES'):
+
+			# 2.3: These two lines of code strip all the excess info from the line and leaves only the total memory.
+			line = line.split('mem=')[1]
+			total_memory = line.split(',')[0]
+
+			# 2.4: Return the total memory
+			return total_memory
+
+	# If the total memory could not be found, return Not Available. This indicates a bug, but let the program run for the user (GRW 14/7/24).
+	return 'N/A'
+
+
+# Write all the squeues for each partition
+partitions = [('PARALLEL', 'parallel'), ('BIG MEMORY', 'bigmem'), ('LONG RUN', 'longrun'), ('QUICK TEST', 'quicktest')]
+
+# For each partition
+for partition_name, partition in partitions:
+
+	# Print the title for the partition
+	print(f"{GREEN}{partition_name} PARTITION QUEUE: {partition}{NC}")
+
+	# Execute the command to get all the info about the jobs in the partition of interest. 
+	executable = ('squeue', '-p', partition, '-o', '"%.12i %.16j %.6D %.10u %.7C %.7m %.12M %.12L %.10T %R"')
+	output = subprocess.check_output(executable).decode("utf-8")
+
+	# For each line in output
+	for line_original in output.split('\n'):
+
+		# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+		# The next few lines are a bit convoluted because of weird stuff to do with perserving whitespaces. GRW
+
+		# There seems to be these " at the start and end of the line, so remove them
+		line = line_original.replace('"','')
+
+		# Preserve the whitespaces with starts
+		line = line.replace(" ","* *").replace("**","")
+
+		# Split the line, and keap the white spaces
+		line = line.split("*")
+
+		# The first line is always nothing, so remove it
+		if not line[0].isspace():
+			del line[0]
+
+			# Paste the whitespace suffix for each line you want to display
+			new_line = []
+			for index in range(0,len(line),2):
+				new_line.append(line[index] + line[index+1])
+	
+			# If the line contains nothing, move on. 
+			if len(new_line) < 1:
+				continue
+		
+		else:
+			jobid = line[0].split("_")[0]
+
+		# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+		# Get the job id of current interest. 
+		jobid = new_line[0].lstrip().rstrip()
+
+		# If the jobid does not contains 'JOBID', we want to replace the memory value given with the actual total memory
+		if 'JOBID' not in jobid:
+
+			# Get the total memory for this job 
+			try:
+				total_memory = get_total_memory(jobid)
+			except:
+				pass
+
+			# Create the line to paste, keeping the preluding whitespaces
+			total_length = len(new_line[5])
+			new_line[5] = ' '*(total_length-len(total_memory))+str(total_memory)
+
+		# Print the information about the line
+		print(''.join(new_line))
+	
+	# Separate the partitions by a line
+	print()
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+#print('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ')
+print()
+print("This utility is a wrapper for the Slurm command (where the memory has been modified in the current command):")
+print('squeue -p PARTITION -o "%.15i %.16j %.6D %.10u %.7C %.7m %.12M %.12L %.10T %R"')
+print()
+#print('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ')
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# This was the previous old code for this. It is much faster, but the memory quoted may not be the total memory (RAM). GRW
+
+'''
+
+#!/bin/bash
+##
+## List the queue in cluster partitions
+##
+
+GREEN='\033[0;32m'
+NC='\033[0m'
+printf "${GREEN}PARALLEL PARTITION QUEUE: parallel${NC}\n"
+squeue -p parallel -o "%.15i %.16j %.10u %.7C %.7m %.12M %.12L %.10T %R"
+echo ""
+# add echo?
+printf "${GREEN}BIG MEMORY PARTITION QUEUE: bigmem${NC}\n"
+squeue -p bigmem -o "%.15i %.16j %.10u %.7C %.7m %.12M %.12L %.10T %R"
+echo ""
+# GPU nodes 
+printf "${GREEN}GPU PARTITION QUEUE: gpu${NC}\n"
+squeue -p gpu -o "%.15i %.16j %.10u %.7C %.7m %.12M %.12L %.10T %R"
+echo ""
+printf "${GREEN}QUICK TEST PARTITION QUEUE: quicktest (Default partition) ${NC}\n"
+squeue -p quicktest -o "%.15i %.16j %.10u %.7C %.7m %.12M %.12L %.10T %R"
+echo ""
+
+#if [[ `groups` =~ .*sched_mit_thesmar* ]]; then
+#  printf "${RED}DAVID THESMAR PARTITION QUEUE: sched_mit_thesmar${NC}\n"
+#  squeue -p sched_mit_thesmar -o "%.15i %.8j %.10u %.7c %.7m %.6b %.12M %.12L %.10T %R"
+#  #squeue -l -p sched_mit_thesmar
+#fi
+echo ""
+echo "This utility is a wrapper for the Slurm command:"
+echo 'squeue -p PARTITION -o "%.15i %.16j %.10u %.7c %.7m %.12M %.12L %.10T %R"'
+echo ""
+exit
+
+'''
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
