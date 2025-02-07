@@ -15,10 +15,11 @@ parser.add_argument('-j', '--jobid', help='Jobid to check worst case endtime for
 parser.add_argument('--raw', help='time in raw datetime (y/n) default(n))',default='n')
 args = parser.parse_args()
 
-jobid=int(args.jobid)
+jobid=args.jobid
 rawdatetime=args.raw
-if jobid>1e7:
-    jobid=1
+#TODO: add check for jobid being a number
+# if jobid>1e7:
+    # jobid=1
 
 sacct_string = subprocess.run(['sacct -p -j '+str(jobid)+' --format="Start, Timelimit" --noconvert -n | head -n 1'],shell=True,stdout=subprocess.PIPE).stdout.decode('utf-8')
 #returns

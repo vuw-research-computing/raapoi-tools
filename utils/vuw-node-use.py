@@ -25,8 +25,12 @@ for node in nodedict.keys():
     if nodedict[node]['CPULoad'] != "N/A":
         nodedict[node]['CPURequestedP']=float(nodedict[node]['CPUAlloc'])/float(nodedict[node]['CPUTot'])
         nodedict[node]['CPUUsedP']=float(nodedict[node]['CPULoad'])/float(nodedict[node]['CPUTot'])
-
-        nodedict[node]['UsedMemory']=int(nodedict[node]['RealMemory']) - int(nodedict[node]['FreeMem'])
+        # Handle nodes that stopped working
+        if nodedict[node]['FreeMem']=="N/A":
+            nodedict[node]['FreeMem']=0
+            nodedict[node]['UsedMemory']=0#int(nodedict[node]['RealMemory']) - int(nodedict[node]['FreeMem'])
+        else:
+            nodedict[node]['UsedMemory']=int(nodedict[node]['RealMemory']) - int(nodedict[node]['FreeMem'])
         nodedict[node]['RequestedMemoryP']=float(nodedict[node]['AllocMem'])/float(nodedict[node]['RealMemory'])
         nodedict[node]['UsedMemoryP']=float(nodedict[node]['UsedMemory'])/float(nodedict[node]['RealMemory'])
 
