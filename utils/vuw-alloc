@@ -1,0 +1,142 @@
+#!/usr/bin/python3
+
+# It prints for default
+import argparse
+import subprocess
+from io import StringIO
+
+
+def memfix(inmem):
+    """
+    Convert memory value from G to GB, or return 0 if input is 'nan' or empty.
+    """
+    inmem = str(inmem)
+    if inmem.lower() == 'nan' or not inmem:
+        return 0
+    elif inmem.endswith('G'):
+        return float(inmem.strip('G'))
+    elif inmem.endswith('M'):
+        return round(float(inmem.strip('M')) / 1024, 2)
+    return 0
+
+
+def parse_tres_alloc(tres_alloc):
+    """
+    Parse the TRES allocation string to extract CPUs, memory, and GPUs.
+    """
+    alloc_cpus = alloc_mem = alloc_gpus = 0
+    for item in tres_alloc.split(','):
+        if 'cpu' in item:
+            alloc_cpus = int(item.split('=')[1])
+        elif 'mem' in item:
+            alloc_mem = item.split('=')[1]
+        elif 'gpu' in item:
+            alloc_gpus = int(item.split('=')[1])
+    return alloc_cpus, alloc_mem, alloc_gpus
+
+
+def group_data_by_user(data):
+    """
+    Group job data by user and calculate aggregated values.
+    """
+    grouped_data = {}
+    for row in data:
+        user = row['User']
+        if user not in grouped_data:
+            grouped_data[user] = {'Num Jobs': 0, 'Total CPUs': 0, 'Total GPUs': 0, 'Total Mem (GB)': 0}
+
+        grouped_data[user]['Num Jobs'] += 1
+        grouped_data[user]['Total CPUs'] += row['CPUs']
+        grouped_data[user]['Total GPUs'] += row['GPUs']
+        grouped_data[user]['Total Mem (GB)'] += row['Mem (GB)']
+
+    return grouped_data
+
+
+def print_summary(grouped_data):
+    """
+    Print a formatted summary of the grouped job data.
+    """
+    print("{:<20} {:<10} {:<15} {:<10} {:<10}".format("User", "Num Jobs", "Total CPUs", "Total GPUs", "Total Mem (GB)"))
+    print("-" * 70)
+    total_jobs = total_cpus = total_gpus = total_mem = 0
+
+    for user, stats in sorted(grouped_data.items(), key=lambda x: x[1]['Total Mem (GB)'], reverse=True):
+        print("{:<20} {:<10} {:<15} {:<10} {:<10}".format(
+            user, stats['Num Jobs'], stats['Total CPUs'], stats['Total GPUs'], round(stats['Total Mem (GB)'], 2)
+        ))
+        total_jobs += stats['Num Jobs']
+        total_cpus += stats['Total CPUs']
+        total_gpus += stats['Total GPUs']
+        total_mem += stats['Total Mem (GB)']
+
+    print("-" * 70)
+    print("{:<20} {:<10} {:<15} {:<10} {:<10}".format(
+        "Total", total_jobs, total_cpus, total_gpus, round(total_mem, 2)
+    ))
+
+
+def usage(partition, job_state):
+    """
+    Fetch job data from squeue, process it, and group by user.
+    """
+    cmd = f'squeue -p {partition} -t {job_state} -O "JobId,UserName,tres-alloc:50" -h'
+    try:
+        squeue_output = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE).stdout.decode('utf-8')
+    except Exception as e:
+        print(f"Error executing command: {e}")
+        return
+
+    # Parse the squeue output
+    squeue_stringio = StringIO(squeue_output)
+    data = []
+    for line in squeue_stringio:
+        if line.strip():
+            parts = line.split()
+            if len(parts) >= 3:
+                job_id, user_name, tres_alloc = parts[0], parts[1], " ".join(parts[2:])
+                alloc_cpus, alloc_mem, alloc_gpus = parse_tres_alloc(tres_alloc)
+                data.append({
+                    'User': user_name,
+                    'CPUs': alloc_cpus,
+                    'Mem (GB)': memfix(alloc_mem),
+                    'GPUs': alloc_gpus
+                })
+
+    grouped_data = group_data_by_user(data)
+    print_summary(grouped_data)
+
+
+def main():
+    """
+    Main function for parsing arguments and executing the script.
+    """
+    parser = argparse.ArgumentParser(
+        description="Summarize SLURM job usage by user.",
+        epilog="""
+Examples:
+  myvuw-alloc --partition quicktest --state RUNNING
+  myvuw-alloc --partition gpu --state PENDING
+If no arguments are provided, the script defaults to partition='general' and state='RUNNING'.
+""",
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+
+    parser.add_argument(
+        "--partition", "-p",
+        help="SLURM partition to query, e.g., 'quicktest', 'gpu', or 'longrun'. Default: 'quicktest'.",
+        default="quicktest,parallel,gpu,bigmem,longrun"
+    )
+    parser.add_argument(
+        "--state", "-s",
+        help="SLURM job state to filter, e.g., 'RUNNING', 'PENDING', or 'COMPLETED'. Default: 'RUNNING'.",
+        default="RUNNING"
+    )
+    args = parser.parse_args()
+
+    print(f"Fetching data for partition: {args.partition}, state: {args.state}")
+    usage(args.partition, args.state)
+
+
+if __name__ == "__main__":
+    main()

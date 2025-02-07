@@ -1,0 +1,181 @@
+#!/usr/bin/python3
+
+import subprocess
+import sys
+import argparse
+
+GIB = 1024  # Global constant for memory conversion
+allowed_states = {"MIXED", "ALLOCATED", "IDLE"}  # Set of allowed states
+
+def parse_node_block(node_block):
+    """
+    Parse individual node information block into a dictionary.
+    """
+    node_info = {}
+    lines = node_block.split("\n")
+    
+    for line in lines:
+        if line.startswith("NodeName"):
+            node_info["NodeName"] = line.split("=")[1].split()[0]
+        if "State=" in line:
+            node_info["State"] = line.split("State=")[1].split()[0]
+        if "CPUTot=" in line:
+            node_info["CPU"] = int(line.split("CPUTot=")[1].split()[0])
+        if "RealMemory=" in line:
+            node_info["Mem"] = round(int(line.split("RealMemory=")[1].split()[0]) / GIB, 2)
+        if "AllocTRES=" in line:
+            alloc_tres = line.split("AllocTRES=")[1].strip()
+            parse_alloc_tres(alloc_tres, node_info)
+        if "Gres=" in line:
+            device_type = line.split("Gres=")[1].strip()
+            node_info["device_type"] = "cpu" if device_type == "(null)" else "gpu"
+    
+    return node_info
+
+def parse_alloc_tres(alloc_tres, node_info):
+    """
+    Parse the AllocTRES field and update node_info with allocation details.
+    """
+    node_info["AllocCPUs"] = 0
+    node_info["AllocMem"] = 0
+    node_info["AllocGPUs"] = 0
+
+    if alloc_tres:
+        for tres in alloc_tres.split(","):
+            if tres.startswith("cpu="):
+                node_info["AllocCPUs"] = int(tres.split("=")[1])
+            elif tres.startswith("mem="):
+                mem_value = tres.split("=")[1]
+                node_info["AllocMem"] = convert_memory(mem_value)
+            elif tres.startswith("gres/gpu="):
+                node_info["AllocGPUs"] = int(tres.split("=")[1])
+
+def convert_memory(mem_value):
+    """
+    Convert memory value from KB/MB/GB to GiB.
+    """
+    if mem_value.endswith("G"):
+        return int(mem_value[:-1])  # Already in GiB
+    elif mem_value.endswith("M"):
+        return round(int(mem_value[:-1]) / GIB, 2)
+    elif mem_value.endswith("K"):
+        return round(int(mem_value[:-1]) / (GIB * GIB), 2)
+    else:
+        return round(int(mem_value) / GIB, 2)
+
+def node_info():
+    """
+    Fetch and parse node information using the `scontrol show nodes` command.
+    """
+    try:
+        raw_node_info = subprocess.check_output(['scontrol', 'show', 'nodes'], universal_newlines=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error fetching node information: {e}")
+        sys.exit(1)
+    
+    nodes = []
+    for block in raw_node_info.strip().split("\n\n"):
+        if block:
+            node = parse_node_block(block)
+            nodes.append(node)
+    
+    return nodes
+
+def calculate_availability(nodes):
+    """
+    Calculate available CPUs and memory for each node.
+    """
+    for node in nodes:
+        node['AvailCPUs'] = node['CPU'] - node.get('AllocCPUs', 0)
+        node['AvailMem'] = round(node['Mem'] - node.get('AllocMem', 0), 2)
+
+def filter_nodes(nodes, nodenames=None):
+    """
+    Filter nodes by a list of nodenames if provided.
+    """
+    if nodenames:
+        nodenames = set(nodenames)
+        nodes = [node for node in nodes if node['NodeName'] in nodenames]
+    return nodes
+
+def calculate_totals(nodes, headers):
+    """
+    Calculate total values for numeric columns in the table.
+    """
+    totals = {header: 0 for header in headers}
+    totals["NodeName"] = "Total"
+    totals["State"] = "-"
+    
+    for node in nodes:
+        for header in headers:
+            if header in ["CPU", "Mem", "AllocCPUs", "AllocMem", "AvailCPUs", "AvailMem", "AllocGPUs"]:
+                totals[header] += round(node.get(header, 0))
+    return totals
+
+def print_table(nodes, headers, filter_device_type=None):
+    """
+    Print a formatted table of nodes based on the specified headers.
+    """
+    
+    if filter_device_type:
+        nodes = [node for node in nodes if (node["device_type"] == filter_device_type) and (node["State"] in allowed_states)]
+    
+    
+    if not nodes:
+        print(f"No nodes found for {filter_device_type}.")
+        return
+    
+    # Calculate column widths
+    column_widths = {header: len(header) for header in headers}
+    for node in nodes:
+        for header in headers:
+            column_widths[header] = max(column_widths[header], len(str(node.get(header, ""))))
+    
+    # Create format string
+    row_format = " | ".join(f"{{:<{column_widths[header]}}}" for header in headers)
+    
+    # Print header and separator
+    print(row_format.format(*headers))
+    print("-" * (sum(column_widths.values()) + 3 * (len(headers) - 1)))
+    
+    # Print rows
+    for node in nodes:
+        print(row_format.format(*[node.get(header, "") for header in headers]))
+    
+    # Print totals
+    totals = calculate_totals(nodes, headers)
+    print("-" * (sum(column_widths.values()) + 3 * (len(headers) - 1)))
+    print(row_format.format(*[totals.get(header, "") for header in headers]))
+    print()
+
+def main():
+    parser = argparse.ArgumentParser(description="Fetch and display SLURM node information.")
+    parser.add_argument(
+        "-n", "--nodename",
+        help="Comma-separated list of node names to filter. Leave blank for all nodes.",
+        default=None
+    )
+    args = parser.parse_args()
+
+    nodenames = args.nodename.split(",") if args.nodename else None
+
+    nodes = node_info()
+    print(f'\nTotal nodes configured: {len(nodes)}')
+    # Handle nodes with the specific state "DOWN+DRAIN+NOT_RESPONDING"
+    problematic_nodes = [node["NodeName"] for node in nodes if node["State"] not in allowed_states]
+    if problematic_nodes:
+        print(f'Attention needed for nodes: {len(problematic_nodes)}\n')
+    calculate_availability(nodes)
+    filtered_nodes = filter_nodes(nodes, nodenames)
+
+    # CPU nodes table
+    cpu_headers = ["NodeName", "CPU", "Mem", "AllocCPUs", "AllocMem", "AvailCPUs", "AvailMem", "State"]
+    print_table(filtered_nodes, cpu_headers, filter_device_type="cpu")
+
+    # GPU nodes table
+    gpu_headers = ["NodeName", "CPU", "Mem", "AllocGPUs", "AllocCPUs", "AllocMem", "AvailCPUs", "AvailMem", "State"]
+    print_table(filtered_nodes, gpu_headers, filter_device_type="gpu")
+
+    print(f'See state of non-responding nodes with: "sinfo -Ndl"')
+if __name__ == '__main__':
+    main()
