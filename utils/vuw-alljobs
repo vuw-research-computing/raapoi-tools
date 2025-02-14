@@ -1,98 +1,59 @@
 #!/bin/bash
-##
-## Efficient SLURM Queue Listing for Cluster Partitions with Consistent Formatting
-##
 
-# =======================#
-#   Color Definitions    #
-# =======================#
-GREEN='\033[1;32m'
-RED='\033[0;31m'
-NC='\033[0m'   # No Color
-BOLD='\033[1m'
-# =======================#
-#   SLURM Command Setup  #
-# =======================#
-VUWSACCT="sacct -apX -o Partition,jobid,user,ReqCPUs,ReqMem,Elapsed,Time,Priority,State,Nodelist,Reason,JobName -s R --units=G"
+BOLD=$(tput bold)
+GREEN=$(tput bold; tput setaf 2)
+RED=$(tput setaf 1)
+RESET=$(tput sgr0)
 
-VUWSACCT_PD="sacct -apX -o Partition,jobid,user,ReqCPUs,ReqMem,Elapsed,Time,Priority,State,Nodelist,Reason,JobName -s PD --units=G"
-
+VUWSACCT="sacct -aX -o Partition,jobid,user,ReqCPUs,ReqMem,Elapsed,Time,Priority,State,Nodelist,Reason,JobName%20 -s R --units=G"
+VUWSACCT_PD="sacct -aX -o Partition,jobid,user,ReqCPUs,ReqMem,Elapsed,Time,Priority,State,Nodelist,Reason,JobName%20 -s PD --units=G"
 VUWSQUEUE_PD="squeue -t PD -o '%.18i %.9P %.8j %.8u %.8T %.20S %.12l %.6D %.10m %.8c %.8Q %R' -S S"
 
-# =======================#
-#   Partition List       #
-# =======================#
 PARTITIONS=("parallel" "bigmem" "longrun" "gpu" "quicktest")
 
-# =======================#
-#   Fetch All Jobs Once  #
-# =======================#
 ALL_JOBS=$(${VUWSACCT} 2>/dev/null)
 
-# =======================#
-#   Error Handling       #
-# =======================#
 if [[ $? -ne 0 || -z "$ALL_JOBS" ]]; then
-    printf "${RED}Error: Unable to retrieve job information or no running jobs found.${NC}\n"
+    printf "${RED}Error: Unable to retrieve job information or no running jobs found.${RESET}\n"
     exit 1
 fi
 
-# =======================#
-#   Function to Display  #
-# =======================#
 print_partition_queue() {
     local PARTITION=$1
-    printf "${GREEN}=== PARTITION QUEUE: ${PARTITION} ===${NC}\n"
+    printf "\n${BOLD}=== PARTITION QUEUE: ${PARTITION} ===${RESET}\n"
 
     # Define fixed column widths
-    printf "${BOLD}%17s %13s %8s %8s %13s %13s %8s %10s %13s %18s %-20s${NC}\n" \
-    "JobID" "User" "ReqCPUS" "ReqMem" "Elapsed" "Timelimit" "Priority" "State" "Nodelist" "Reason" "JobName"
+    printf "${GREEN}%17s %13s %8s %8s %13s %13s %8s %10s %13s %18s %20s${RESET}\n" \
+    "JOB_ID" "USER" "CPUs" "MEM" "ELAPSED" "TIME_LIMIT" "PRIORITY" "STATE" "NODE_LIST" "REASON" "JOB_NAME"
 
     # Filter jobs for the current partition
-    PARTITION_JOBS=$(echo "$ALL_JOBS" | awk -F"|" -v part="$PARTITION" '$1 ~ part')
+    echo "$ALL_JOBS" | awk -v part="$PARTITION" -v green="$GREEN" -v red="$RED" -v reset="$RESET" '{
+        if ($1 ~ part) {
+            # Colorize job state
+            state_color = ($9 == "RUNNING") ? "" : red;
+            printf "%17s %13s %8s %8s %13s %13s %8s %s%10s%s %13s %18s %20s\n",
+            $2, $3, $4, $5, $6, $7, $8, state_color, $9, reset, $10, $11, $12;
+        }
+    }' 
 
-    # Check if jobs exist for this partition
-    if [[ -n "$PARTITION_JOBS" ]]; then
-        echo "$PARTITION_JOBS" | awk -F"|" '{ 
-            printf "%17s %13s %8s %8s %13s %13s %8s %10s %13s %18s %-20s\n",
-            $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12 
-        }'
-    else
-        printf "${RED}No running jobs in partition: ${PARTITION}.${NC}\n"
+    # If no jobs found, print a message
+    if [[ ! $(echo "$ALL_JOBS" | awk -v part="$PARTITION" '$1 ~ part') ]]; then
+        printf "${RED}No running jobs in partition: ${PARTITION}.${RESET}\n"
     fi
 
     echo ""  # Blank line for readability
 }
 
-# =======================#
-#   Main Execution Loop  #
-# =======================#
 for PARTITION in "${PARTITIONS[@]}"; do
     print_partition_queue "${PARTITION}"
 done
 
-# =======================#
-#   Help Message         #
-# =======================#
-echo -e "$(
 cat <<EOF
 
 This utility wraps the SLURM command: sacct
 List pending jobs with:
-\t\t${BOLD}${VUWSQUEUE_PD}${NC}\n
+${BOLD}${VUWSQUEUE_PD}${RESET}
 
 EOF
-)"
-#\t\t${VUWSACCT}\n
 
-#To list pending jobs: 
-#\t\t${VUWSACCT_PD}\n
-
-#OR
-
-#\t\t${BOLD}${VUWSQUEUE_PD}${NC}\n
-
-#EOF
-#)"
 exit 0
-
