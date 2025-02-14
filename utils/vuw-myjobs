@@ -1,12 +1,48 @@
 #!/bin/bash
-##
-RED='\033[0;31m'
-NC='\033[0m'
-#echo -e "\033[1m          JOBID     PARTITION           NAME     CPUs  MEM    TIME          STATE   NODES  NODELIST(REASON) \033[0m"
-#printf "${RED}MY JOBS ON RAAPOI PARTITIONS${NC}\n"
-squeue -u $USER -o "%.15i %.10P  %.16j %.7C %.7m %.20S %.12L %.10T %R" -S S
-echo ""
-echo "NOTE: This utility is a wrapper for the Slurm command:"
-echo '      squeue -u $USER -o "%.15i %.10P  %.16j %.7C %.7m %.20S %.12L %.10T %R" -S S'
-echo ""
+
+# Define color codes using tput
+BOLD_GREEN=$(tput bold; tput setaf 2)
+BOLD_YELLOW=$(tput bold; tput setaf 3)
+BOLD_RED=$(tput bold; tput setaf 1)
+RESET=$(tput sgr0)
+
+# Set USER to $1 if provided, otherwise default to the current user
+USER=${1:-$USER}
+
+# Function to format and colorize output
+format_output() {
+    awk -v green="$BOLD_GREEN" -v yellow="$BOLD_YELLOW" -v red="$BOLD_RED" -v reset="$RESET" '{
+        # CPU color coding
+        cpu_color = ($4 > 100) ? red : ($4 > 50 ? yellow : reset);
+        
+        # Memory usage ratio calculation
+        RATIO = ($4 > 0) ? ($5 / $4) : 0;
+        
+        # Memory color coding
+        mem_color = (RATIO > 6) ? red : (RATIO >= 4 ? yellow : reset);
+
+        # Job state color coding
+        state_color = ($9 == "RUNNING") ? green : (($9 == "PENDING") ? yellow : "");
+
+        # Print formatted output
+        printf "%10s %12s %20s %s%6s%s %s%8s%s %20s %12s %10s %s%-10s%s %15s\n",
+        $1, $2, $3, cpu_color, $4, reset, mem_color, $5, reset, $6, $7, $8, state_color, $9, reset, $10
+    }'
+}
+
+# Print header with colors
+printf "\n${BOLD_GREEN}%10s %12s %20s %6s %8s %20s %12s %10s %10s %15s${RESET}\n" \
+    "JOBID" "PARTITION" "JOB_NAME" "CPUS" "MIN_MEM" "RUN_TIME" "TIME_LIMIT" "PRIORITY" "STATE" "NODELIST"
+
+# Get and format pending jobs
+squeue -hu "$USER" -o "%.10i %.12P %.20j %.6C %.8m %.20S %.12L %.10Q %.10T %.15R" -S S -t PD | format_output
+
+# Get and format active jobs
+sacct -anX -o jobid%10,partition%12,Jobname%20,AllocCPUs%6,ReqMem%8,Elapsed%20,Timelimit%12,Priority%10,State%10,Nodelist%15 \
+      -s R --units=G -u "$USER" | format_output
+
+# Print additional information
+printf "\n${BOLD_GREEN}NOTE:${RESET} This utility is a wrapper for Slurm commands:\n"
+printf "      ${BOLD_GREEN}squeue${RESET} and ${BOLD_GREEN}sacct${RESET}\n\n"
+
 exit 0
